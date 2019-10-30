@@ -1,27 +1,24 @@
 <template>
- <div>
-        <v-app-bar  flat text app class="indigo" dark height="57">
+ <div class="indigo lighten-5">
+        <v-app-bar flat text app class="indigo" dark height="57">
           <v-app-bar-icon></v-app-bar-icon>
           <v-layout row wrap>
             <v-flex xs12 md12>
               <v-row justify="left" align="top">
                 <div style="position: absolute; left: 0.2em; top: 0.5em;">
-                <v-btn icon  class="link" router to="/reserve">
+                <v-btn icon class="link" router to="/reserve">
                 <v-icon color="white" dark size="30 " >mdi-chevron-left</v-icon>
                 </v-btn>
               </div>
               </v-row>
               <v-row justify="center" align="center">
-                <v-icon color="white" size="15">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" > {{ this.dayss[new Date().getDay() ]}},{{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" > {{ this.dayss[new Date().getDay() ]}},{{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
           <v-divider inset class="transparent" vertical></v-divider>
                 <v-icon color="white" size="35">mdi-soccer</v-icon>
         </v-app-bar>
-              <v-sheet class="overflow-y-auto  indigo lighten-5" max-height="650" >
-
-        <v-container class="bottom" >
         <v-divider inset vertical> </v-divider>
      <div style="top: 1em;">
       <v-slide-group class="" style="top: -2em;">
@@ -36,14 +33,14 @@
         </div>
       
         <div class="row no-gutters">
-          <div class="col-md-4 pa-3" >
+          <div class="col-md-4 pa-1" style="bottom: 2em;">
             <v-img class="text-left " :src="company.image" height="200" style="border-radius: 10px;">
               <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
             </v-img>
             <v-card-actions>
               <v-row justify="left" no-gutters>
                 <div>
-                  <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon><span class="subtitle-2 ma-2">{{ company.name }}, {{ company.address }}</span>
+                  <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon><span class="subtitle-2 ma-2">{{ company.name }}, {{ company.address }}- {{ company.town.name }}, {{ company.town.department.name}}</span>
                 </div> 
                     <span>
                       <v-icon size=15 color="amber accent-4">mdi-star</v-icon> 
@@ -57,13 +54,13 @@
             </v-card-actions>
           </div>
           <div class="col-md-8 " style="top: -1em;">
-            <div class="card-body ma-2" style="border: 1px solid grey; border-radius: 10px; witdh: 100%;">
-              <h5 class="card-title  ma-3">Elije  una de las Canchas.</h5>
+          <span class="card-title  ma-3 my-1">Elije  una de las Canchas.</span>
+            <div class="card-body ma-2" style="border: 1px solid indigo; border-radius: 10px; witdh: 100%;">
               <template>
                 <v-layout row wrap >
                   <v-flex  v-for="(field, i ) in company.field_set" :key="i" class="ma-1 pa-2" xsm12 md4>
                     <v-hover >
-                      <v-card class="reserve"  color="indigo lighten-2"  gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)">
+                      <v-card class="reserve"  color="indigo lighten-2" >
                         <v-row justify="left" align="left" class="ma-3 my-1">
                           <div>
                             <span class="my-1 font-weight-bold">Cancha</span>
@@ -166,8 +163,6 @@
             </div>
           </div>
         </div>
-        </v-container>
-      </v-sheet>
     </div>
   </template>
 
@@ -229,7 +224,7 @@ export default {
   },
     methods: {
        getCompany() {
-      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
+      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);

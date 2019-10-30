@@ -1,16 +1,15 @@
 <template>
       <v-card class="overflow-hidden mx-auto">
-        <v-app-bar flat text class="indigo"  dark height="57">
-            <v-layout row wrap>
-                <v-flex xs12 md12>
-                <v-row justify="center" align="center">
-                    <v-icon color="white" size="15" >mdi-map-marker</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold subtitle-1">Guatemala, Guatemala</span>
-                </v-row>
-                <v-row justify="center" align="center">
-                    <v-icon color="white" size="15">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" >{{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
-                </v-row>
-                </v-flex>
-            </v-layout>
+        <v-app-bar flat text  class="indigo"  dark height="57">
+          <v-layout row wrap>
+            <v-flex xs12 md12>
+              <v-row justify="center" align="center">
+                <v-icon color="white" size="25">mdi-calendar </v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" >{{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+              </v-row>
+            </v-flex>
+          </v-layout>
+          <v-divider inset class="transparent" vertical></v-divider>
+                <v-icon color="white" size="35">mdi-soccer</v-icon>
         </v-app-bar>
       <BottomNavigation/>
       <v-sheet class="overflow-y-auto indigo lighten-5" max-height="650">
@@ -19,7 +18,7 @@
         <v-row>
           <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
               <v-hover >
-                <v-card  max="300" :elevation=12 >
+                <v-card  max="300" :elevation=12 style="border: 1px solid indigo; border-radius: 10px;">
                   <v-item v-slot:default="{ active, toggle }">
                     <v-img  :src="company.image" height="10em" class="text-right pa-2" @click="toggle"  >
                       <v-btn icon  text color="red accent-4" @click="toggle" :input-value="active">
@@ -93,7 +92,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.88.222:8000/sport/companies/'
+      const path = 'http://192.168.1.20:8000/sport/companies/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);

@@ -3,11 +3,8 @@
         <v-app-bar flat text  class="indigo"  dark height="57">
           <v-layout row wrap>
             <v-flex xs12 md12>
-              <v-row justify="left" align="top">
-                
-              </v-row>
               <v-row justify="center" align="center">
-                <v-icon color="black" size="15">mdi- </v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" >{{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+                <v-icon color="white" size="25">mdi-calendar </v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" >{{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
@@ -21,7 +18,7 @@
             <v-row justify="space-around">
             <v-col  v-for="(company, index) in companies" :key="index" cols="12" md="4"> 
                 <v-hover >
-                  <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                  <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" style="border: 1px solid indigo; border-radius: 10px;">
                     <v-img :src="company.image" height="150px">
                     </v-img>
                     <v-footer class="white ma-1"  padless>
@@ -92,7 +89,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.88.222:8000/sport/detail-company/'
+      const path = 'http://192.168.1.20:8000/sport/detail-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);
