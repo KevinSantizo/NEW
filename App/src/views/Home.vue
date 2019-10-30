@@ -16,7 +16,7 @@
           </v-layout>
         </v-app-bar>
       <BottomNavigation/> 
-      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-4 " max-height="650" >
+      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-5 " max-height="650" >
       <v-container class="bottom" >
       <v-layout row wrap>
         <v-flex xs12 sm6 lg3> 
@@ -155,10 +155,10 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
     methods: {
       getAll(){ 
-      const path = 'http://192.168.1.20:8000/sport/reservations/'
+      const path = 'http://192.168.88.222:8000/sport/reservations/'
       axios.get(path).then((response) => {
         this.reservations = response.data
-        return axios.get('http://192.168.1.20:8000/sport/companies/');
+        return axios.get('http://192.168.88.222:8000/sport/companies/');
         }).then((response) => {
           this.companies = response.data
         }).catch((error) => {

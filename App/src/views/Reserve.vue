@@ -15,7 +15,7 @@
                 <v-icon color="white" size="35">mdi-soccer</v-icon>
         </v-app-bar>
       <BottomNavigation/>  
-      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-4" height="650" >
+      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-5" height="650" >
         <v-container class="bottom" >
             <v-item-group> 
             <v-row justify="space-around">
@@ -39,7 +39,7 @@
                               <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
                             </span><br>
                             <span >
-                              <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon>4ta. C 11-a, zona 1, quetzaltenango
+                              <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon>{{ company.town.name}}, {{ company.town.department.name }}
                             </span>
                           </div>
                         </v-col>
@@ -92,7 +92,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.1.20:8000/sport/companies/'
+      const path = 'http://192.168.88.222:8000/sport/detail-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);

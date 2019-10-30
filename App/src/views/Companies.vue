@@ -4,25 +4,24 @@
             <v-layout row wrap>
                 <v-flex xs12 md12>
                 <v-row justify="center" align="center">
-                    <v-icon color="white" size="15" >mdi-map-marker</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold subtitle-1">Quetzaltenango, quetzaltenango</span>
+                    <v-icon color="white" size="15" >mdi-map-marker</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold subtitle-1">Guatemala, Guatemala</span>
                 </v-row>
                 <v-row justify="center" align="center">
-                    <v-icon color="white" size="15">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" >{{ this.days[new Date().getDay() ]}},{{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+                    <v-icon color="white" size="15">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" >{{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
                 </v-row>
                 </v-flex>
             </v-layout>
         </v-app-bar>
       <BottomNavigation/>
-      <v-sheet class="overflow-y-auto indigo lighten-4" max-height="650">
-      
+      <v-sheet class="overflow-y-auto indigo lighten-5" max-height="650">
       <v-container class="bottom" >
       <v-item-group v-model="selected" multiple> 
-        <v-row justify="space-around">
-          <v-col v-for="(company, i) in companies" :key="i" cols="12" md="4">
+        <v-row>
+          <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
               <v-hover >
                 <v-card  max="300" :elevation=12 >
                   <v-item v-slot:default="{ active, toggle }">
-                    <v-img  :src="company.image" height="10em" class="text-right pa-2" @click="toggle"  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
+                    <v-img  :src="company.image" height="10em" class="text-right pa-2" @click="toggle"  >
                       <v-btn icon  text color="red accent-4" @click="toggle" :input-value="active">
                         <v-icon active-class="red accent-4"  @click="toggle" :input-value="active">
                           {{ active ? 'mdi-heart' : 'mdi-heart-outline' }}
@@ -47,7 +46,7 @@
                   </v-img>
                 </v-item>
                     <v-card-actions>
-                      <div class="ma-2">
+                      <div class="ma-2 ">
                         <v-row>
                           <div>
                             <span class="ma-1 font-weight-medium " >Email: {{ company.email }}</span><br>
@@ -74,7 +73,6 @@
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
-import InfoCompany from '@/views/InfoCompany.vue'
 
 export default {
   data: () => ({
@@ -95,7 +93,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.1.20:8000/sport/companies/'
+      const path = 'http://192.168.88.222:8000/sport/companies/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);

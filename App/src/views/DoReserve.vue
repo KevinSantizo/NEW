@@ -19,7 +19,7 @@
           <v-divider inset class="transparent" vertical></v-divider>
                 <v-icon color="white" size="35">mdi-soccer</v-icon>
         </v-app-bar>
-              <v-sheet class="overflow-y-auto  indigo lighten-4" max-height="650" >
+              <v-sheet class="overflow-y-auto  indigo lighten-5" max-height="650" >
 
         <v-container class="bottom" >
         <v-divider inset vertical> </v-divider>
@@ -66,15 +66,15 @@
                       <v-card class="reserve"  color="indigo lighten-2"  gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)">
                         <v-row justify="left" align="left" class="ma-3 my-1">
                           <div>
-                            <span class="my-1">Cancha</span>
+                            <span class="my-1 font-weight-bold">Cancha</span>
                             <span class="ma-1 font-weight-bold  green--text" color="teal darken-4">{{ field.name}}</span>
                             <div class="span">
-                              <span v-if="field.type == 1" class="caption font-weight-bold black--text">5 Jugadores</span>
-                              <span v-else-if="field.type == 2" class="caption font-weight-bold">7 Jugadores</span>
-                              <span v-else class="caption font-weight-bold">11 Jugadores</span>
+                              <span v-if="field.type == 1" class="caption font-weight-medium black--text">5 Jugadores</span>
+                              <span v-else-if="field.type == 2" class="caption font-weight-medium">7 Jugadores</span>
+                              <span v-else class="caption font-weight-medium">11 Jugadores</span>
                             </div> 
                             <div class="span">
-                              <v-chip small label class="ma-2 font-weight-bold black--text orange"  outlined style="left: -0.8em;" >{{ field.price }}</v-chip>
+                              <v-chip small label class="ma-2 font-weight-medium black--text orange"  outlined style="left: -0.8em;" >{{ field.price }}</v-chip>
                             </div> 
                           </div>
                           <v-row justify="end" align="center" class="pa-1"> 
@@ -229,7 +229,7 @@ export default {
   },
     methods: {
        getCompany() {
-      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`
+      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);

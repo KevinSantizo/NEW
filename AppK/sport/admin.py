@@ -8,7 +8,7 @@ class FieldAdmin(admin.ModelAdmin):
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'phone', 'email', 'image')
+    list_display = ('town', 'name', 'address', 'phone', 'email', 'image')
 
 
 @admin.register(Reservation)
