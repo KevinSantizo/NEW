@@ -18,7 +18,7 @@
             <v-row justify="space-around">
             <v-col  v-for="(company, index) in companies" :key="index" cols="12" md="4"> 
                 <v-hover >
-                  <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" style="border: 1px solid indigo; border-radius: 10px;">
+                  <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }"  style="border-radius: 10px;">
                     <v-img :src="company.image" height="150px">
                     </v-img>
                     <v-footer class="white ma-1"  padless>
@@ -71,7 +71,6 @@
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
-import DoReserve from '@/views/DoReserve.vue'
 
 export default {
   data: () => ({
@@ -89,7 +88,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.1.20:8000/sport/detail-company/'
+      const path = 'http://192.168.88.222:8000/sport/detail-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);

@@ -33,7 +33,7 @@ class Field(models.Model):
     price = models.CharField(max_length=75)
 
     def __str__(self):
-        return ' Type Field: ' + self.type + ', Price: ' + self.price + ', Company:' + self.company.name
+        return ' Type Field: ' + self.type + ', Price: ' + self.price + ', Company:' + self.company.name + ' - ' + self.company.town.name + ' - ' + self.company.town.department.name 
 
 
 class Company(models.Model):
@@ -50,19 +50,19 @@ class Company(models.Model):
 
 class Reservation(models.Model):
     schedule = models.ForeignKey('Schedule', on_delete=models.CASCADE, null=True)
-    company_reserve = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
     customer_reserve = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_reserve')
     field_reserve = models.ForeignKey(Field, on_delete=models.CASCADE)
     schedule_date = models.DateField(null=True)
 
     def __str__(self):
-        return 'Company: ' + self.company_reserve.name + 'Address:' + self.company_reserve.address + 'Customer: ' + self.customer_reserve.first_name + ' --- Type Field: --- ' + self.field_reserve.type + ' --- Date Reserved: --- ' \
+        return  'Customer: ' + self.customer_reserve.first_name + ' --- Type Field: --- ' + self.field_reserve.type + ' --- Date Reserved: --- ' \
                + str(self.schedule_date) + ' --- Price: --- ' + self.field_reserve.price
 
 
 class Schedule(models.Model):
     field = models.ForeignKey(Field, on_delete=models.CASCADE)
     start_time = models.TimeField()
+    date = models.DateField(null=True)
     SCHEDULE_STATUS = (
         ('1', 'Reserved'),
         ('2', 'Available'),
@@ -75,7 +75,7 @@ class Schedule(models.Model):
     )
 
     def __str__(self):
-        return self.field.name + self.start_time
+        return 'Cancha ' + ' ' + self.field.name + ' de ' + self.field.company.name + ' , '  + self.field.company.town.name + ' - ' + self.field.company.town.department.name + ' Horario: ' + str(self.start_time)   
 
 
 class Image(models.Model):

@@ -1,19 +1,19 @@
 <template>
   <v-bottom-navigation class="indigo" dark absolute height=50>
     <v-btn class="link" router to="/home" >
-      <span class="caption font-weight-medium">Inicio</span>
+      <span class="caption font-weight-bold font">Inicio</span>
       <v-icon size=20>mdi-home</v-icon>
     </v-btn>
     <v-btn class="link" router to="/companies" >
-      <span class="caption font-weight-medium">Compañías</span>
+      <span class="caption font-weight-bold font">Compañías</span>
       <v-icon size=20>mdi-domain</v-icon>
     </v-btn>
      <v-btn class="link" router to="/reserve" >
-      <span  class="caption font-weight-medium" >Reservar</span>
+      <span  class="caption font-weight-bold font" >Reservar</span>
       <v-icon size=20>mdi-calendar</v-icon>
     </v-btn>
     <v-btn class="link" router to="/account" >
-      <span class="caption font-weight-medium">Mi Perfil</span>
+      <span class="caption font-weight-bold font">Mi Perfil</span>
       <v-icon size=20>mdi-account</v-icon>
     </v-btn>
 
@@ -38,6 +38,10 @@ export default {
 </script>
 
 <style scoped>
+   @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+   .font {
+     font-family: 'Ubuntu', sans-serif;
+   }
   .v-card {
     transition: opacity .4s ease-in-out;
   }

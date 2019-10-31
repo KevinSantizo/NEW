@@ -99,32 +99,24 @@
               </v-row>
               </template>
               <template v-else>
-                <v-simple-table class="elevation-3 round">
+                <v-simple-table class="elevation-3 round" style="width: 100%;">
                   <thead>
-                    <tr class="round">
-                      <th class="text-center  font-weight-bold  black--text subtitle-1 ">No.</th>
-                      <th class="text-center font-weight-bold black--text subtitle-1">Id Reservación</th>
+                    <tr class="round" style="padding: 0;">
                       <th class="text-center font-weight-bold black--text subtitle-1">Compañía</th>
-                      <th class="text-center font-weight-bold black--text subtitle-1">Fecha</th>
-                      <th class="text-center font-weight-bold black--text subtitle-1">Horario</th>
+                      <th class="text-center font-weight-bold black--text subtitle-1" style="padding: 0;">Fecha</th>
+                      <!-- <th class="text-center font-weight-bold black--text subtitle-1">Horario</th> -->
                       <th class="text-center font-weight-bold black--text subtitle-1">Tipo de Cancha</th>
-                      <th class="text-center font-weight-bold black--text subtitle-1">Precio</th>
-                      <th class="text-center font-weight-bold black--text subtitle-1">Cliente</th>
                       <th class="text-center font-weight-bold black--text subtitle-1">Estado</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="tex-center" v-for="(reservation, index) in reservations" :key="index">
-                      <td class="text-center">{{ index+1 }}</td>
-                      <td class="text-center ">{{ reservation.id }}</td>
                       <td class="text-center ">{{ reservation.company_reserve.name }}</td>
                       <td class="text-center ">{{ reservation.schedule_date }}</td>
-                      <td class="text-center ">{{ reservation.schedule_time }}</td>
+                      <!-- <td class="text-center ">{{ reservation.schedule_time }}</td> -->
                       <td class="text-center "  v-if="reservation.field_reserve.type == 1">5 jugadores</td>
                       <td class="text-center" v-else-if="reservation.field_reserve.type==2">7 jugadores</td>
                       <td class="text-center" v-else>11 Jugadores</td>
-                      <td class="text-center ">{{ reservation.field_reserve.price }}</td>
-                      <td class="text-center ">{{ reservation.customer_reserve.first_name}}</td>
                       <td><v-chip class="ma-3" label light  color="success" small>Completado</v-chip></td>
                     </tr>
                   </tbody>
@@ -155,10 +147,10 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
     methods: {
       getAll(){ 
-      const path = 'http://192.168.1.20:8000/sport/reservations/'
+      const path = 'http://192.168.88.222:8000/sport/reservations/'
       axios.get(path).then((response) => {
         this.reservations = response.data
-        return axios.get('http://192.168.1.20:8000/sport/companies/');
+        return axios.get('http://192.168.88.222:8000/sport/companies/');
         }).then((response) => {
           this.companies = response.data
         }).catch((error) => {

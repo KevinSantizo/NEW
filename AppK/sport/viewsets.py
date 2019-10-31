@@ -2,7 +2,18 @@ from rest_framework import viewsets
 from rest_framework import routers
 from sport.models import Reservation, Field, Company, Schedule
 from user.models import Department, Town
-from sport.serializer import ReservationSerializer, DepartmentChildSerializer, FieldSerializer, CompanySerializer, DoReservationSerializer, ScheduleSerializer, CompanyFieldSerializer, CompanyDetailSerializer, TownChildSerializer
+from sport.serializer import (
+    ReservationSerializer, 
+    DepartmentChildSerializer, 
+    FieldSerializer,
+    CompanySerializer, 
+    DoReservationSerializer, 
+    ScheduleSerializer, 
+    CompanyFieldSerializer,
+    CompanyDetailSerializer, 
+    TownChildSerializer,
+    DoScheduleSerializer
+)
 
 
 class ReservationViewSet(viewsets.ModelViewSet):
@@ -49,3 +60,7 @@ class TownChildViewSet(viewsets.ModelViewSet):
     queryset = Town.objects.all()
     serializer_class = TownChildSerializer
 
+
+class DoScheduleViewSet(viewsets.ModelViewSet):
+    queryset = Schedule.objects.all()
+    serializer_class = DoScheduleSerializer

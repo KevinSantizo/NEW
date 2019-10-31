@@ -7,7 +7,7 @@
               <v-row justify="left" align="top">
                 <div style="position: absolute; left: 0.2em; top: 0.5em;">
                 <v-btn icon class="link" router to="/companies">
-                <v-icon color="white" dark size="30 " >mdi-chevron-left</v-icon>
+                <v-icon color="white" size="30 " >mdi-chevron-left</v-icon>
                 </v-btn>
               </div>
               </v-row>
@@ -22,22 +22,22 @@
         <v-row no-gutters class="pa-2">
             <div>
                 <v-hover>
-                <v-card  width="400"  class="my-1" style="border: 1px solid indigo; border-radius: 10px;">
+                <v-card  width="400"  class="my-1" style="border-radius: 10px;">
                     <v-img :src="company.image">
                         <div style="position: absolute; right: 0em;">
                             <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
                         </div>
                         <v-row align="end" class="lightbox white--text  my-5 pa-2 fill-height">
                             <v-col>
-                                <div class="subheading">{{ company.name }}</div>
-                                <div class="body-1">{{ company.email }}</div>
+                                <div class="subheading font">{{ company.name }}</div>
+                                <div class="body-1 font">{{ company.email }}</div>
                             </v-col>
                         </v-row>
                     </v-img>
                     <v-card-actions>
                     <v-rating v-model="rating" background-color="amber darken-4" color="amber darken-4"></v-rating>
                     <v-spacer></v-spacer>
-                    <v-chip small class="light-green accent-4 font-weight-bold" dark>Destacada</v-chip>
+                    <v-chip small class="light-green accent-4 font-weight-bold font" dark>Destacada</v-chip>
                       </v-card-actions>
                 </v-card>
                 </v-hover>
@@ -54,10 +54,10 @@
                         </v-slide-item>
                     </v-slide-group>
             <v-card-title style="margin-top: -1em;">
-            <span class="indigo--text font-weight-medium">{{ company.name }} - {{company.town.name}}</span>
-           <v-chip label color="indigo" outlined><span class="caption">{{company.address }}, {{ company.town.name }} - {{ company.town.department.name}}, {{ company.town.department.description }}</span></v-chip>
+            <span class="indigo--text font-weight-medium font">{{ company.name }} - {{company.town.name}}</span>
+           <v-chip label color="indigo" outlined><span class="caption font">{{company.address }}, {{ company.town.name }} - {{ company.town.department.name}}, {{ company.town.department.description }}</span></v-chip>
         </v-card-title>
-                      <div class="pa-2 caption">
+                      <div class="pa-2 caption font">
                         <em>Portions of the materials used are trademarks and/or copyrighted works of Epic Games, Inc. All rights reserved by Epic. This material is not official and is not endorsed by Epic.</em>
                     </div>
             </v-card>
@@ -68,11 +68,11 @@
                         <v-hover>
                          <v-card class="my-2 indigo darken-4 " :elevation=12 dark height="75" width="170" style="border-radius: 20px;">
                             <v-row class="fill-height" align="center" justify="center">
-                                <v-icon size=40>mdi-stadium</v-icon> 
+                                <v-icon right size=30>mdi-stadium</v-icon> 
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
-                                <span class="title">Canchas</span>
+                                <span class="font">Canchas</span>
                                 <v-divider inset vertical class="mx-2"></v-divider>
-                                <span class="title">{{ company.field_set.length }}</span>
+                                <span class="font">{{ company.field_set.length }}</span>
                             </v-row>
                         </v-card>
                         </v-hover>
@@ -81,9 +81,9 @@
                         <v-hover>
                         <v-card class="my-2 light-green accent-4" :elevation=12 dark height="75" width="170"  style="border-radius: 20px;">
                             <v-row class="fill-height" align="center" justify="center">
-                                <v-icon size=40>mdi-trophy</v-icon> 
+                                <v-icon right size=30>mdi-trophy</v-icon> 
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
-                                <span class="title">Torneos</span>
+                                <span class="font">Torneos</span>
                             </v-row>
                         </v-card>
                         </v-hover>
@@ -92,9 +92,11 @@
                         <v-hover>
                         <v-card class="my-2 orange darken-4" :elevation=12 dark height="75" width="170" style="border-radius: 20px;">
                             <v-row class="fill-height" align="center" justify="center">
-                                <v-icon size=40>mdi-soccer</v-icon> 
+                                <v-icon right size=30>mdi-soccer</v-icon> 
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
-                                <span class="title">Partidos</span>
+                                <span class="font">Partidos</span>
+                                <v-divider inset vertical class="mx-2"></v-divider>
+                                <span class="font">{{ reservation.reservation_set.length }}</span>
                             </v-row>
                         </v-card>
                         </v-hover>
@@ -103,9 +105,10 @@
                         <v-hover>   
                         <v-card class="my-2 cyan" :elevation=12 dark height="75" width="170" style="border-radius: 20px;">
                             <v-row class="fill-height" align="center" justify="center">
-                                <v-icon size=40>mdi-calendar</v-icon> 
+                                <v-icon right size=30>mdi-calendar</v-icon> 
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
-                                <span class="title">Reservar</span>
+                                <span class="font">Reservar</span>
+                                
                             </v-row>
                         </v-card>
                         </v-hover>
@@ -123,6 +126,7 @@ export default {
        return {
            companyId: this.$route.params.companyId,
            company: [],
+           reservation: [],
            days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
            months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
             colors: [
@@ -152,9 +156,12 @@ export default {
       
     methods: {
         getCompany(){
-      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`   
-    axios.get(path).then((response)=> {
-        this.company = response.data;
+      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`   
+        axios.get(path).then((response)=> {
+        this.company = response.data
+        return axios.get(`http://192.168.88.222:8000/sport/res-company/${this.companyId}/`)
+      }).then((response) =>{
+          this.reservation = response.data
       }).catch((error) => {
           console.log(error);
         })
@@ -168,6 +175,10 @@ export default {
 
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+.font {
+     font-family: 'Ubuntu', sans-serif;
+   }
 .link {
     text-decoration: none;
 }

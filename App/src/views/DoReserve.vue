@@ -55,7 +55,7 @@
           </div>
           <div class="col-md-8 " style="top: -1em;">
           <span class="card-title  ma-3 my-1">Elije  una de las Canchas.</span>
-            <div class="card-body ma-2" style="border: 1px solid indigo; border-radius: 10px; witdh: 100%;">
+            <div class="card-body ma-2" style="border: 1px solid grey; border-radius: 10px; witdh: 100%;">
               <template>
                 <v-layout row wrap >
                   <v-flex  v-for="(field, i ) in company.field_set" :key="i" class="ma-1 pa-2" xsm12 md4>
@@ -132,7 +132,7 @@
                                     <span>Balón Q20.00 c/u</span> <v-divider inset vertical class="mx-1"></v-divider> <span>Gabachas Q25.00</span> 
                                     <div style="margin-top: -1em; margin-left: 3em;">
                                             <v-layout row wrap class="pa-1">
-                                              <v-checkbox  v-model="enabled" hide-details  light color="light-green accent-4"></v-checkbox>
+                                              <v-checkbox  v-model="enabled" hide-details  light color="lime accent-3"></v-checkbox>
                                               <v-icon left color="black" size=30>mdi-soccer</v-icon>
                                                   <v-flex xs2 md1>
                                                 <v-text-field type="number" :disabled="!enabled" name="input-1" id="test" min=0 max=10  maxlength=3 ></v-text-field>
@@ -224,7 +224,7 @@ export default {
   },
     methods: {
        getCompany() {
-      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`
+      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);

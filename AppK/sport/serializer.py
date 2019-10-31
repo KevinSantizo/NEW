@@ -14,7 +14,7 @@ class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
         fields = '__all__'
-        depth = 1
+        depth = 5
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -42,6 +42,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = '__all__'
+        depth = 3
 
 
 class CompanyDetailSerializer(serializers.ModelSerializer):
@@ -65,5 +66,9 @@ class TownChildSerializer(serializers.ModelSerializer):
         model = Town
         fields = ('name', 'company_set')
         read_only_fields = ('name', 'company_set')
-        
 
+
+class DoScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'

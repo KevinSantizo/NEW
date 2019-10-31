@@ -8,7 +8,8 @@ from sport.viewsets import (
      CompanyDetailViewSet, 
      CompanyFieldViewSet, 
      DepartmentChildViewSet, 
-     TownChildViewSet
+     TownChildViewSet,
+     DoScheduleViewSet
 )
 from sport import views
 from django.urls import path
@@ -24,5 +25,6 @@ router.register('field-company', CompanyFieldViewSet)
 router.register('detail-company', CompanyDetailViewSet)
 router.register('department-child', DepartmentChildViewSet)
 router.register('town-company', TownChildViewSet)
+router.register('do-schedule', DoScheduleViewSet)
 
 urlpatterns = router.urls
