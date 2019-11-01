@@ -46,10 +46,8 @@
                       <div class="reserve">
                         <v-row justify="left" align="left" class="ma-1 my-1">
                           <div>
-                            <span class="ma-1 font-weight-bold  green--text" color="teal darken-4">Canchas: 5</span><br>
-                            <div class="span">
-                              <span class="ma-1 caption">hola</span>
-                            </div> 
+                            <span class="ma-1 font-weight-bold  green--text" color="teal darken-4">Canchas: {{ company.field_set.length }}</span><br>
+                            
                           </div>
                           <v-row justify="end" align="center" class="ma-1"> 
                             <v-btn text small v-bind:to=" 'do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold">Reservar<v-icon right size=15>mdi-chevron-right</v-icon>
@@ -73,7 +71,9 @@ import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
 export default {
-  data: () => ({
+        
+  data ()  {
+    return {
         reservations: [ ] ,
         companies: [ ],
         show: false,
@@ -82,13 +82,14 @@ export default {
         activeBtn: 1,
         showNav: true,
         color: false
-    }),
+        }
+    },
      components: {
     BottomNavigation
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.88.222:8000/sport/detail-company/'
+      const path = 'http://192.168.1.20:8000/sport/field-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);

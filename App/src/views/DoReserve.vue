@@ -1,5 +1,5 @@
 <template>
- <div class="indigo lighten-5">
+ <v-container class="indigo lighten-5">
         <v-app-bar flat text app class="indigo" dark height="57">
           <v-app-bar-icon></v-app-bar-icon>
           <v-layout row wrap>
@@ -12,7 +12,7 @@
               </div>
               </v-row>
               <v-row justify="center" align="center">
-                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" > {{ this.dayss[new Date().getDay() ]}},{{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
@@ -23,7 +23,7 @@
      <div style="top: 1em;">
       <v-slide-group class="" style="top: -2em;">
         <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
-          <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-4" height="100" width="200" @click="toggle">
+          <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
             <v-img :src="image.src" class="text-right" height="100" width="200">
               <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
             </v-img>
@@ -31,16 +31,15 @@
         </v-slide-item>
       </v-slide-group>
         </div>
-      
-        <div class="row no-gutters">
+            <v-row justify="center">
           <div class="col-md-4 pa-1" style="bottom: 2em;">
-            <v-img class="text-left " :src="company.image" height="200" style="border-radius: 10px;">
+            <v-img class="text-left ma-2 my-1" :src="company.image" height="200"  style="border-radius: 10px;">
               <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
             </v-img>
             <v-card-actions>
               <v-row justify="left" no-gutters>
                 <div>
-                  <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon><span class="subtitle-2 ma-2">{{ company.name }}, {{ company.address }}- {{ company.town.name }}, {{ company.town.department.name}}</span>
+                  <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon><span class="subtitle-2 ma-2 font">{{ company.name }}, {{ company.address }}- {{ company.town.name }}, {{ company.town.department.name}}</span>
                 </div> 
                     <span>
                       <v-icon size=15 color="amber accent-4">mdi-star</v-icon> 
@@ -49,121 +48,36 @@
                       <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
                       <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
                     </span>
-                  
               </v-row>
             </v-card-actions>
           </div>
-          <div class="col-md-8 " style="top: -1em;">
-          <span class="card-title  ma-3 my-1">Elije  una de las Canchas.</span>
-            <div class="card-body ma-2" style="border: 1px solid grey; border-radius: 10px; witdh: 100%;">
-              <template>
-                <v-layout row wrap >
-                  <v-flex  v-for="(field, i ) in company.field_set" :key="i" class="ma-1 pa-2" xsm12 md4>
-                    <v-hover >
-                      <v-card class="reserve"  color="indigo lighten-2" >
-                        <v-row justify="left" align="left" class="ma-3 my-1">
-                          <div>
-                            <span class="my-1 font-weight-bold">Cancha</span>
-                            <span class="ma-1 font-weight-bold  green--text" color="teal darken-4">{{ field.name}}</span>
-                            <div class="span">
-                              <span v-if="field.type == 1" class="caption font-weight-medium black--text">5 Jugadores</span>
-                              <span v-else-if="field.type == 2" class="caption font-weight-medium">7 Jugadores</span>
-                              <span v-else class="caption font-weight-medium">11 Jugadores</span>
-                            </div> 
-                            <div class="span">
-                              <v-chip small label class="ma-2 font-weight-medium black--text orange"  outlined style="left: -0.8em;" >{{ field.price }}</v-chip>
-                            </div> 
-                          </div>
-                          <v-row justify="end" align="center" class="pa-1"> 
-                            <v-dialog v-model="dialog"  persistent  max-width="600px" >
-                              <template v-slot:activator="{ on }">
-                                <v-btn text small class="link font-weight-bold" v-on="on">Reservar<v-icon right size=15>mdi-chevron-right</v-icon>
+          </v-row>
+                        <v-slide-group style="bottom: 2em;">
+                          <v-slide-item v-for="(field, i ) in company.field_set" :key="i">
+                          <v-hover >
+                            <v-card width="175" height="235" class="ma-2 indigo lighten-5" :elevation=6 style="border-radius: 10px;">
+                              <v-img class="white--text align-end" height="120" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
+                                <v-card-title style="position: absolute; top: 3.7em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
+                              </v-img>
+                              <v-card-subtitle style="position: absolute; top: 8.7em;" class="caption font font-weight-medium">Horarios disponibles:</v-card-subtitle>
+                              <v-card-title>
+                              <span v-if="field.type == 1" class="caption font-weight-bold font">5 Jugadores</span>
+                              <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
+                              <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
+                              </v-card-title>                                
+                                <v-chip small rounded class="ma-2 font-weight-bold black--text orange font" outlined style="bottom: 2em; left: 0.5em;" >{{ field.price }}</v-chip>
+                             <v-row justify="end">
+                             <v-card-actions style="position: absolute; bottom: -0.3em; right: -0.3em;">
+                                <v-btn v-if="cancha" v-bind:to=" 'field/'+cancha.id+ '/info' " raised rounded outlined small color="teal darken-1" class="font font-weight-bold">
+                                   Reservar <v-icon small right>mdi-calendar</v-icon>
                                 </v-btn>
-                              </template>
-                              <form action="">
-                              <v-card>
-                                <v-card-title class="indigo">
-                                  <span class="headline">Reservar</span>
-                                </v-card-title>
-                                
-                                <v-card-text>
-                                  <span class="black--text font-weight-medium">Cancha B, 5 jugadores</span><br>
-                                  <span class="black--text font-weight-medium">Futeca, xela</span><br>
-                                  <span class="black--text font-weight-medium">Cliente: Juanito Pérez</span>
-                                    <v-hover >
-                                      <v-card max-width="100%" class="mx-auto" color="indigo" >
-                                        <v-card-text> 
-                                          <span class="subheading black--text font-weight-medium">Horarios disponibles (hoy)</span>
-                                          
-                                          <v-chip-group column multiple active-class="lime accent-3 black--text" >
-                                            <v-row justify="space-around" class="ma-2">
-                                            <v-chip small v-for="(time, i)  in times" :key="i"  >
-                                              {{ time }}
-                                            </v-chip>
-                                            </v-row>
-                                          </v-chip-group>
-                                        </v-card-text>
-                                      </v-card>
-                                    </v-hover>
-                                    <v-divider inset vertical></v-divider>
-                                    <v-spacer></v-spacer>
-                                    <span class="black--text font-weight-medium">Resto de la semana</span>
-                                       <v-slide-group multiple show-arrows>
-                                          <v-slide-item
-                                            v-for="(day, i) in days"
-                                            :key="i"
-                                            v-slot:default="{ active, toggle }"
-                                          >
-                                            <v-btn
-                                              small
-                                              class="mx-2"
-                                              :input-value="active"
-                                              active-class="lime accent-3 black--text"
-                                              depressed
-                                              rounded
-                                              @click="toggle"
-                                            >
-                                              {{ day }}
-                                            </v-btn>
-                                          </v-slide-item>
-                                        </v-slide-group>   
-                                        <v-divider class="ma-1"></v-divider>                                 
-                                    <span class=" black--text font-weight-medium">Extras: </span>
-                                    <span>Balón Q20.00 c/u</span> <v-divider inset vertical class="mx-1"></v-divider> <span>Gabachas Q25.00</span> 
-                                    <div style="margin-top: -1em; margin-left: 3em;">
-                                            <v-layout row wrap class="pa-1">
-                                              <v-checkbox  v-model="enabled" hide-details  light color="lime accent-3"></v-checkbox>
-                                              <v-icon left color="black" size=30>mdi-soccer</v-icon>
-                                                  <v-flex xs2 md1>
-                                                <v-text-field type="number" :disabled="!enabled" name="input-1" id="test" min=0 max=10  maxlength=3 ></v-text-field>
-                                              </v-flex>
-                                              <v-checkbox  v-model="enable" hide-details color="light-green accent-4"></v-checkbox>
-                                              <v-icon left color="black" size=30>mdi-tshirt-crew-outline</v-icon>
-                                            <v-flex xs2 md1>
-                                                <v-text-field type="number" :disabled="!enable" name="input-1" id="test2" min=0 max=50  maxlength=3 ></v-text-field>
-                                              </v-flex>
-                                            </v-layout>
-                                            </div>
-                                </v-card-text>
-                              <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="red accent-4" outlineded text @click="dialog = false">Cancelar</v-btn>
-                              <v-btn color="light-green accent-4"  @click="dialog = false">Guardar</v-btn>
                               </v-card-actions>
-                              </v-card>
-                              </form>
-                            </v-dialog>
-                          </v-row>
-                        </v-row>
-                      </v-card>  
-                    </v-hover>          
-                  </v-flex>
-                </v-layout>
-              </template>
-            </div>
-          </div>
-        </div>
-    </div>
+                            </v-row>
+                            </v-card>
+                            </v-hover>          
+                          </v-slide-item>
+                        </v-slide-group>
+ </v-container>
   </template>
 
 <script>
@@ -177,9 +91,10 @@ export default {
           },
         companyId: this.$route.params.companyId,
         company: [],
+        cancha: [],
         show: false,
-        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        dayss: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',],
+        months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
         activeBtn: 1,
         showNav: true,
         color: false,
@@ -224,10 +139,16 @@ export default {
   },
     methods: {
        getCompany() {
-      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
+      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
+        return axios.get('http://192.168.1.20:8000/sport/field-schedule/')
         console.log(response.data);
+      }).then((response)=> {
+        this.cancha = response.data
+        console.log(this.cancha);
+      }).catch((error)=>{
+        console.log(error);
       })
       },
     },
@@ -241,41 +162,11 @@ export default {
 </script>
 
 <style scoped>
-  .v-card {
-    transition: opacity .4s ease-in-out;
-  }
-  .v-card:not(.on-hover) {
-    opacity: 0.9;
-  }
-  .show-btns {
-    color: rgba(255, 255, 255, 1) !important;
-  }
-  .round{
-    border-radius: 10px;
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+  .font {
+     font-family: 'Ubuntu', sans-serif;
    }
-   .reserve {
-     width: 100%;
-     border-radius: 5px;
-     margin-top: -1.2em; 
-   }
-   .calendar {
-     position: absolute;
-     margin-top: 10.1em;
-   }
-   .span {
-     position: relative;
-     margin-top: -0.5em;
-   }
-   .description {
-     position: absolute;
-     margin-top: -0.8em;
-     margin-left: 1em;
-   }
-   .back {
-     position: absolute;
-     margin-top: -1.5em;
-     margin-left: -0.2em;
-   }
+  
    .link {
      text-decoration: none;
    }
@@ -287,14 +178,5 @@ export default {
    .bottom {
      margin-bottom:  50px;
    }
-   .container {
-    max-width: 100%;
-    max-height: 100%;
-  }
-  .actions {
-  bottom: 3em; 
-  }
-    .text{
-  min-height: 30px !important;
-}
+ 
 </style>

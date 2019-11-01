@@ -12,7 +12,7 @@
               </div>
               </v-row>
               <v-row justify="center" align="center">
-                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" > {{ this.days[new Date().getDay() ]}},{{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" > {{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
@@ -96,7 +96,7 @@
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
                                 <span class="font">Partidos</span>
                                 <v-divider inset vertical class="mx-2"></v-divider>
-                                <span class="font">{{ reservation.reservation_set.length }}</span>
+                                <span class="font"></span>
                             </v-row>
                         </v-card>
                         </v-hover>
@@ -126,16 +126,8 @@ export default {
        return {
            companyId: this.$route.params.companyId,
            company: [],
-           reservation: [],
            days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
            months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            colors: [
-          'primary',
-          'secondary',
-          'yellow darken-2',
-          'red',
-          'orange',
-        ],
         images: [
           { src: "https://bogota.gov.co/sites/default/files/styles/despliegue_1366x768_px/public/field/image/Nueva%20cancha%20sint%C3%A9tica%20en%20el%20Parque%20Las%20Cruces%20beneficiar%C3%A1%20comunidad%20de%20tres%20localidades%20P.jpg"},
           { src: "https://lh3.googleusercontent.com/6ygjCkkb-sYeWWJLh964wzsu-rnQcpquw2I9ebvQ4xzKCxoFnE0tWpuPXN7yV85rCdgEWqJq=w1080-h608-p-no-v0"},
@@ -149,19 +141,17 @@ export default {
           { src: "http://www.eje21.com.co/site/wp-content/uploads/2016/04/Cancha-sintetica-de-la-terminal-de-manizales.jpg"},
           { src: "https://files.rcnradio.com/public/styles/img_galeria/public/2019-02/whatsapp_image_2019-02-11_at_4.22.50_pm_1_0.jpeg?itok=pjSrd8tA"}
         ],
-        dialog: false,
         rating: 3,
        }
        },
       
     methods: {
         getCompany(){
-      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`   
+      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`   
         axios.get(path).then((response)=> {
         this.company = response.data
-        return axios.get(`http://192.168.88.222:8000/sport/res-company/${this.companyId}/`)
-      }).then((response) =>{
-          this.reservation = response.data
+        console.log(this.company);
+        
       }).catch((error) => {
           console.log(error);
         })

@@ -12,7 +12,8 @@ from sport.serializer import (
     CompanyFieldSerializer,
     CompanyDetailSerializer, 
     TownChildSerializer,
-    DoScheduleSerializer
+    DoScheduleSerializer,
+    FieldChildSerializer
 )
 
 
@@ -64,3 +65,8 @@ class TownChildViewSet(viewsets.ModelViewSet):
 class DoScheduleViewSet(viewsets.ModelViewSet):
     queryset = Schedule.objects.all()
     serializer_class = DoScheduleSerializer
+
+
+class FieldChildViewSet(viewsets.ModelViewSet):
+    queryset = Field.objects.all()
+    serializer_class = FieldChildSerializer

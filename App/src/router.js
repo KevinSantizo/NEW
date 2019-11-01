@@ -7,6 +7,7 @@ import DoReserve from './views/DoReserve'
 import Login from './views/Login'
 import Register from './views/Register'
 import InfoCompany from '@/views/InfoCompany'
+import Reservation from '@/views/Reservation'
 
 
 Vue.use(Router)
@@ -22,6 +23,7 @@ export default new Router({
     { path: '/do_reserve/:companyId/reserve', name: 'do_reserve', component: DoReserve },
     { path: '/register', name:'register', component: Register},
     { path:'/companies/:companyId/info' , name:'InfoCompany', component: InfoCompany},
+    { path:'/field/:fieldId/info' , name:'Reservation', component: Reservation},
 
   ]
 })
