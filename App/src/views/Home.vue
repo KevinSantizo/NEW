@@ -147,11 +147,11 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
     methods: {
       getAll(){ 
-      const path = 'http://192.168.1.20:8000/sport/reservations/'
+      const path = 'http://127.0.0.1:8000/sport/reservations/'
       //const path = 'http://192.168.88.222:8000/sport/reservations/'
       axios.get(path).then((response) => {
         this.reservations = response.data
-        return axios.get('http://192.168.1.20:8000/sport/companies/');
+        return axios.get('http://127.0.0.1:8000/sport/companies/');
         //return axios.get('http://192.168.88.222:8000/sport/companies/');
         }).then((response) => {
           this.companies = response.data

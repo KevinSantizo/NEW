@@ -1,7 +1,6 @@
 <template>
  <v-container class="indigo lighten-5">
         <v-app-bar flat text app class="indigo" dark height="57">
-          <v-app-bar-icon></v-app-bar-icon>
           <v-layout row wrap>
             <v-flex xs12 md12>
               <v-row justify="left" align="top">
@@ -68,9 +67,7 @@
                                 <v-chip small rounded class="ma-2 font-weight-bold black--text orange font" outlined style="bottom: 2em; left: 0.5em;" >{{ field.price }}</v-chip>
                              <v-row justify="end">
                              <v-card-actions style="position: absolute; bottom: -0.3em; right: -0.3em;">
-                                <v-btn v-if="cancha" v-bind:to=" 'field/'+cancha.id+ '/info' " raised rounded outlined small color="teal darken-1" class="font font-weight-bold">
-                                   Reservar <v-icon small right>mdi-calendar</v-icon>
-                                </v-btn>
+                              <router-link v-bind:to=" field.id+'/reservar' "  class="link" style="bottom: 0.5em; position: absolute; right: 0.5em;" ><v-chip outlined small label color="primary"><v-icon small>mdi-information-variant</v-icon>Reservar</v-chip></router-link>
                               </v-card-actions>
                             </v-row>
                             </v-card>
@@ -91,7 +88,6 @@ export default {
           },
         companyId: this.$route.params.companyId,
         company: [],
-        cancha: [],
         show: false,
         months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
@@ -139,14 +135,10 @@ export default {
   },
     methods: {
        getCompany() {
-      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`
+      const path = `http://127.0.0.1:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
-        return axios.get('http://192.168.1.20:8000/sport/field-schedule/')
         console.log(response.data);
-      }).then((response)=> {
-        this.cancha = response.data
-        console.log(this.cancha);
       }).catch((error)=>{
         console.log(error);
       })
