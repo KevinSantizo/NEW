@@ -1,22 +1,18 @@
 <template>
-    <v-card class="overflow-hidden mx-auto">
-      <v-app-bar  flat text  class="indigo"  dark height="57">
-          <v-layout row wrap>
-            <v-flex xs12 md12>
-              <v-row justify="left" align="top">
-                
-              </v-row>
-              <v-row justify="center" align="center">
-                <v-toolbar-title>
+    <v-card class="overflow-hidden mx-auto indigo">
+      <v-app-bar extended prominent flat text  class="indigo"  dark height="57">
+                <v-toolbar-title class="pa-2">
                     <span class="white--text font-weight-bold" dense>¡Bienvenido!</span>
                       <v-divider inset vertical class="mx-1"></v-divider>
                     <img src="@/assets/ball.svg" color="white" alt="" style="width: 35px;">
-                </v-toolbar-title>              </v-row>
-            </v-flex>
-          </v-layout>
+                </v-toolbar-title>   
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon>mdi-magnify</v-icon>
+                </v-btn>           
         </v-app-bar>
       <BottomNavigation/> 
-      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-5 " max-height="665" >
+      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-5" style="border-radius: 25px 25px 0px 0px;" max-height="620" >
       <v-container class="bottom" >
       <v-layout row wrap>
         <v-flex xs12 sm6 lg3> 
@@ -147,14 +143,18 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
     methods: {
       getAll(){ 
-      const path = 'http://127.0.0.1:8000/sport/reservations/'
+      const path = 'http://192.168.1.20:8000/sport/reservations/'
       //const path = 'http://192.168.88.222:8000/sport/reservations/'
       axios.get(path).then((response) => {
         this.reservations = response.data
-        return axios.get('http://127.0.0.1:8000/sport/companies/');
+        console.log(this.reservations);
+        
+        return axios.get('http://192.168.1.20:8000/sport/companies/');
         //return axios.get('http://192.168.88.222:8000/sport/companies/');
         }).then((response) => {
           this.companies = response.data
+          console.log(this.companies);
+          
         }).catch((error) => {
           console.log(error);
         })

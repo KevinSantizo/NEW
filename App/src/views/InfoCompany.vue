@@ -147,7 +147,7 @@ export default {
       
     methods: {
         getCompany(){
-      const path = `http://127.0.0.1:8000/sport/field-company/${this.companyId}/`   
+      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`   
         axios.get(path).then((response)=> {
         this.company = response.data
         console.log(this.company);

@@ -6,7 +6,7 @@ from django.utils import timezone
 # Create your models here.
 
 class Field(models.Model):
-    company = models.ForeignKey('Company', on_delete=models.CASCADE, null=True)
+    company = models.ForeignKey('Company', related_name='fields', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100, null=True)
     FIELD_STATUS = (
         ('1', 'Ocupada'),
@@ -37,7 +37,7 @@ class Field(models.Model):
 
 
 class Company(models.Model):
-    town = models.ForeignKey(Town, on_delete=models.CASCADE, null=True)
+    town = models.ForeignKey(Town, related_name='companies', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=25)
@@ -60,7 +60,7 @@ class Reservation(models.Model):
 
 
 class Schedule(models.Model):
-    field = models.ForeignKey(Field, on_delete=models.CASCADE)
+    field = models.ForeignKey(Field, related_name='schedules', on_delete=models.CASCADE)
     start_time = models.TimeField()
     date = models.DateField(null=True)
     SCHEDULE_STATUS = (

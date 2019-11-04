@@ -1,6 +1,6 @@
 <template>
-      <v-card class="overflow-hidden mx-auto">
-        <v-app-bar flat text  class="indigo"  dark height="57">
+      <v-card class="overflow-hidden mx-auto indigo">
+        <v-app-bar extended prominent flat text  class="indigo" dark height="57">
           <v-layout row wrap>
             <v-flex xs12 md12>
               <v-row justify="center" align="center">
@@ -12,8 +12,8 @@
                 <v-icon color="white" size="35">mdi-soccer</v-icon>
         </v-app-bar>
       <BottomNavigation/>
-      <v-sheet  id="scroll-area-1"  class="overflow-y-auto indigo lighten-5" max-height="650">
-      <v-container class="bottom" >
+      <v-sheet  id="scroll-area-1"  class="overflow-y-auto indigo lighten-5" style="border-radius: 25px 25px 0px 0px;" max-height="620">
+      <v-container class="bottom">
       <v-item-group v-model="selected" multiple> 
         <v-row>
           <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
@@ -55,7 +55,7 @@
                       </div>
                       <v-spacer></v-spacer>
                       <row>
-                      <router-link v-bind:to=" 'companies/'+company.id+'/info' "  class="link" style="bottom: 0.5em; position: absolute; right: 0.5em;" ><v-chip outlined small label color="primary"><v-icon small>mdi-information-variant</v-icon></v-chip></router-link>
+                      <v-btn text outlined small v-bind:to=" 'companies/'+company.id+'/info' " class="link" style="bottom: 0.5em; position: absolute; right: 0.5em;" ><v-icon small>mdi-information-variant</v-icon></v-btn>
                       </row>                    
                     </v-card-actions>
                   </v-card>
@@ -76,7 +76,6 @@ import BottomNavigation from '@/components/BottomNavigation'
 export default {
   data: () => ({
         companies: [ ],
-        show: false,
         selected: [],
         expand: false,
         expand2: false,
@@ -92,7 +91,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://127.0.0.1:8000/sport/companies/'
+      const path = 'http://192.168.1.20:8000/sport/companies/'
       //const path = 'http://192.168.88.222:8000/sport/companies/'
       axios.get(path).then((response)=> {
         this.companies = response.data

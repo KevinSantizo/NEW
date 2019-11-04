@@ -13,12 +13,12 @@ export default {
     data () {
        return {
           fieldId: this.$route.params.fieldId,
-          field: [],
+          field: [ ],
        }
     },
     methods: {
         getField() {
-      const path = `http://127.0.0.1:8000/sport/field-schedule/${this.fieldId}/`   
+      const path = `http://192.168.1.20:8000/sport/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         console.log(this.field);       

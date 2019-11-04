@@ -44,19 +44,17 @@ class CompanyDetailSerializer(serializers.ModelSerializer):
 
 
 class DepartmentChildSerializer(serializers.ModelSerializer):
-    town_set = DoTownSerializer(many=True, read_only=True)
+    towns = DoTownSerializer(many=True)
     class Meta:
         model = Department
-        fields = ('name', 'town_set')
-        read_only_fields = ('name', 'town_set')
+        fields = ('id', 'name', 'description', 'towns')
 
 
 class TownChildSerializer(serializers.ModelSerializer):
-    company_set = CompanySerializer(many=True, read_only=True)
+    companies = CompanySerializer(many=True)
     class Meta:
         model = Town
-        fields = ('name', 'company_set')
-        read_only_fields = ('name', 'company_set')
+        fields = ('id', 'name', 'companies') 
 
 
 class DoScheduleSerializer(serializers.ModelSerializer):
@@ -66,19 +64,16 @@ class DoScheduleSerializer(serializers.ModelSerializer):
 
 
 class FieldChildSerializer(serializers.ModelSerializer):
-    schedule_set = DoScheduleSerializer(many=True, read_only=True)
+    schedules = DoScheduleSerializer(many=True)
     class Meta:
         model = Field
-        fields = ( 'id', 'name', 'status', 'type', 'price', 'schedule_set')
-        read_only_fields = ('id', 'name', 'status', 'type', 'price', 'schedule_set')
+        fields = ( 'id', 'name', 'status', 'type', 'price', 'schedules')
         
         
 
 class CompanyFieldSerializer(serializers.ModelSerializer):
-    field_set = FieldSerializer(many=True, read_only=True)
+    fields = FieldSerializer(many=True)
     class Meta:
         model = Company
-        fields = ('town', 'id', 'name', 'address', 'phone', 'email', 'image', 'field_set')
-        read_only_fields = ('town', 'id', 'name', 'address', 'phone', 'email', 'image', 'field_set')
+        fields = ('town', 'id', 'name', 'address', 'phone', 'email', 'image', 'fields')
         depth = 4
-        

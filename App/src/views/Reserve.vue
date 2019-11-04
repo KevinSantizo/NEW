@@ -1,18 +1,17 @@
 <template>
-    <v-card class="overflow-hidden mx-auto">
-        <v-app-bar flat text  class="indigo"  dark height="57">
-          <v-layout row wrap>
-            <v-flex xs12 md12>
-              <v-row justify="center" align="center">
+    <v-card class="overflow-hidden mx-auto indigo">
+        <v-app-bar extended prominent flat text   class="indigo"  dark height="57">
+          <div style="">
                 <v-icon color="white" size="25">mdi-calendar </v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" >{{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
-              </v-row>
-            </v-flex>
-          </v-layout>
-          <v-divider inset class="transparent" vertical></v-divider>
+         </div>
+
+          <v-spacer ></v-spacer>
                 <v-icon color="white" size="35">mdi-soccer</v-icon>
+               <v-toolbar-title style="top: 3em; position: absolute;">Explorar</v-toolbar-title>
+
         </v-app-bar>
       <BottomNavigation/>  
-      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-5" height="650" >
+      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-5" style="border-radius: 25px 25px 0px 0px;" height="620" >
         <v-container class="bottom" >
             <v-item-group> 
             <v-row justify="space-around">
@@ -24,7 +23,7 @@
                     <v-footer class="white ma-1"  padless>
                       <v-row justify="left" no-gutters>
                         <div>
-                          <span class="subtitle-2 ma-2">{{ company.name }} {{ company.address}}</span>
+                          <span class="subtitle-2 ma-2 font">{{ company.name }} {{ company.address}}</span>
                         </div> 
                         <v-col class="text-left  caption black--text" cols="12">
                           <div class="description">
@@ -36,7 +35,7 @@
                               <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
                             </span><br>
                             <span >
-                              <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon>{{ company.town.name}}, {{ company.town.department.name }}
+                              <v-icon color="black" size="15" class="caption font">mdi-map-marker</v-icon>{{ company.town.name}}, {{ company.town.department.name }}
                             </span>
                           </div>
                         </v-col>
@@ -46,11 +45,11 @@
                       <div class="reserve">
                         <v-row justify="left" align="left" class="ma-1 my-1">
                           <div>
-                            <span class="ma-1 font-weight-bold  green--text" color="teal darken-4">Canchas: {{ company.field_set.length }}</span><br>
+                            <span class="ma-1 font-weight-bold  green--text font" color="teal darken-4">Canchas: {{ company.fields.length }}</span><br>
                             
                           </div>
                           <v-row justify="end" align="center" class="ma-1"> 
-                            <v-btn text small v-bind:to=" 'do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold">Reservar<v-icon right size=15>mdi-chevron-right</v-icon>
+                            <v-btn text small v-bind:to=" 'do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font">Reservar<v-icon right size=15>mdi-chevron-right</v-icon>
                             </v-btn>
                           </v-row>
                         </v-row>
@@ -89,7 +88,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://127.0.0.1:8000/sport/field-company/'
+      const path = 'http://192.168.1.20:8000/sport/field-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);
@@ -106,6 +105,11 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+  .font {
+     font-family: 'Ubuntu', sans-serif;
+   }
+  
   .v-card {
     transition: opacity .4s ease-in-out;
   }

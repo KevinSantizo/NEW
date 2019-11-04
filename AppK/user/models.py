@@ -12,7 +12,7 @@ class Department(models.Model):
         
 
 class Town(models.Model):
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, related_name='towns', on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
 
     def __str__(self):

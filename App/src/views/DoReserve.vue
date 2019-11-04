@@ -52,9 +52,9 @@
           </div>
           </v-row>
                         <v-slide-group style="bottom: 2em;">
-                          <v-slide-item v-for="(field, i ) in company.field_set" :key="i">
+                          <v-slide-item v-for="(field, i ) in company.fields" :key="i">
                           <v-hover >
-                            <v-card width="175" height="235" class="ma-2 indigo lighten-5" :elevation=6 style="border-radius: 10px;">
+                            <v-card width="175" height="215" class="ma-2 indigo lighten-5" :elevation=6 style="border-radius: 10px;">
                               <v-img class="white--text align-end" height="120" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
                                 <v-card-title style="position: absolute; top: 3.7em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
                               </v-img>
@@ -64,10 +64,10 @@
                               <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
                               <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
                               </v-card-title>                                
-                                <v-chip small rounded class="ma-2 font-weight-bold black--text orange font" outlined style="bottom: 2em; left: 0.5em;" >{{ field.price }}</v-chip>
+                                <v-chip x-small label class="ma-2 font-weight-bold black--text indigo font" outlined style="bottom: 2em; left: 0.5em;" >{{ field.price }}</v-chip>
                              <v-row justify="end">
                              <v-card-actions style="position: absolute; bottom: -0.3em; right: -0.3em;">
-                              <router-link v-bind:to=" field.id+'/reservar' "  class="link" style="bottom: 0.5em; position: absolute; right: 0.5em;" ><v-chip outlined small label color="primary"><v-icon small>mdi-information-variant</v-icon>Reservar</v-chip></router-link>
+                              <v-btn  outlined x-small v-bind:to=" field.id+'/reservar' " class="link" color="indigo">Reservar</v-btn>
                               </v-card-actions>
                             </v-row>
                             </v-card>
@@ -135,7 +135,7 @@ export default {
   },
     methods: {
        getCompany() {
-      const path = `http://127.0.0.1:8000/sport/field-company/${this.companyId}/`
+      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);
