@@ -52,11 +52,12 @@ class Reservation(models.Model):
     schedule = models.ForeignKey('Schedule', on_delete=models.CASCADE, null=True)
     customer_reserve = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_reserve')
     field_reserve = models.ForeignKey(Field, on_delete=models.CASCADE)
+    implement = models.ForeignKey('Implement', on_delete=models.CASCADE, null=True)
     schedule_date = models.DateField(null=True)
 
     def __str__(self):
         return  'Customer: ' + self.customer_reserve.first_name + ' --- Type Field: --- ' + self.field_reserve.type + ' --- Date Reserved: --- ' \
-               + str(self.schedule_date) + ' --- Price: --- ' + self.field_reserve.price
+               + str(self.schedule_date) + ' --- Price: --- ' + self.field_reserve.price + self.implement.name
 
 
 class Schedule(models.Model):
@@ -85,4 +86,14 @@ class Image(models.Model):
     def __str__(self):
         return self.company.name
 
+    
+class Implement(models.Model):
+    name = models.CharField(max_length=10)
+    price = models.FloatField(max_length=15)
+    add = models.BooleanField()
+    quantity = models.PositiveIntegerField(null=True)
+    image = models.ImageField(upload_to='pictures', null=True)
+
+    def __str__(self):
+        return self.name + ' - ' + self.price + ' - ' + self.add
     

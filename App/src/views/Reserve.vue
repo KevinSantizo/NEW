@@ -1,17 +1,15 @@
 <template>
-    <v-card class="overflow-hidden mx-auto indigo">
-        <v-app-bar extended prominent flat text   class="indigo"  dark height="57">
-          <div style="">
-                <v-icon color="white" size="25">mdi-calendar </v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" >{{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+    <v-card class="overflow-hidden mx-auto back-ground">
+        <v-app-bar extended prominent flat text   class="back-ground"  dark height="57">
+          <div class="ma-3">
+                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
          </div>
-
           <v-spacer ></v-spacer>
-                <v-icon color="white" size="35">mdi-soccer</v-icon>
-               <v-toolbar-title style="top: 3em; position: absolute;">Explorar</v-toolbar-title>
-
+                <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
+               <v-toolbar-title class="font font-weight-medium" style="top: 3em;  position: absolute;">Explorar</v-toolbar-title>
         </v-app-bar>
       <BottomNavigation/>  
-      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-5" style="border-radius: 25px 25px 0px 0px;" height="620" >
+      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
         <v-container class="bottom" >
             <v-item-group> 
             <v-row justify="space-around">
@@ -49,7 +47,7 @@
                             
                           </div>
                           <v-row justify="end" align="center" class="ma-1"> 
-                            <v-btn text small v-bind:to=" 'do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font">Reservar<v-icon right size=15>mdi-chevron-right</v-icon>
+                            <v-btn text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font">Reservar<v-icon right size=15>mdi-chevron-right</v-icon>
                             </v-btn>
                           </v-row>
                         </v-row>
@@ -76,8 +74,8 @@ export default {
         reservations: [ ] ,
         companies: [ ],
         show: false,
-        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',],
+        months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
         activeBtn: 1,
         showNav: true,
         color: false
@@ -88,7 +86,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.1.20:8000/sport/field-company/'
+      const path = 'http://192.168.88.222:8000/sport/field-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);
@@ -155,10 +153,13 @@ export default {
      margin-top:  0.2em;
    }
    .bottom {
-     margin-bottom: 300px;
+     margin-bottom: 50px;
    }
    .container {
     max-width: 100%;
     max-height: 100%;
+  }
+  .back-ground {
+    background-color: #011427;
   }
 </style>

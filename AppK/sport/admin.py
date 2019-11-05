@@ -1,5 +1,5 @@
 from django.contrib import admin
-from sport.models import Field, Company, Reservation, Schedule, Image
+from sport.models import Field, Company, Reservation, Schedule, Image, Implement
 
 
 @admin.register(Field)
@@ -13,7 +13,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('schedule', 'customer_reserve', 'field_reserve', 'schedule_date')
+    list_display = ('schedule', 'customer_reserve', 'field_reserve', 'implement', 'schedule_date')
 
 
 @admin.register(Schedule)
@@ -24,5 +24,10 @@ class ScheduleAdmin(admin.ModelAdmin):
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('company', 'image')
+
+
+@admin.register(Implement)
+class ImplementAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price', 'add')
 
 

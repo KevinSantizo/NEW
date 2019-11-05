@@ -1,26 +1,24 @@
 <template>
-    <div class="indigo lighten-5">
-        <v-app-bar flat text app class="indigo" dark height="57">
-          <v-app-bar-icon></v-app-bar-icon>
+    <v-card class="overflow-hidden mx-auto back-ground">
+        <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
           <v-layout row wrap>
             <v-flex xs12 md12>
-              <v-row justify="left" align="top">
-                <div style="position: absolute; left: 0.2em; top: 0.5em;">
-                <v-btn icon class="link" router to="/companies">
-                <v-icon color="white" size="30 " >mdi-chevron-left</v-icon>
+                <div class="my-2">
+                <v-btn icon class="link" style="color: transparent;" router to="/companies">
+                <v-icon color="white" dark size="45" >mdi-chevron-left</v-icon>
                 </v-btn>
               </div>
-              </v-row>
               <v-row justify="center" align="center">
-                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption" > {{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
           <v-divider inset class="transparent" vertical></v-divider>
-                <v-icon color="white" size="35">mdi-soccer</v-icon>
+                <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
+        <v-sheet id="scroll-area-1" class="overflow-y-auto " style="border-radius: 25px 25px 0px 0px;" height="620" >
         <v-row no-gutters class="pa-2">
-            <div>
+            <v-row justify="center">
                 <v-hover>
                 <v-card  width="400"  class="my-1" style="border-radius: 10px;">
                     <v-img :src="company.image">
@@ -41,9 +39,9 @@
                       </v-card-actions>
                 </v-card>
                 </v-hover>
-                </div>
+                </v-row>
             <v-hover>
-            <v-card class="mx-auto overflow-hidden my-2 transparent" :elevation=12 style="max-width:400px; border: 1px solid white; border-radius: 10px;">
+            <v-card class="mx-auto overflow-hidden my-2 transparent" :elevation=12 style="max-width: 600px; border: 1px solid white; border-radius: 10px;">
                     <v-slide-group>
                         <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
                             <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
@@ -53,8 +51,10 @@
                             </v-card>
                         </v-slide-item>
                     </v-slide-group>
-            <v-card-title style="margin-top: -1em;">
+            <v-card-title style="margin-top: 0em;">
             <span class="indigo--text font-weight-medium font">{{ company.name }} - {{company.town.name}}</span>
+           <v-divider inset vertical class="mx-1 transparent">
+           </v-divider>
            <v-chip label color="indigo" outlined><span class="caption font">{{company.address }}, {{ company.town.name }} - {{ company.town.department.name}}, {{ company.town.department.description }}</span></v-chip>
         </v-card-title>
                       <div class="pa-2 caption font">
@@ -62,6 +62,7 @@
                     </div>
             </v-card>
             </v-hover>
+            <v-row justify="center">
             <div style="width: 400px;" class="ma-5 my-1">
                 <v-row no-gutters>
                     <v-col sm="5" md="6">
@@ -72,7 +73,7 @@
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
                                 <span class="font">Canchas</span>
                                 <v-divider inset vertical class="mx-2"></v-divider>
-                                <span class="font">{{ company.field_set.length }}</span>
+                                <span class="font">{{ company.fields.length }}</span>
                             </v-row>
                         </v-card>
                         </v-hover>
@@ -113,10 +114,12 @@
                         </v-card>
                         </v-hover>
                     </v-col>
-                </v-row>     
+                </v-row>  
             </div>
+            </v-row>
         </v-row>
-    </div>
+      </v-sheet>
+    </v-card>
 </template>
 
 <script>
@@ -124,10 +127,10 @@ import axios from 'axios'
 export default {
     data () {
        return {
-           companyId: this.$route.params.companyId,
-           company: [],
-           days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-           months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        companyId: this.$route.params.companyId,
+        company: [],
+        months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
         images: [
           { src: "https://bogota.gov.co/sites/default/files/styles/despliegue_1366x768_px/public/field/image/Nueva%20cancha%20sint%C3%A9tica%20en%20el%20Parque%20Las%20Cruces%20beneficiar%C3%A1%20comunidad%20de%20tres%20localidades%20P.jpg"},
           { src: "https://lh3.googleusercontent.com/6ygjCkkb-sYeWWJLh964wzsu-rnQcpquw2I9ebvQ4xzKCxoFnE0tWpuPXN7yV85rCdgEWqJq=w1080-h608-p-no-v0"},
@@ -147,7 +150,7 @@ export default {
       
     methods: {
         getCompany(){
-      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`   
+      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`   
         axios.get(path).then((response)=> {
         this.company = response.data
         console.log(this.company);
@@ -172,4 +175,7 @@ export default {
 .link {
     text-decoration: none;
 }
+.back-ground {
+    background-color: #011427;
+  }
 </style>

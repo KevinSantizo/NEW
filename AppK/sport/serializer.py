@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from sport.models import Field, Reservation, Company, Schedule
+from sport.models import Field, Reservation, Company, Schedule, Implement
 from user.models import Department, Town
 from user.serializer import DepartmentSerializer, DoTownSerializer
 
@@ -67,7 +67,8 @@ class FieldChildSerializer(serializers.ModelSerializer):
     schedules = DoScheduleSerializer(many=True)
     class Meta:
         model = Field
-        fields = ( 'id', 'name', 'status', 'type', 'price', 'schedules')
+        fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules')
+        depth = 3
         
         
 
@@ -76,4 +77,10 @@ class CompanyFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = ('town', 'id', 'name', 'address', 'phone', 'email', 'image', 'fields')
-        depth = 4
+        depth = 2
+
+
+class ImplementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Implement
+        fields = '__all__'

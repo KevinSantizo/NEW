@@ -1,45 +1,44 @@
 <template>
-    <v-container class="indigo lighten-5"  style="height: 100%; width: 35%;">
-            <div class="form-group ma-2">
-                <v-btn class="my-3" block  color="light-blue darken-4 white--text" ><v-icon left size="25">mdi-facebook</v-icon> REGÍSTRATE CON FACEBOOK</v-btn>
+    <v-container height="100%" class="my-0">
+        <v-row justify="center" align="center" >
+            <div class="form-group ma-3">
+                <v-btn class="my-1" block  color="light-blue darken-4 white--text" ><v-icon left size="25">mdi-facebook</v-icon> REGÍSTRATE CON FACEBOOK</v-btn>
                 <v-btn block  color="red darken-1 white--text" ><v-icon left size="25">mdi-google-plus</v-icon> REGÍSTRATE CON GOOGLE</v-btn>
-                    <v-divider class="my-3"></v-divider>
-                    <v-row justify="center">
-                    <div style="position: absolute; top: 7em;">
+                    <v-divider class="my-2"></v-divider>
+                    <div style="margin-top: -1em !important;">
                     <form>
                         <div class="row">
                         <div class="col">
-                            <label for="name" class="font font-weight-medium">Nombre</label>
-                            <input type="text" class="form-control form-control-sm" id="name" placeholder="Ingrese su nombre">
+                            <label for="name" class="font font-weight-medium body-2">Nombre</label>
+                            <input type="text" class="form-control  border font body-2" id="name" placeholder="Ingrese su nombre">
                         </div>
                         <div class=" col">
-                            <label for="last_name"  class="font font-weight-medium">Apellido</label>
-                            <input type="text" class="form-control form-control-sm" style="top: 0em;" id="last_name" placeholder="Ingrese su apellido">
+                            <label for="last_name"  class="font font-weight-medium body-2">Apellido</label>
+                            <input type="text" class="form-control  border font body-2"  id="last_name" placeholder="Ingrese su apellido">
                         </div>
                         </div>
-                         <label for="department"  class="font font-weight-medium" >Departamento</label>
-                         <select class="form-control form-control-sm" id="department">
+                         <label for="department"  class="font font-weight-medium body-2" >Departamento</label>
+                         <select class="form-control border body-2" id="department">
                             <option  v-for="(dep, i) in departments" :key=i :value="dep.id">{{ dep.name }}</option>
                         </select>
-                        <label for="town"  class="font font-weight-medium my-2">Municipio</label>
-                         <select class="form-control form-control-sm" id="town">
+                        <label for="town"  class="font font-weight-medium my-2 body-2">Municipio</label>
+                         <select class="form-control  border body-2" id="town">
                             <option v-for="(municipio, i) in departments.town_set" :key="i" :value=" municipio.id ">{{ municipio.name }}</option>
                         </select>
                          <div class="" >
-                            <label for="phone"  class="font font-weight-medium my-2">Teléfono</label>
-                            <input type="text" class="form-control form-control-sm" style="top: 0em;" id="phone" placeholder="Ingrese su teléfono">
+                            <label for="phone"  class="font font-weight-medium my-2 body-2">Teléfono</label>
+                            <input type="text" class="form-control  border font body-2" style="top: 0em;" id="phone" placeholder="Ingrese su teléfono">
                         </div>
                          <div class="" >
-                            <label for="email"  class="font font-weight-medium my-2">Email</label>
-                            <input type="text" class="form-control form-control-sm" style="top: 0em;" id="email" placeholder="Ingrese su e-mail">
+                            <label for="email"  class="font font-weight-medium my-2 body-2">Email</label>
+                            <input type="text" class="form-control  border font body-2"  id="email" placeholder="Ingrese su e-mail">
                         </div>
                         <div class="" >
-                            <label for="password"  class="font font-weight-medium my-2">Email</label>
-                            <input type="password" class="form-control form-control-sm" style="top: 0em;" id="password" placeholder="Ingrese su contraseña">
+                            <label for="password"  class="font font-weight-medium my-2 body-2">Contraseña</label>
+                            <input type="password" class="form-control border font body-2"  id="password" placeholder="Ingrese su contraseña">
                         </div>
-                       
-                        <v-row justify="center" class="my-4">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <v-row justify="center" class="my-1 ma-0">
+                            <v-btn block  color="light-green accent-4 white--text" class="font link my-3" router to="/home" >REGISTRARSE</v-btn>          
                         </v-row>
                     </form>
                     <v-divider class="my-1"></v-divider>
@@ -58,8 +57,8 @@
                     </v-row>
                 </template>
                 </div>
-            </v-row>
             </div>
+        </v-row>
     </v-container>
 </template>
 
@@ -101,5 +100,9 @@ import axios from'axios'
 }
 .font {
     font-family: 'Ubuntu', sans-serif;
+}
+.border {
+    border: 1px solid grey !important;
+
 }
 </style>

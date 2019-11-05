@@ -1,21 +1,26 @@
 <template>
-      <v-card class="overflow-hidden mx-auto indigo">
-        <v-app-bar extended prominent flat text  class="indigo" dark height="57">
+      <v-card class="overflow-hidden mx-auto back-ground">
+        <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
           <v-layout row wrap>
             <v-flex xs12 md12>
+                <div class="my-2">
+                <v-btn icon class="link" router to="/reserve">
+                <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
+                </v-btn>
+              </div>
               <v-row justify="center" align="center">
-                <v-icon color="white" size="25">mdi-calendar </v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" >{{ this.days[new Date().getDay() ]}}, {{ new Date().getDate()}} de {{  this.months[new Date().getMonth()] }} {{ new Date().getFullYear() }}</span>
+                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
           <v-divider inset class="transparent" vertical></v-divider>
-                <v-icon color="white" size="35">mdi-soccer</v-icon>
+                <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
       <BottomNavigation/>
-      <v-sheet  id="scroll-area-1"  class="overflow-y-auto indigo lighten-5" style="border-radius: 25px 25px 0px 0px;" max-height="620">
+      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
       <v-container class="bottom">
       <v-item-group v-model="selected" multiple> 
-        <v-row>
+        <v-row  justify="space-around">
           <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
               <v-hover >
                 <v-card  max="300" :elevation=12 style="border-radius: 10px;">
@@ -80,8 +85,8 @@ export default {
         expand: false,
         expand2: false,
         show: false,
-        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',],
+        months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
         activeBtn: 1,
         showNav: true,
         color: false
@@ -91,8 +96,8 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.1.20:8000/sport/companies/'
-      //const path = 'http://192.168.88.222:8000/sport/companies/'
+      //const path = 'http://192.168.1.20:8000/sport/companies/'
+      const path = 'http://192.168.88.222:8000/sport/companies/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(this.companies);
@@ -151,7 +156,7 @@ export default {
      bottom: -0.3em;
    }
    .bottom {
-     margin-bottom: 75px;
+     margin-bottom: 50px;
    }
    .font {
      font-family: 'Ubuntu', sans-serif;
@@ -159,4 +164,7 @@ export default {
    .link {
      text-decoration: none;
    }
+   .back-ground {
+    background-color: #011427;
+  }
 </style>

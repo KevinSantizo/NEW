@@ -24,7 +24,7 @@ export default new Router({
     { path: '/do_reserve/:companyId/reserve', name: 'do_reserve', component: DoReserve },
     { path: '/register', name:'register', component: Register},
     { path:'/companies/:companyId/info' , name:'InfoCompany', component: InfoCompany},
-    { path:'/:fieldId/reservar', name:'Reservation', component: Reservation},
+    { path:'/field/:fieldId/reservar', name:'Reservation', component: Reservation},
     { path:'/account', name: 'account', component: Account}
   ]
 })

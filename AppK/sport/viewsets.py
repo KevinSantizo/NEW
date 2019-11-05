@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework import routers
-from sport.models import Reservation, Field, Company, Schedule
+from sport.models import Reservation, Field, Company, Schedule, Implement
 from user.models import Department, Town
 from sport.serializer import (
     ReservationSerializer, 
@@ -13,7 +13,8 @@ from sport.serializer import (
     CompanyDetailSerializer, 
     TownChildSerializer,
     DoScheduleSerializer,
-    FieldChildSerializer
+    FieldChildSerializer,
+    ImplementSerializer
     )
 
 
@@ -71,3 +72,7 @@ class FieldChildViewSet(viewsets.ModelViewSet):
     queryset = Field.objects.all()
     serializer_class = FieldChildSerializer
 
+
+class ImplementViewSet(viewsets.ModelViewSet):
+    queryset = Implement.objects.all()
+    serializer_class = ImplementSerializer

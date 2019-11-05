@@ -1,26 +1,24 @@
 <template>
- <v-container class="indigo lighten-5">
-        <v-app-bar flat text app class="indigo" dark height="57">
+ <v-card class="overflow-hidden mx-auto back-ground">
+        <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
           <v-layout row wrap>
             <v-flex xs12 md12>
-              <v-row justify="left" align="top">
-                <div style="position: absolute; left: 0.2em; top: 0.5em;">
+                <div class="my-2">
                 <v-btn icon class="link" router to="/reserve">
-                <v-icon color="white" dark size="30 " >mdi-chevron-left</v-icon>
+                <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
                 </v-btn>
               </div>
-              </v-row>
               <v-row justify="center" align="center">
                 <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
           <v-divider inset class="transparent" vertical></v-divider>
-                <v-icon color="white" size="35">mdi-soccer</v-icon>
+                <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
-        <v-divider inset vertical> </v-divider>
-     <div style="top: 1em;">
-      <v-slide-group class="" style="top: -2em;">
+      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
+        <v-container class="bottom" >
+      <v-slide-group>
         <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
           <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
             <v-img :src="image.src" class="text-right" height="100" width="200">
@@ -29,9 +27,8 @@
           </v-card>
         </v-slide-item>
       </v-slide-group>
-        </div>
             <v-row justify="center">
-          <div class="col-md-4 pa-1" style="bottom: 2em;">
+          <div class="col-md-4 pa-1">
             <v-img class="text-left ma-2 my-1" :src="company.image" height="200"  style="border-radius: 10px;">
               <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
             </v-img>
@@ -51,7 +48,7 @@
             </v-card-actions>
           </div>
           </v-row>
-                        <v-slide-group style="bottom: 2em;">
+                        <v-slide-group >
                           <v-slide-item v-for="(field, i ) in company.fields" :key="i">
                           <v-hover >
                             <v-card width="175" height="215" class="ma-2 indigo lighten-5" :elevation=6 style="border-radius: 10px;">
@@ -64,17 +61,19 @@
                               <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
                               <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
                               </v-card-title>                                
-                                <v-chip x-small label class="ma-2 font-weight-bold black--text indigo font" outlined style="bottom: 2em; left: 0.5em;" >{{ field.price }}</v-chip>
+                                <v-chip x-small label dark class="ma-2 font-weight-bold light-blue darken-4 font"  style="bottom: 2em; left: 0.5em;" >{{ field.price }}</v-chip>
                              <v-row justify="end">
                              <v-card-actions style="position: absolute; bottom: -0.3em; right: -0.3em;">
-                              <v-btn  outlined x-small v-bind:to=" field.id+'/reservar' " class="link" color="indigo">Reservar</v-btn>
+                              <v-btn dark small v-bind:to=" '/field/' +field.id+'/reservar' " class="link light-blue darken-4" >Reservar</v-btn>
                               </v-card-actions>
                             </v-row>
                             </v-card>
                             </v-hover>          
                           </v-slide-item>
                         </v-slide-group>
- </v-container>
+                                </v-container>
+                              </v-sheet>
+ </v-card>
   </template>
 
 <script>
@@ -135,7 +134,7 @@ export default {
   },
     methods: {
        getCompany() {
-      const path = `http://192.168.1.20:8000/sport/field-company/${this.companyId}/`
+      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);
@@ -170,5 +169,7 @@ export default {
    .bottom {
      margin-bottom:  50px;
    }
- 
+ .back-ground {
+    background-color: #011427;
+  }
 </style>

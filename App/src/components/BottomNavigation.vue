@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation class="indigo" dark absolute height=50>
+  <v-bottom-navigation class="back-ground" dark absolute height=50>
     <v-btn class="link" router to="/home" >
       <span class="caption font-weight-bold font">Inicio</span>
       <v-icon size=20>mdi-home</v-icon>
@@ -89,4 +89,7 @@ export default {
    .link {
      text-decoration: none;
    }
+   .back-ground {
+    background-color: #011427;
+  }
 </style>

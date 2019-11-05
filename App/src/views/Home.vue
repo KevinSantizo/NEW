@@ -1,8 +1,8 @@
 <template>
-    <v-card class="overflow-hidden mx-auto indigo">
-      <v-app-bar extended prominent flat text  class="indigo"  dark height="57">
+    <v-card class="overflow-hidden mx-auto back-ground">
+      <v-toolbar extended prominent flat text  class="back-ground"  dark height="57">
                 <v-toolbar-title class="pa-2">
-                    <span class="white--text font-weight-bold" dense>¡Bienvenido!</span>
+                    <span class="white--text font-weight-bold font" dense>¡Bienvenido!</span>
                       <v-divider inset vertical class="mx-1"></v-divider>
                     <img src="@/assets/ball.svg" color="white" alt="" style="width: 35px;">
                 </v-toolbar-title>   
@@ -10,9 +10,9 @@
                 <v-btn icon>
                   <v-icon>mdi-magnify</v-icon>
                 </v-btn>           
-        </v-app-bar>
+        </v-toolbar>
       <BottomNavigation/> 
-      <v-sheet id="scroll-area-1" class="overflow-y-auto indigo lighten-5" style="border-radius: 25px 25px 0px 0px;" max-height="620" >
+      <v-sheet id="scroll-area-1" class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620" >
       <v-container class="bottom" >
       <v-layout row wrap>
         <v-flex xs12 sm6 lg3> 
@@ -21,8 +21,9 @@
               <v-img  src="@/assets/reser.jpg" class="white--text"  height="150px" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
               </v-img>
               <v-card-actions> 
-                <v-btn text class="font-weight-bold">Reservar <v-icon right size="20">mdi-calendar</v-icon>
+                <v-btn text class="font-weight-bold font">Reservar <v-icon right size="20">mdi-calendar</v-icon>
                 </v-btn>
+                <v-spacer></v-spacer>
                 <v-btn icon>
                     <v-icon color="grey darken-4">mdi-soccer</v-icon>
                 </v-btn>
@@ -36,7 +37,8 @@
               <v-img src="@/assets/favo.jpg" class="white--text"  height="150px" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
               </v-img>
                 <v-card-actions>
-                  <v-btn text center class="font-weight-bold ">Canchas Favoritas<v-icon right size="22">mdi-star</v-icon></v-btn>
+                  <v-btn text center class="font-weight-bold font">Canchas Favoritas<v-icon right size="22">mdi-star</v-icon></v-btn>
+                  <v-spacer></v-spacer>
                   <v-btn icon>
                     <v-icon color="grey darken-4">mdi-soccer</v-icon>
                   </v-btn>
@@ -49,12 +51,12 @@
               <v-card   router to="/companies" flat class="ma-3 link" :elevation="hover? 12 : 2"  :class="{'on-hover': hover}">
                 <v-img src="@/assets/centro.jpg" class="white--text"  height="150px" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                   <v-row class="fill-height pa-4" align="center" justify="center">
-                    <div class="display-3">{{ companies.length}}</div>
+                    <div class="display-3 font">{{ companies.length}}</div>
                   </v-row>
                 </v-img>
                 <v-card-actions>
-                  <v-btn text center class="font-weight-bold  link" router to="/companies">Compañías<v-icon right size="22">mdi-domain</v-icon></v-btn>
-                    <div class="flex-grow-1" ></div>
+                  <v-btn text center class="font-weight-bold  link font" router to="/companies">Compañías<v-icon right size="22">mdi-domain</v-icon></v-btn>
+                  <v-spacer></v-spacer>
                   <v-btn icon>
                       <v-icon color="grey darken-4">mdi-soccer</v-icon>
                   </v-btn>
@@ -67,12 +69,12 @@
                   <v-card router to="/companies" flat class="ma-3 link" :elevation="hover? 12 : 2"  :class="{'on-hover': hover}">
                     <v-img src="@/assets/partido.jpg" class="white--text"  height="150px" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                       <v-row class="fill-height pa-4" align="center" justify="center">
-                        <div class="display-3">{{ reservations.length}}</div>
+                        <div class="display-3 font">{{ reservations.length}}</div>
                       </v-row>
                     </v-img>
                     <v-card-actions>
-                      <v-btn text center class="font-weight-bold  link" >Partidos<v-icon right size="22">mdi-whistle</v-icon></v-btn>
-                      <div class="flex-grow-1" ></div>
+                      <v-btn text center class="font-weight-bold  link font" >Partidos<v-icon right size="22">mdi-whistle</v-icon></v-btn>
+                      <v-spacer></v-spacer>
                       <v-btn icon>
                         <v-icon color="grey darken-4">mdi-soccer</v-icon>
                       </v-btn>
@@ -82,48 +84,44 @@
           </v-flex>
       </v-layout>
           
-            <template>
-              <div class="green accent-4 text-center my-1  round"><span class="white--text">Reservaciones de la semana</span></div>
+              <div class="green accent-4 text-center my-1  round"><span class="white--text font">Reservaciones de la semana</span></div>
               <template v-if="reservations.length == 0">
                 <v-row justify="center" align="center">
-                <v-chip class="ma-2" close color="red darken-3" outlined justify="center">
+                <v-chip class="ma-2 font" close color="red darken-3" outlined justify="center">
                   No tienes Reservaciones
               </v-chip>    
               </v-row>
               <v-row justify="center" align="center">
-                <router-link :to="{name: 'companies'}">Reserva aquí</router-link>
+                <router-link :to="{name: 'companies'}" class="font">Reserva aquí</router-link>
               </v-row>
               </template>
               <template v-else>
                 <v-simple-table class="elevation-3 round" style="width: 100%;">
                   <thead>
                     <tr class="round" style="padding: 0;">
-                      <th class="text-center font-weight-bold black--text subtitle-1">Compañía</th>
-                      <th class="text-center font-weight-bold black--text subtitle-1" style="padding: 0;">Fecha</th>
+                      <th class="text-center font-weight-bold black--text subtitle-1 font">Compañía</th>
+                      <th class="text-center font-weight-bold black--text subtitle-1 font" style="padding: 0;">Fecha</th>
                       <!-- <th class="text-center font-weight-bold black--text subtitle-1">Horario</th> -->
-                      <th class="text-center font-weight-bold black--text subtitle-1">Tipo de Cancha</th>
-                      <th class="text-center font-weight-bold black--text subtitle-1">Estado</th>
+                      <th class="text-center font-weight-bold black--text subtitle-1 font">Tipo de Cancha</th>
+                      <th class="text-center font-weight-bold black--text subtitle-1 font">Estado</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="tex-center" v-for="(reservation, index) in reservations" :key="index">
-                      <td class="text-center ">{{ reservation.company_reserve.name }}</td>
-                      <td class="text-center ">{{ reservation.schedule_date }}</td>
+                      <td class="text-center font">{{ reservation.company_reserve.name }}</td>
+                      <td class="text-center font">{{ reservation.schedule_date }}</td>
                       <!-- <td class="text-center ">{{ reservation.schedule_time }}</td> -->
-                      <td class="text-center "  v-if="reservation.field_reserve.type == 1">5 jugadores</td>
-                      <td class="text-center" v-else-if="reservation.field_reserve.type==2">7 jugadores</td>
-                      <td class="text-center" v-else>11 Jugadores</td>
-                      <td><v-chip class="ma-3" label light  color="success" small>Completado</v-chip></td>
+                      <td class="text-center font"  v-if="reservation.field_reserve.type == 1">5 jugadores</td>
+                      <td class="text-center font" v-else-if="reservation.field_reserve.type==2">7 jugadores</td>
+                      <td class="text-center" font v-else>11 Jugadores</td>
+                      <td><v-chip class="ma-3 font" label light  color="success" small>Completado</v-chip></td>
                     </tr>
                   </tbody>
                 </v-simple-table>
               </template>
-            </template>
-      
       </v-container>
       </v-sheet>      
     </v-card>
-
 </template>
 
 <script>
@@ -143,14 +141,14 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
     methods: {
       getAll(){ 
-      const path = 'http://192.168.1.20:8000/sport/reservations/'
-      //const path = 'http://192.168.88.222:8000/sport/reservations/'
+      //const path = 'http://192.168.1.20:8000/sport/reservations/'
+      const path = 'http://192.168.88.222:8000/sport/reservations/'
       axios.get(path).then((response) => {
         this.reservations = response.data
         console.log(this.reservations);
         
-        return axios.get('http://192.168.1.20:8000/sport/companies/');
-        //return axios.get('http://192.168.88.222:8000/sport/companies/');
+        //return axios.get('http://192.168.1.20:8000/sport/companies/');
+        return axios.get('http://192.168.88.222:8000/sport/companies/');
         }).then((response) => {
           this.companies = response.data
           console.log(this.companies);
@@ -167,6 +165,10 @@ import BottomNavigation from '@/components/BottomNavigation'
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+  .font {
+     font-family: 'Ubuntu', sans-serif;
+   }
   .v-card {
     transition: opacity .4s ease-in-out;
   }
@@ -215,4 +217,7 @@ import BottomNavigation from '@/components/BottomNavigation'
   .bottom {
      margin-bottom: 125px;
    }
+   .back-ground {
+    background-color: #011427;
+  }
 </style>
