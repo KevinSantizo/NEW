@@ -14,7 +14,8 @@ from sport.serializer import (
     TownChildSerializer,
     DoScheduleSerializer,
     FieldChildSerializer,
-    ImplementSerializer
+    ImplementSerializer,
+    CountScheduleSerializer
     )
 
 
@@ -76,3 +77,8 @@ class FieldChildViewSet(viewsets.ModelViewSet):
 class ImplementViewSet(viewsets.ModelViewSet):
     queryset = Implement.objects.all()
     serializer_class = ImplementSerializer
+
+
+class CountScheduleViewSet(viewsets.ModelViewSet):
+    queryset = Schedule.objects.filter(status__exact='2')
+    serializer_class = CountScheduleSerializer

@@ -17,10 +17,11 @@
                 <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
         <v-sheet id="scroll-area-1" class="overflow-y-auto " style="border-radius: 25px 25px 0px 0px;" height="620" >
-        <v-row no-gutters class="pa-2">
+    <v-container class="bottom" >
+            <v-item-group> 
             <v-row justify="center">
                 <v-hover>
-                <v-card  width="400"  class="my-1" style="border-radius: 10px;">
+                <v-card  width="400"  class="my-1"  style="border-radius: 10px;">
                     <v-img :src="company.image">
                         <div style="position: absolute; right: 0em;">
                             <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
@@ -109,7 +110,6 @@
                                 <v-icon right size=30>mdi-calendar</v-icon> 
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
                                 <span class="font">Reservar</span>
-                                
                             </v-row>
                         </v-card>
                         </v-hover>
@@ -117,7 +117,8 @@
                 </v-row>  
             </div>
             </v-row>
-        </v-row>
+            </v-item-group>
+        </v-container>
       </v-sheet>
     </v-card>
 </template>

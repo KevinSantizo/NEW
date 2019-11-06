@@ -84,3 +84,9 @@ class ImplementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Implement
         fields = '__all__'
+
+
+class CountScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'

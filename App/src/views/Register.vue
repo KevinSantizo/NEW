@@ -10,32 +10,32 @@
                         <div class="row">
                         <div class="col">
                             <label for="name" class="font font-weight-medium body-2">Nombre</label>
-                            <input type="text" class="form-control  border font body-2" id="name" placeholder="Ingrese su nombre">
+                            <input type="text" class="form-control  border font body-2 transparent" style="border: 1px solid grey !important;" id="name" placeholder="Ingrese su nombre">
                         </div>
                         <div class=" col">
                             <label for="last_name"  class="font font-weight-medium body-2">Apellido</label>
-                            <input type="text" class="form-control  border font body-2"  id="last_name" placeholder="Ingrese su apellido">
+                            <input type="text" class="form-control  border font body-2 transparent" style="border: 1px solid grey !important;" id="last_name" placeholder="Ingrese su apellido">
                         </div>
                         </div>
                          <label for="department"  class="font font-weight-medium body-2" >Departamento</label>
-                         <select class="form-control border body-2" id="department">
+                         <select class="form-control border body-2 transparent" style="border: 1px solid grey !important;" id="department">
                             <option  v-for="(dep, i) in departments" :key=i :value="dep.id">{{ dep.name }}</option>
                         </select>
                         <label for="town"  class="font font-weight-medium my-2 body-2">Municipio</label>
-                         <select class="form-control  border body-2" id="town">
+                         <select class="form-control  border body-2 transparent" style="border: 1px solid grey !important;" id="town">
                             <option v-for="(municipio, i) in departments.town_set" :key="i" :value=" municipio.id ">{{ municipio.name }}</option>
                         </select>
                          <div class="" >
                             <label for="phone"  class="font font-weight-medium my-2 body-2">Teléfono</label>
-                            <input type="text" class="form-control  border font body-2" style="top: 0em;" id="phone" placeholder="Ingrese su teléfono">
+                            <input type="text" class="form-control  border font body-2 transparent" style="border: 1px solid grey !important;" id="phone" placeholder="Ingrese su teléfono">
                         </div>
                          <div class="" >
                             <label for="email"  class="font font-weight-medium my-2 body-2">Email</label>
-                            <input type="text" class="form-control  border font body-2"  id="email" placeholder="Ingrese su e-mail">
+                            <input type="text" class="form-control  border font body-2 transparent" style="border: 1px solid grey !important;" id="email" placeholder="Ingrese su e-mail">
                         </div>
                         <div class="" >
                             <label for="password"  class="font font-weight-medium my-2 body-2">Contraseña</label>
-                            <input type="password" class="form-control border font body-2"  id="password" placeholder="Ingrese su contraseña">
+                            <input type="password" class="form-control border font body-2 transparent" style="border: 1px solid grey !important;" id="password" placeholder="Ingrese su contraseña">
                         </div>
                         <v-row justify="center" class="my-1 ma-0">
                             <v-btn block  color="light-green accent-4 white--text" class="font link my-3" router to="/home" >REGISTRARSE</v-btn>          

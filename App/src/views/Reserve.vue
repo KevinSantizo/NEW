@@ -9,13 +9,13 @@
                <v-toolbar-title class="font font-weight-medium" style="top: 3em;  position: absolute;">Explorar</v-toolbar-title>
         </v-app-bar>
       <BottomNavigation/>  
-      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
+      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="600">
         <v-container class="bottom" >
             <v-item-group> 
             <v-row justify="space-around">
             <v-col  v-for="(company, index) in companies" :key="index" cols="12" md="4"> 
                 <v-hover >
-                  <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }"  style="border-radius: 10px;">
+                  <v-card :elevation=12  style="border-radius: 10px;">
                     <v-img :src="company.image" height="150px">
                     </v-img>
                     <v-footer class="white ma-1"  padless>

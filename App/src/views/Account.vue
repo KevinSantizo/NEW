@@ -7,11 +7,10 @@
             </v-avatar>
               <v-toolbar-title class="font title" style="top: 0.5em; left: 5em; position: absolute;">Kevin Santizo</v-toolbar-title>
                <v-toolbar-items style="top: 2em; left: 5.5em; position: absolute;">
-                <v-btn text small>News</v-btn>
+                <v-btn text small>Partidos</v-btn>
                 <v-divider inset vertical></v-divider>
-                <v-btn text small>Blog</v-btn>
+                <v-btn text small>Favoritas</v-btn>
                 <v-divider inset vertical></v-divider>
-                <v-btn text small>Music</v-btn>
                 <v-divider inset vertical></v-divider>
               </v-toolbar-items>
             <v-spacer>
@@ -23,67 +22,119 @@
               <BottomNavigation/>
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
             </div>
-            v
-            <div class="ma-3">
-              <span>hola</span>
-            </div>
-            <div class="ma-3">
-              <span>hola</span>
+             <div class="ma-3">
+              <span>Hello World</span>
             </div>
             <div class="ma-3">
-              <span>hola</span>
+              <span>Hello World</span>
             </div>
-
+             <div class="ma-3">
+              <span>Hello World</span>
+            </div>
+            <div class="ma-3">
+              <span>Hello World</span>
+            </div>
+             <div class="ma-3">
+              <span>Hello World</span>
+            </div>
       </v-sheet>
  </v-card>
 </template>

@@ -12,7 +12,7 @@
                 </v-btn>           
         </v-toolbar>
       <BottomNavigation/> 
-      <v-sheet id="scroll-area-1" class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620" >
+      <v-sheet id="scroll-area-1" class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="600" >
       <v-container class="bottom" >
       <v-layout row wrap>
         <v-flex xs12 sm6 lg3> 

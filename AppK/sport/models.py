@@ -72,7 +72,7 @@ class Schedule(models.Model):
         max_length=1,
         choices=SCHEDULE_STATUS,
         blank=True,
-        default='A',
+        default='1',
     )
 
     def __str__(self):

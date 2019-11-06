@@ -71,8 +71,8 @@
                             </v-hover>          
                           </v-slide-item>
                         </v-slide-group>
-                                </v-container>
-                              </v-sheet>
+                      </v-container>
+                    </v-sheet>
  </v-card>
   </template>
 
@@ -87,6 +87,7 @@ export default {
           },
         companyId: this.$route.params.companyId,
         company: [],
+        field: [],
         show: false,
         months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
@@ -138,6 +139,10 @@ export default {
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);
+        return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
+      }).then((response)=>{
+        this.field = response.data
+        console.log(this.field);
       }).catch((error)=>{
         console.log(error);
       })
