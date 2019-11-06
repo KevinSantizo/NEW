@@ -81,7 +81,7 @@
                                                 <img :src="implem.image" alt="implement">
                                               </v-avatar>
                                               <v-flex xs2 md1>
-                                                <input type="number" class="form-control form-control-sm" :id="'txt-'+implem.id" disabled  min=0 max=50  maxlength=3 >
+                                                <input type="number" style="border: 1px solid grey !important;" class="form-control form-control-sm" :id="'txt-'+implem.id" disabled  min=0 max=50  maxlength=3 >
                                               </v-flex>
                                             </v-layout>
                                             </div>
@@ -139,11 +139,13 @@ export default {
     },
     methods: {
         getField() {
-        const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
+        //const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
+        const path = `http://192.168.1.25:8000/sport/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
-        console.log(this.field);       
-        return axios.get('http://192.168.88.222:8000/sport/implements/')
+        console.log(this.field);     
+        //return axios.get('http://192.168.88.222:8000/sport/implements/')  
+        return axios.get('http://192.168.1.25:8000/sport/implements/')
       }).then((response)=>{
         this.implements = response.data
         console.log(this.implements);

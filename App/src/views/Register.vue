@@ -18,12 +18,14 @@
                         </div>
                         </div>
                          <label for="department"  class="font font-weight-medium body-2" >Departamento</label>
-                         <select class="form-control border body-2 transparent" style="border: 1px solid grey !important;" id="department">
-                            <option  v-for="(dep, i) in departments" :key=i :value="dep.id">{{ dep.name }}</option>
+                         <select v-model="selected" class="form-control border body-2 transparent" style="border: 1px solid grey !important;" >
+                            <option v-for="(dep, i) in departments" :key=i :id="dep.id" :value="dep.name">{{ dep.name }}</option>
+                            
                         </select>
+                        <label for="">This: {{selected}}</label><br>
                         <label for="town"  class="font font-weight-medium my-2 body-2">Municipio</label>
                          <select class="form-control  border body-2 transparent" style="border: 1px solid grey !important;" id="town">
-                            <option v-for="(municipio, i) in departments.town_set" :key="i" :value=" municipio.id ">{{ municipio.name }}</option>
+                            <option></option>
                         </select>
                          <div class="" >
                             <label for="phone"  class="font font-weight-medium my-2 body-2">Teléfono</label>
@@ -69,20 +71,29 @@ import axios from'axios'
          data(){
              return {
                  departments: [],   
+                 selected: '',
              }
          },
 
     methods: {
         getDepartments(){
-            const path = 'http://127.0.0.1:8000/sport/department-child/'
+            const path = 'http://192.168.1.25:8000/sport/department-child/'
             axios.get(path).then((response) => {
                 this.departments = response.data
                 console.log(this.departments);
             }).catch((error) => {
                 console.log(error);
             })
-        }
-    },
+        },
+       /*
+          getTown(){
+              for (const dep in this.departments) {
+                let x = document.getElementById(dep.id).selected
+                console.log(x);
+              }
+            }*/
+            
+        },
     created(){
         this.getDepartments()
     },

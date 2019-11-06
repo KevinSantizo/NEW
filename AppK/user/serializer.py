@@ -31,4 +31,5 @@ class DoTownSerializer(serializers.ModelSerializer):
     class Meta:
         model = Town
         fields = '__all__'
+        detph = 1
 

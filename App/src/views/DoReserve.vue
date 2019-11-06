@@ -135,11 +135,13 @@ export default {
   },
     methods: {
        getCompany() {
-      const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
+      //const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
+      const path = `http://192.168.1.25:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);
-        return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
+        //return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
+        return axios.get('http://192.168.1.25:8000/sport/field-schedule/')
       }).then((response)=>{
         this.field = response.data
         console.log(this.field);
