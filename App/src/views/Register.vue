@@ -6,41 +6,41 @@
                 <v-btn block  color="red darken-1 white--text" ><v-icon left size="25">mdi-google-plus</v-icon> REGÍSTRATE CON GOOGLE</v-btn>
                     <v-divider class="my-2"></v-divider>
                     <div style="margin-top: -1em !important;">
-                    <form>
+                    <form  @submit="onSubmit">
                         <div class="row">
                         <div class="col">
                             <label for="name" class="font font-weight-medium body-2">Nombre</label>
-                            <input type="text" class="form-control  border font body-2 transparent" style="border: 1px solid grey !important;" id="name" placeholder="Ingrese su nombre">
+                            <input type="text" name="first_name" v-model.trim="form.first_name" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="name" placeholder="Ingrese su nombre">
                         </div>
                         <div class=" col">
                             <label for="last_name"  class="font font-weight-medium body-2">Apellido</label>
-                            <input type="text" class="form-control  border font body-2 transparent" style="border: 1px solid grey !important;" id="last_name" placeholder="Ingrese su apellido">
+                            <input type="text" name="last_name" v-model.trim="form.last_name" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="last_name" placeholder="Ingrese su apellido">
                         </div>
                         </div>
-                         <label for="department"  class="font font-weight-medium body-2" >Departamento</label>
-                         <select v-model="selected" class="form-control border body-2 transparent" style="border: 1px solid grey !important;" >
-                            <option v-for="(dep, i) in departments" :key=i :id="dep.id" :value="dep.name">{{ dep.name }}</option>
-                            
-                        </select>
-                        <label for="">This: {{selected}}</label><br>
+                        <div class="" >
+                            <label for="username"  class="font font-weight-medium my-2 body-2">Nombre de Usuario</label>
+                            <input type="text" name="username" v-model.trim="form.username" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="username" placeholder="Elja un nombre de usuario">
+                        </div>
                         <label for="town"  class="font font-weight-medium my-2 body-2">Municipio</label>
-                         <select class="form-control  border body-2 transparent" style="border: 1px solid grey !important;" id="town">
-                            <option></option>
+                         <select name="town" v-model.trim="form.town" class="form-control  border body-2 transparent" required style="border: 1px solid grey !important;" id="town">
+                            <option v-for="(dep, i) in departments" :key=i :id="dep.id" :value="dep.id">{{ dep.name }}, {{dep.department.name}}</option>
                         </select>
+                        <!-- <label for="">This: {{selected}}</label><br>-->
+                        
                          <div class="" >
                             <label for="phone"  class="font font-weight-medium my-2 body-2">Teléfono</label>
-                            <input type="text" class="form-control  border font body-2 transparent" style="border: 1px solid grey !important;" id="phone" placeholder="Ingrese su teléfono">
+                            <input type="text" name="phone" v-model.trim="form.phone" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="phone" placeholder="Ingrese su teléfono">
                         </div>
                          <div class="" >
                             <label for="email"  class="font font-weight-medium my-2 body-2">Email</label>
-                            <input type="text" class="form-control  border font body-2 transparent" style="border: 1px solid grey !important;" id="email" placeholder="Ingrese su e-mail">
+                            <input type="email" name="email" v-model.trim="form.email" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="email" placeholder="Ingrese su e-mail">
                         </div>
                         <div class="" >
                             <label for="password"  class="font font-weight-medium my-2 body-2">Contraseña</label>
-                            <input type="password" class="form-control border font body-2 transparent" style="border: 1px solid grey !important;" id="password" placeholder="Ingrese su contraseña">
+                            <input type="password" name="password" v-model.trim="form.password" class="form-control border font body-2 transparent" required style="border: 1px solid grey !important;" id="password" placeholder="Ingrese su contraseña">
                         </div>
                         <v-row justify="center" class="my-1 ma-0">
-                            <v-btn block  color="light-green accent-4 white--text" class="font link my-3" router to="/home" >REGISTRARSE</v-btn>          
+                            <v-btn block  type="submit" color="light-green accent-4 white--text" class="font link my-3" >REGISTRARSE</v-btn>          
                         </v-row>
                     </form>
                     <v-divider class="my-1"></v-divider>
@@ -67,17 +67,26 @@
 
 <script>
 import axios from'axios'
+import swal from 'sweetalert'
     export default {
          data(){
              return {
                  departments: [],   
                  selected: '',
+                 form: {
+                     town: '',
+                     first_name: '',
+                     last_name:'',
+                     phone:'',
+                     email:'',
+                     password:'',
+                 }
              }
          },
 
     methods: {
         getDepartments(){
-            const path = 'http://192.168.1.25:8000/sport/department-child/'
+            const path = 'http://192.168.88.222:8000/user/towns/'
             axios.get(path).then((response) => {
                 this.departments = response.data
                 console.log(this.departments);
@@ -85,6 +94,23 @@ import axios from'axios'
                 console.log(error);
             })
         },
+        onSubmit(evt){
+            event.preventDefault()
+            const path = 'http://192.168.88.222:8000/user/do-customer/'
+            axios.post(path, this.form).then((response) => {
+                this.form.town = response.data.town
+                this.form.first_name = response.data.first_name
+                this.form.last_name = response.data.last_name
+                this.form.phone = response.data.phone
+                this.form.email = response.data.email
+                this.form.password = response.data.password
+                swal("Usuario creado exitosamente", "", "success")
+                this.$router.push({ name: 'login' })
+            }).catch((error) => {
+                swal("Usuario no creado", "", "error")  
+            })
+        }
+
        /*
           getTown(){
               for (const dep in this.departments) {

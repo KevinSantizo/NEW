@@ -7,14 +7,14 @@
                 <v-divider class="my-3"></v-divider>
                     <div>
                         <form>
-                            <span for="email" class="font body-2">E-mail</span>
-                            <input class="form-control transparent my-2 font body-2" type="text" id="email" placeholder="Ingrese su email" style="border: 1px solid grey !important;">
+                            <span for="username" class="font body-2">Username</span>
+                            <input class="form-control transparent my-2 font body-2" type="text" v-model.trim="form.username" name="username"   id="username" required placeholder="Ingrese su nombre de usuario" style="border: 1px solid grey !important;">
                             <span for="password" class="font body-2">Contraseña</span>
-                            <input class="form-control  transparent my-2 font body-2" type="text" id="password" placeholder="Ingrese su contraseña" style="border: 1px solid grey !important;">
-                            <v-btn block  color="light-green accent-4 white--text" class="font link my-3" router to="/home" >INICIA SESIÓN</v-btn>          
+                            <input class="form-control  transparent my-2 font body-2" type="password" v-model.trim="form.password" name="password" id="password" required placeholder="Ingrese su contraseña" style="border: 1px solid grey !important;">
+                            <v-btn @click="getToken()" block color="light-green accent-4 white--text" class="font link my-3" >INICIA SESIÓN</v-btn>          
                         </form>
                         <v-row justify="center" align="center" class="my-1">
-                            <router-link class="caption my-2 font" :to="{name: 'companies'}">¿Olvidaste tu contraseña?</router-link>
+                            <router-link class="caption my-2 font">¿Olvidaste tu contraseña?</router-link>
                         </v-row>
                         <v-divider></v-divider>
                     </div>
@@ -25,7 +25,7 @@
                         </div>
                         <v-divider inset vertical class="mx-1"></v-divider>
                         <div>
-                        <router-link class="caption font" :to="{name: 'register'}"><span> Regístrate</span></router-link>
+                        <router-link class="caption font" router :to="{name: 'register'}"><span> Regístrate</span></router-link>
                         </div>
                     </v-row>
                     <v-row justify="center" align="center" class="my-1">
@@ -39,19 +39,33 @@
 
 
 <script>
+    import axios from 'axios'
     export default {
-         data: () => ({
-      loading: false,
-      selection: 1,
-    }),
+         data (){
+             return {
+                 form:{
+                     username: '',
+                     password: '',
+                 },
+                loading: false,
+                selection: 1,
+                token: '',
+             }
+    },
 
     methods: {
-      reserve () {
-        this.loading = true
-
-        setTimeout(() => (this.loading = false), 2000)
+          getToken() {
+              alert('token')
+              const path = 'http://192.168.88.222:8000/api-token-auth/'
+              axios.post(path, this.form).then((response) =>{
+                  this.token = response.data
+                  console.log(token);
+              })
+          },
+          created(){
+              this.getToken()
+          },
       },
-    },
     }
 </script>
 

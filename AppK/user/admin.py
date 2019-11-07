@@ -5,7 +5,7 @@ from user.models import Customer, Department, Town
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'phone', 'email', 'address', 'password')
+    list_display = ('town', 'first_name', 'last_name', 'phone', 'email', 'password')
 
 
 @admin.register(Department)

@@ -17,9 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.models import User
+from rest_framework_jwt.views import (obtain_jwt_token, refresh_jwt_token, verify_jwt_token)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sport/', include('sport.urls')),
     path('user/', include('user.urls')),
+    path('api-token-auth/',  obtain_jwt_token, name='api-token-auth'),
+    path('refresh-token-auth/',  refresh_jwt_token, name='refresh'),
+    path('verify-token-auth/',  verify_jwt_token, name='refresh')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

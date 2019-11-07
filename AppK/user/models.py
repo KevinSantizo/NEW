@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser    
 
 # Create your models here.
 
@@ -19,14 +20,15 @@ class Town(models.Model):
         return self.name + ', ' + self.department.name
 
 
-class Customer(models.Model):
+class Customer(AbstractUser):
     town = models.ForeignKey(Town, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     phone = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
-    address = models.CharField(max_length=100)
     password = models.CharField(max_length=50, null=True)
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return self.first_name + '  ' + self.last_name
