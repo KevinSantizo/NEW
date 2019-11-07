@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from user.models import Customer, Department, Town
 from user.serializer import (
@@ -42,14 +43,6 @@ class DoTownViewSet(viewsets.ModelViewSet):
     serializer_class = DoTownSerializer
 
     
-class UserViewSet(viewsets.ModelViewSet):
+class UserCeateViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = CreateUserSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = CreateUserSerializer(data=request.data)  
-        if serializer.is_valid():
-            user = serializer.create(serializer.validated_data)
-            return Response('success')
-        else:
-            return Response(serializer.errors)

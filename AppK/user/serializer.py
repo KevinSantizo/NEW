@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from user.models import Customer, Department, Town
+from django.contrib.auth.hashers import make_password
 
 
-User = get_user_model()
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -40,7 +40,10 @@ class DoTownSerializer(serializers.ModelSerializer):
 
 class CreateUserSerializer(serializers.ModelSerializer):
     def create (self, validate_data):
-        user = User.objects.create_user(**validate_data)
+        hashed_pwd = make_password(password)
+        user = User.objects.create(**validate_data)
+        user.password = hashed_pwd
+        user.save()
         return user
 
     class Meta:
