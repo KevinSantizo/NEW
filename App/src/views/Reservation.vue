@@ -77,7 +77,7 @@
                                             <v-layout row wrap class="my-6" v-for="(implem, i) in this.implements" :key="i"  > 
                                               
                                               <input type="checkbox" class="chk pa-4 " @click="checkbox('chk-'+implem.id, 'txt-'+implem.id)" color="lime accent-3" :id="'chk-'+implem.id" :value="implem.name" :v-model="implem.name" >
-                                              <v-avatar size="20" class="ma-2" style="right: 0em; bottom: 1em;">
+                                              <v-avatar size="25" class="ma-2" style="right: 0em; bottom: 1em;">
                                                 <img :src="implem.image" alt="implement">
                                               </v-avatar>
                                               <v-flex xs2 md1>
@@ -140,12 +140,12 @@ export default {
     methods: {
         getField() {
         //const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
-        const path = `http://192.168.1.25:8000/sport/field-schedule/${this.fieldId}/`   
+        const path = `http://192.168.1.104:8000/sport/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         console.log(this.field);     
         //return axios.get('http://192.168.88.222:8000/sport/implements/')  
-        return axios.get('http://192.168.1.25:8000/sport/implements/')
+        return axios.get('http://192.168.1.104:8000/sport/implements/')
       }).then((response)=>{
         this.implements = response.data
         console.log(this.implements);

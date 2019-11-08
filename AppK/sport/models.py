@@ -30,10 +30,10 @@ class Field(models.Model):
         blank=True,
         default='1',
     )
-    price = models.CharField(max_length=75)
+    price = models.FloatField(null=True)
 
     def __str__(self):
-        return ' Type Field: ' + self.type + ', Price: ' + self.price + ', Company:' + self.company.name + ' - ' + self.company.town.name + ' - ' + self.company.town.department.name 
+        return ' Type Field: ' + self.type + ', Cancha: ' + self.name + ', Price: ' + str(self.price) + ', Company:' + self.company.name + ' - ' + self.company.town.name + ' - ' + self.company.town.department.name 
 
 
 class Company(models.Model):
@@ -95,5 +95,5 @@ class Implement(models.Model):
     image = models.ImageField(upload_to='pictures', null=True)
 
     def __str__(self):
-        return self.name + ' - ' + self.price + ' - ' + self.add
+        return self.name + ' - ' + str(self.price) + ' - ' + str(self.add)
     

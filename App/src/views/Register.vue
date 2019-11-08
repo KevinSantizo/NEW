@@ -87,7 +87,7 @@ import swal from 'sweetalert'
     methods: {
         getDepartments(){            
             //const path = 'http://192.168.88.222:8000/user/towns/'
-            const path = 'http://192.168.1.25:8000/user/towns/'
+            const path = 'http://192.168.1.104:8000/user/towns/'
             axios.get(path).then((response) => {
                 this.departments = response.data
                 console.log(this.departments);
@@ -97,7 +97,7 @@ import swal from 'sweetalert'
         },
         onSubmit(evt){
             event.preventDefault()
-            const path = 'http://192.168.1.25:8000/user/do-customer/'
+            const path = 'http://192.168.1.104:8000/user/do-customer/'
             //const path = 'http://192.168.88.222:8000/user/do-customer/'
             axios.post(path, this.form).then((response) => {
                 this.form.town = response.data.town

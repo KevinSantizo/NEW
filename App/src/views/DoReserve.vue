@@ -61,10 +61,10 @@
                               <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
                               <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
                               </v-card-title>                                
-                                <v-chip x-small label dark class="ma-2 font-weight-bold light-blue darken-4 font"  style="bottom: 2em; left: 0.5em;" >{{ field.price }}</v-chip>
+                                <v-chip x-small label dark class="ma-2 font-weight-bold back-ground font"  style="bottom: 2em; left: 0.5em;" >Q.{{ field.price }}</v-chip>
                              <v-row justify="end">
                              <v-card-actions style="position: absolute; bottom: -0.3em; right: -0.3em;">
-                              <v-btn dark small v-bind:to=" '/field/' +field.id+'/reservar' " class="link light-blue darken-4" >Reservar</v-btn>
+                              <v-btn dark small v-bind:to=" '/field/' +field.id+'/reservar' " class="link back-ground" >Reservar</v-btn>
                               </v-card-actions>
                             </v-row>
                             </v-card>
@@ -88,6 +88,7 @@ export default {
         companyId: this.$route.params.companyId,
         company: [],
         field: [],
+        resultado: {},
         show: false,
         months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
@@ -136,12 +137,12 @@ export default {
     methods: {
        getCompany() {
       //const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
-      const path = `http://192.168.1.25:8000/sport/field-company/${this.companyId}/`
+      const path = `http://192.168.1.104:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);
         //return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
-        return axios.get('http://192.168.1.25:8000/sport/field-schedule/')
+        return axios.get('http://192.168.1.104:8000/sport/field-schedule/')
       }).then((response)=>{
         this.field = response.data
         console.log(this.field);
@@ -149,6 +150,7 @@ export default {
         console.log(error);
       })
       },
+      
     },
     created(){
       this.getCompany()
@@ -177,6 +179,6 @@ export default {
      margin-bottom:  50px;
    }
  .back-ground {
-    background-color: #011427;
+    background-color: #011427 !important;
   }
 </style>

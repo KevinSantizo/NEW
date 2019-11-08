@@ -53,12 +53,12 @@
                         </v-slide-item>
                     </v-slide-group>
             <v-card-title style="margin-top: 0em;">
-            <span class="indigo--text font-weight-medium font">{{ company.name }} - {{company.town.name}}</span>
+            <span class="font-weight-medium font" style="color: red !important;">{{ company.name }} - {{company.town.name}}</span>
            <v-divider inset vertical class="mx-1 transparent">
            </v-divider>
-           <v-chip label color="indigo" outlined><span class="caption font">{{company.address }}, {{ company.town.name }} - {{ company.town.department.name}}, {{ company.town.department.description }}</span></v-chip>
+           <v-chip label outlined><span class="caption font font-color">{{company.address }}, {{ company.town.name }} - {{ company.town.department.name}}</span></v-chip>
         </v-card-title>
-                      <div class="pa-2 caption font">
+                      <div class="pa-2 caption font font-color">
                         <em>Portions of the materials used are trademarks and/or copyrighted works of Epic Games, Inc. All rights reserved by Epic. This material is not official and is not endorsed by Epic.</em>
                     </div>
             </v-card>
@@ -152,7 +152,7 @@ export default {
     methods: {
         getCompany(){
         //const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`   
-        const path = `http://192.168.1.25:8000/sport/field-company/${this.companyId}/`   
+        const path = `http://192.168.1.104:8000/sport/field-company/${this.companyId}/`   
         axios.get(path).then((response)=> {
         this.company = response.data
         console.log(this.company);
@@ -179,5 +179,8 @@ export default {
 }
 .back-ground {
     background-color: #011427;
+  }
+  .font-color {
+    color: #011427 !important;
   }
 </style>

@@ -3,11 +3,7 @@
         <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
           <v-layout row wrap>
             <v-flex xs12 md12>
-                <div class="my-2">
-                <v-btn icon class="link" router to="/reserve">
-                <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
-                </v-btn>
-              </div>
+               
               <v-row justify="center" align="center">
                 <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
               </v-row>
@@ -17,7 +13,7 @@
                 <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
       <BottomNavigation/>
-      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="600">
+      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
       <v-container class="bottom">
       <v-item-group v-model="selected" multiple> 
         <v-row  justify="space-around">
@@ -50,11 +46,11 @@
                   </v-img>
                 </v-item>
                     <v-card-actions>
-                      <div class="ma-2 ">
+                      <div class="">
                         <v-row>
                           <div>
-                            <span class="ma-3 font-weight-medium font" >Email: {{ company.email }}</span><br>
-                              <span class="ma-3 caption font-weight-medium font">Tel. {{ company.phone }}</span>
+                            <span class="ma-5 font-weight-bold font font-color"  >Email: {{ company.email }}</span><br>
+                              <span class="ma-5 caption font-weight-bold font font-color">Tel. {{ company.phone }}</span>
                           </div>
                         </v-row>
                       </div>
@@ -96,7 +92,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.1.25:8000/sport/companies/'
+      const path = 'http://192.168.1.104:8000/sport/companies/'
       //const path = 'http://192.168.88.222:8000/sport/companies/'
       axios.get(path).then((response)=> {
         this.companies = response.data
@@ -156,7 +152,7 @@ export default {
      bottom: -0.3em;
    }
    .bottom {
-     margin-bottom: 50px;
+     margin-bottom: 75px;
    }
    .font {
      font-family: 'Ubuntu', sans-serif;
@@ -166,5 +162,8 @@ export default {
    }
    .back-ground {
     background-color: #011427;
+  }
+  .font-color {
+    color: #011427 !important;
   }
 </style>
