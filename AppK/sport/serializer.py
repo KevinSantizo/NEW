@@ -14,7 +14,7 @@ class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
         fields = '__all__'
-        depth = 1
+        depth = 5
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -90,3 +90,4 @@ class CountScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = '__all__'
+        

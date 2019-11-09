@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import routers
+from datetime import datetime
+import time
 from sport.models import Reservation, Field, Company, Schedule, Implement
 from user.models import Department, Town
 from sport.serializer import (
@@ -104,7 +106,11 @@ class ImplementViewSet(viewsets.ModelViewSet):
 
 
 class CountScheduleViewSet(viewsets.ModelViewSet):
+    serializer_class = CountScheduleSerializer
     permission_classes = []
     authentication_classes = []
-    queryset = Schedule.objects.filter(status__exact='2')
-    serializer_class = CountScheduleSerializer
+    def get_queryset(self):
+        now = datetime.now()
+        start_time = self.request.start_time
+        if start_time != now.today().hour:
+            return Schedule.objects.filter(start_time__gte=start_time)

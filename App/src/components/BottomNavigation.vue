@@ -1,20 +1,23 @@
 <template>
-  <v-bottom-navigation class="back-ground" dark absolute height=50>
+  <v-bottom-navigation class="back-ground border" dark absolute height=60>
     <v-btn class="link" router to="/home" >
-      <span class="caption font-weight-bold font">Inicio</span>
-      <v-icon size=20>mdi-home</v-icon>
+      <!--<span class="caption font-weight-bold font">Inicio</span>-->
+      <v-icon app text size=30>mdi-home-outline</v-icon>
     </v-btn>
-    <v-btn class="link" router to="/companies" >
-      <span class="caption font-weight-bold font">Compañías</span>
-      <v-icon size=20>mdi-domain</v-icon>
+    <v-spacer></v-spacer>
+    <v-btn class="link">
+      <!--<span class="caption font-weight-bold font">Partidos</span>-->
+      <v-icon size=30>mdi-soccer</v-icon>
     </v-btn>
-     <v-btn class="link" router to="/reserve" >
-      <span  class="caption font-weight-bold font" >Reservar</span>
-      <v-icon size=20>mdi-calendar</v-icon>
+    <v-spacer></v-spacer>
+     <v-btn class="link"  router to="/companies" >
+      <!--<span  class="caption font-weight-bold font">Torneos</span>-->
+      <v-icon size=30>mdi-domain</v-icon>
     </v-btn>
+    <v-spacer></v-spacer>
     <v-btn class="link" router to="/account" >
-      <span class="caption font-weight-bold font">Mi Perfil</span>
-      <v-icon size=20>mdi-account</v-icon>
+      <!--<span class="caption font-weight-bold font">Mi Perfil</span>-->
+      <v-icon size=30>mdi-account-outline</v-icon>
     </v-btn>
 
   </v-bottom-navigation>
@@ -84,12 +87,15 @@ export default {
      bottom: -0.3em;
    }
    .bottom {
-     margin-bottom:  10px;
+     position: relative;
    }
    .link {
      text-decoration: none;
    }
    .back-ground {
     background-color: #011427;
+  }
+  .border {
+    border-radius: 50px 50px 0px 0px;
   }
 </style>

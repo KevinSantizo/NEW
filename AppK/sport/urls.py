@@ -31,6 +31,6 @@ router.register('town-company', TownChildViewSet)
 router.register('do-schedule', DoScheduleViewSet)
 router.register('field-schedule', FieldChildViewSet)
 router.register('implements', ImplementViewSet)
-router.register('count', CountScheduleViewSet)
+router.register('count', CountScheduleViewSet,  basename='CountSchedule')
 
 urlpatterns = router.urls
