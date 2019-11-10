@@ -41,7 +41,7 @@
                                           
                                           <v-chip-group column multiple active-class="lime accent-3 black--text" >
                                             <v-row justify="space-around" class="ma-2">
-                                            <v-chip small v-for="(time, i)  in field.schedules" :key="i" v-if="time.status==2 && time.status <= hora">
+                                            <v-chip small v-for="(time, i)  in field.schedules" :key="i" v-if="time.status==2">
                                               {{ time.start_time }}
                                             </v-chip>
                                             </v-row>
@@ -111,6 +111,7 @@ export default {
           field: [ ],
           company: [],
           implements: [ ],
+          schedules: [ ],
           hora: {},
           enabled: false,
           months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
@@ -141,7 +142,7 @@ export default {
     methods: {
         getField() {
         //const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
-        const path = `http://172.20.10.2:8000/sport/field-schedule/${this.fieldId}/`   
+        const path = `http://192.168.8.205:8000/sport/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         console.log(this.field); 
@@ -151,10 +152,15 @@ export default {
         console.log(this.hora);
             
         //return axios.get('http://192.168.88.222:8000/sport/implements/')  
-        return axios.get('http://172.20.10.2:8000/sport/implements/')
+        return axios.get('http://192.168.8.205:8000/sport/implements/')
       }).then((response)=>{
         this.implements = response.data
         console.log(this.implements);
+        
+        return axios.get('http://192.168.8.205:8000/sport/count/')
+      }).then((response) => {
+        this.schedules = response.data
+        console.log(this.schedules);
         
       }).catch((error) => {
           console.log(error);

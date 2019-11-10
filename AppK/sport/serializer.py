@@ -63,6 +63,13 @@ class DoScheduleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CountScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
+        depth = 4
+        
+
 class FieldChildSerializer(serializers.ModelSerializer):
     schedules = DoScheduleSerializer(many=True)
     class Meta:
@@ -85,9 +92,3 @@ class ImplementSerializer(serializers.ModelSerializer):
         model = Implement
         fields = '__all__'
 
-
-class CountScheduleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Schedule
-        fields = '__all__'
-        

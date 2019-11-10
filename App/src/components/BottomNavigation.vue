@@ -2,22 +2,22 @@
   <v-bottom-navigation class="back-ground border" dark absolute height=60>
     <v-btn class="link" router to="/home" >
       <!--<span class="caption font-weight-bold font">Inicio</span>-->
-      <v-icon app text size=30>mdi-home-outline</v-icon>
+      <v-icon app text size=40>mdi-home-outline</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
     <v-btn class="link">
       <!--<span class="caption font-weight-bold font">Partidos</span>-->
-      <v-icon size=30>mdi-soccer</v-icon>
+      <v-icon size=40>mdi-soccer</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
      <v-btn class="link"  router to="/companies" >
       <!--<span  class="caption font-weight-bold font">Torneos</span>-->
-      <v-icon size=30>mdi-domain</v-icon>
+      <v-icon size=40>mdi-domain</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
     <v-btn class="link" router to="/account" >
       <!--<span class="caption font-weight-bold font">Mi Perfil</span>-->
-      <v-icon size=30>mdi-account-outline</v-icon>
+      <v-icon size=40>mdi-account-outline</v-icon>
     </v-btn>
 
   </v-bottom-navigation>
