@@ -1,7 +1,6 @@
 from rest_framework import viewsets
 from rest_framework import routers
-from datetime import datetime
-import time
+from datetime import datetime, time
 from sport.models import Reservation, Field, Company, Schedule, Implement
 from user.models import Department, Town
 from sport.serializer import (
@@ -111,4 +110,4 @@ class CountScheduleViewSet(viewsets.ModelViewSet):
     authentication_classes = []
     def get_queryset(self):
         now = datetime.now()
-        return Schedule.objects.filter(start_time__gte=now)
+        return Schedule.objects.filter(start_time__gte=now.time())

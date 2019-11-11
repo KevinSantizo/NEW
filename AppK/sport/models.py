@@ -61,8 +61,8 @@ class Reservation(models.Model):
 
 
 class Schedule(models.Model):
-    field = models.ForeignKey(Field, related_name='schedules', on_delete=models.CASCADE)
-    start_time = models.TimeField()
+    field = models.ForeignKey(Field, related_name='schedules', on_delete=models.CASCADE, null=True)
+    start_time = models.TimeField(null=True)
     date = models.DateField(null=True)
     SCHEDULE_STATUS = (
         ('1', 'Reserved'),
