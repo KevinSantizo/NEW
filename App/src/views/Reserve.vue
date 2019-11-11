@@ -78,7 +78,7 @@ export default {
     methods: {
       getCompanies() {
       //const path = 'http://192.168.88.222:8000/sport/field-company/'
-      const path = 'http://192.168.8.205:8000/sport/field-company/'
+      const path = 'http://192.168.1.109:8000/sport/field-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);

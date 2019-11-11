@@ -142,7 +142,7 @@ export default {
     methods: {
         getField() {
         //const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
-        const path = `http://192.168.8.205:8000/sport/field-schedule/${this.fieldId}/`   
+        const path = `http://192.168.1.109:8000/sport/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         console.log(this.field); 
@@ -152,7 +152,7 @@ export default {
         console.log(this.hora);
             
         //return axios.get('http://192.168.88.222:8000/sport/implements/')  
-        return axios.get('http://192.168.8.205:8000/sport/implements/')
+        return axios.get('http://192.168.1.109:8000/sport/implements/')
       }).then((response)=>{
         this.implements = response.data
         console.log(this.implements);
