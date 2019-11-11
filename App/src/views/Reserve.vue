@@ -69,7 +69,6 @@ export default {
         dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
         activeBtn: 1,
         showNav: true,
-        color: false
         }
     },
      components: {

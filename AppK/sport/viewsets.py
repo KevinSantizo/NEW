@@ -110,4 +110,5 @@ class CountScheduleViewSet(viewsets.ModelViewSet):
     authentication_classes = []
     def get_queryset(self):
         now = datetime.now()
+        #Not function:(
         return Schedule.objects.filter(start_time__gte=now.time())
