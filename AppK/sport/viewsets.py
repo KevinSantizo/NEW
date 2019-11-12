@@ -90,6 +90,15 @@ class DoScheduleViewSet(viewsets.ModelViewSet):
     serializer_class = DoScheduleSerializer
 
 
+class CountScheduleViewSet(viewsets.ModelViewSet):
+    serializer_class = CountScheduleSerializer
+    permission_classes = []
+    authentication_classes = []
+    def get_queryset(self):
+        now = datetime.now()
+        return Schedule.objects.filter(start_time__gte=now, status__exact=2)
+
+
 class FieldChildViewSet(viewsets.ModelViewSet):
     permission_classes = []
     authentication_classes = []
@@ -102,13 +111,3 @@ class ImplementViewSet(viewsets.ModelViewSet):
     authentication_classes = []
     queryset = Implement.objects.all()
     serializer_class = ImplementSerializer
-
-
-class CountScheduleViewSet(viewsets.ModelViewSet):
-    serializer_class = CountScheduleSerializer
-    permission_classes = []
-    authentication_classes = []
-    def get_queryset(self):
-        now = datetime.now()
-        #Not function:(
-        return Schedule.objects.filter(start_time__gte=now.time())

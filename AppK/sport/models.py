@@ -54,6 +54,7 @@ class Reservation(models.Model):
     field_reserve = models.ForeignKey(Field, on_delete=models.CASCADE)
     implement = models.ForeignKey('Implement', on_delete=models.CASCADE, null=True)
     schedule_date = models.DateField(null=True)
+    total = models.FloatField(null=True)
 
     def __str__(self):
         return  'Customer: ' + self.customer_reserve.first_name + ' --- Type Field: --- ' + self.field_reserve.type + ' --- Date Reserved: --- ' \

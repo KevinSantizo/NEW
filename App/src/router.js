@@ -9,7 +9,7 @@ import Register from './views/Register'
 import InfoCompany from '@/views/InfoCompany'
 import Reservation from '@/views/Reservation'
 import Account from '@/views/Account'
-
+import Test from '@/views/Test'
 
 Vue.use(Router)
 
@@ -25,6 +25,7 @@ export default new Router({
     { path: '/register', name:'register', component: Register},
     { path:'/companies/:companyId/info' , name:'InfoCompany', component: InfoCompany},
     { path:'/field/:fieldId/reservar', name:'Reservation', component: Reservation},
-    { path:'/account', name: 'account', component: Account}
+    { path:'/account', name: 'account', component: Account},
+    { path:'/test', name: 'test',  component: Test}
   ]
 })

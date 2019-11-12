@@ -13,7 +13,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('schedule', 'customer_reserve', 'field_reserve', 'implement', 'schedule_date')
+    list_display = ('schedule', 'customer_reserve', 'field_reserve', 'implement', 'schedule_date', 'total')
 
 
 @admin.register(Schedule)

@@ -48,7 +48,7 @@
             </v-card-actions>
           </div>
           </v-row>
-                        <v-slide-group >
+                        <v-slide-group style="bottom: 1.5em;">
                           <v-slide-item v-for="(field, i ) in company.fields" :key="i">
                           <v-hover >
                             <v-card width="175" height="215" class="ma-2 indigo lighten-5" :elevation=6 style="border-radius: 10px;">
@@ -137,12 +137,12 @@ export default {
     methods: {
        getCompany() {
       //const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
-      const path = `http://192.168.1.109:8000/sport/field-company/${this.companyId}/`
+      const path = `http://172.20.10.4:8000/sport/field-company/${this.companyId}/`
       axios.get(path).then((response)=> {
         this.company = response.data;
         console.log(response.data);
         //return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
-        return axios.get('http://192.168.1.109:8000/sport/field-schedule/')
+        return axios.get('http://172.20.10.4:8000/sport/field-schedule/')
       }).then((response)=>{
         this.field = response.data
         console.log(this.field);

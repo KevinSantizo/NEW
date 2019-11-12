@@ -1,5 +1,5 @@
 <template>
-    <v-card class="overflow-hidden">
+    <v-card class="overflow-hidden ">
         <v-app-bar absolute dark flat text scroll-target="#playground-example" extended  collapse-on-scroll class="back-ground">
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
         <v-toolbar-title style="margin-top: 2em;">
@@ -162,7 +162,6 @@
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
-
   export default {
     data: () => ({
         modalShow: false,
@@ -175,19 +174,19 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
     methods: {
       getAll(){ 
-      const path = 'http://192.168.1.109:8000/sport/reservations/'
+      const path = 'http://172.20.10.4:8000/sport/reservations/'
       //const path = 'http://192.168.88.222:8000/sport/reservations/'
       axios.get(path).then((response) => {
         this.reservations = response.data
         console.log(this.reservations);
         
-        return axios.get('http://192.168.1.109:8000/sport/companies/')
+        return axios.get('http://172.20.10.4:8000/sport/companies/')
         //return axios.get('http://192.168.88.222:8000/sport/companies/');
         }).then((response) => {
           this.companies = response.data
           console.log(this.companies);
           
-          return axios.get('http://192.168.1.109:8000/sport/fields/')
+          return axios.get('http://172.20.10.4:8000/sport/fields/')
         }).then((response) => {
           this.fields = response.data
           console.log(this.fields);
@@ -203,7 +202,6 @@ import BottomNavigation from '@/components/BottomNavigation'
     created(){
       this.getAll()
     },
-
 }
 </script>
 
@@ -230,7 +228,6 @@ import BottomNavigation from '@/components/BottomNavigation'
    .container {
      max-width: 100%;
      max-height: 100%;
-
    }
    .description {
      position: absolute;
