@@ -21,7 +21,7 @@
     </v-app-bar>
   <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
     <v-container class="bottom" >
-      <form>
+      <form @submit="onSubmit">
         <v-hover>
           <v-card :elevation=12 style="border-radius: 25px;">
             <v-card-title class="back-ground">
@@ -33,23 +33,28 @@
             </v-card-title>
           <v-card-text>
             <span class="black--text font-weight-medium font">{{field.company.name}} , {{field.company.town.name}}</span><br>
+          <v-row justify="center">
             <div class="form-group" style="width: 50%;">
               <label for="customer">Cliente</label>
-                    <select class="form-control font" id="customer"  name="customer_reserve" style="border: 1px solid #011427 !important;" >
+                    <select name="customer_reserve"  class="form-control font" v-model.trim="form.customer_reserve" style="border: 1px solid #011427 !important;" >
                       <option  v-for="(customer, i)  in customers" :key="i" :id="customer.id" :value="customer.id" >{{customer.first_name}} {{customer.last_name}}</option>
                     </select>
-                    <input type="hidden" name="field_reserve" class="form-control" :value="field.id" readonly>
+                    <select  name="field_reserve"  class="form-control font" v-model.trim="form.field_reserve" style="border: 1px solid #011427 !important;" >
+                      <option :id="field.id" :value="field.id" selected>{{field.name}} {{field.price}}</option>
+                    </select>
+                    <!--<input type="text" disabled name="field_reserve" :value="field.id" v-model.trim="form.field_reserve" class="form-control"  readonly>-->
               </div>
+           </v-row>  
           <v-hover >
-            <v-card max-width="100%" class="mx-auto" color="back-ground" >
+            <v-card max-width="100%" height=100 color="back-ground" >
               <v-card-text>
                 <v-row justify="center">
-                  <div class="title white--text font-weight-medium font">Horarios</div>
+                  <div class="subtitle-1 white--text font-weight-medium font">Horarios</div>
                 </v-row>
 
                 <v-row justify="center" align="center"> 
                   <div class="form-group" style="width: 50%;">
-                    <select class="form-control  transparent font"  id="exampleFormControlSelect1" style="border: 1px solid white !important;" >
+                    <select class="form-control transparent font" name="schedule" v-model.trim="form.schedule" id="exampleFormControlSelect1" style="border: 1px solid white !important;" >
                       <option  v-for="(time, i)  in schedules" :key="i" :id="time.id" :value="time.id" v-if="time.field.id == field.id " >{{ time.start_time }}</option>
                     </select>
                   </div>
@@ -68,7 +73,7 @@
       <v-divider></v-divider>
       <div class="form-group">
         <label for="date">Fecha:</label>
-          <input type="date" class="form-control" id="date" >
+          <input type="date" name="schedule_date" v-model.trim="form.schedule_date" class="form-control" id="date" >
         </div>                                    
       <!--<span class="black--text font-weight-medium font">Resto de la semana <span class="caption grey--text" >(Próximamente)</span></span>
       <v-slide-group show-arrows>
@@ -92,22 +97,25 @@
       </v-slide-item>
       </v-slide-group> -->  
         <v-divider class="ma-1"></v-divider>                                 
-         <div class=" black--text font-weight-medium font">Extras: <span class="ma-2 font "  v-for="(implement, i) in this.implements" :key="i">{{ implement.name }} +Q{{ implement.price}}</span></div>        
+         <!--<div class=" black--text font-weight-medium font">Extras: <span class="ma-2 font "  v-for="(implement, i) in this.implements" :key="i">{{ implement.name }} +Q{{ implement.price}}</span></div>        
           <v-row v-for="(implem, i) in this.implements" :key="i"  class="my-3">
             <v-row   justify="center">
               <input type="checkbox" class="chk pa-4 checkbox-label" @click="checkbox('chk-'+implem.id, 'txt-'+implem.id)" :id="'chk-'+implem.id" :value="implem.name" :v-model="implem.name">
                 <v-avatar size="30" class="ma-2" style="right: 0em; bottom: 0.5em;">
                   <img :src="implem.image" alt="implement">
                 </v-avatar>
-              <input type="number" style="border: 1px solid grey !important; width: 75px;" class="form-control form-control-sm" :id="'txt-'+implem.id" disabled  min=0 max=50  maxlength=3 placeholder="Cant.">
+              <input type="number" input="test()" style="border: 1px solid grey !important; width: 75px;" class="form-control form-control-sm" :id="'txt-'+implem.id" disabled  min=0 max=50  placeholder="Cant.">
             </v-row>
-          </v-row>
-            <input type="text"  hidden name="total" :value="field.price" readonly class="subtitle-1" >Total: {{ field.price }}
+          </v-row>-->
+          <select   name="total"  class="form-control font" v-model.trim="form.total" style="border: 1px solid #011427 !important;" >
+            <option :value="field.price" selected>{{field.price}}</option>
+          </select>
+        <span>Total: {{ field.price }}</span>
       </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
             <v-btn color="red accent-4"  class="link" outlineded text  router to='/home'>Cancelar</v-btn>
-            <v-btn color="light-green accent-4" outlined>Guardar</v-btn>
+            <v-btn type="submit" color="light-green accent-4" outlined>Guardar</v-btn>
         </v-card-actions>
       </v-card>
       </v-hover>
@@ -120,6 +128,8 @@
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert'
+
 export default {
     data () {
        return {
@@ -165,22 +175,22 @@ export default {
     methods: {
         getField() {
         //const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
-        const path = `http://192.168.1.109:8000/sport/field-schedule/${this.fieldId}/`   
+        const path = `http://192.168.1.104:8000/sport/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         console.log(this.field);           
         //return axios.get('http://192.168.88.222:8000/sport/implements/')  
-        return axios.get('http://192.168.1.109:8000/sport/implements/')
+        return axios.get('http://192.168.1.104:8000/sport/implements/')
       }).then((response)=>{
         this.implements = response.data
         console.log(this.implements);
         
-        return axios.get('http://192.168.1.109:8000/sport/count/')
+        return axios.get('http://192.168.1.104:8000/sport/count/')
       }).then((response) => {
         this.schedules = response.data
         console.log(this.schedules);
         
-        return axios.get('http://192.168.1.109:8000/user/do-customer/')
+        return axios.get('http://192.168.1.104:8000/user/do-customer/')
       }).then((response)=>{
         this.customers = response.data
         console.log(this.customers);
@@ -199,6 +209,23 @@ export default {
             elementNum.disabled = true
           }
         },
+        onSubmit(evt){
+            event.preventDefault()
+            const path = 'http://192.168.1.104:8000/sport/do-reservation/'
+            //const path = 'http://192.168.88.222:8000/user/do-customer/'
+            axios.post(path, this.form).then((response) => {
+                this.form.schedule = response.data.schedule
+                this.form.total = response.data.total
+                this.form.schedule = response.data.schedule
+                this.form.customer_reserve = response.data.customer_reserve
+                this.form.field_reserve = response.data.field_reserve
+                this.form.implement = response.data.implement
+                swal("Reservación creada exitosamente", "", "success")
+                this.$router.push({ name: 'home' })
+            }).catch((error) => {
+                swal("Reservación no creada", "", "error")  
+            })
+        }
     },
     created(){
       this.getField()
