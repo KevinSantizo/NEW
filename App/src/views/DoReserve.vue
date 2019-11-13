@@ -1,23 +1,23 @@
 <template>
- <v-card class="overflow-hidden mx-auto back-ground">
-        <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
-          <v-layout row wrap>
-            <v-flex xs12 md12>
-                <div class="my-2">
-                <v-btn icon class="link" router to="/reserve">
-                <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
-                </v-btn>
-              </div>
-              <v-row justify="center" align="center">
-                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
-              </v-row>
-            </v-flex>
-          </v-layout>
-          <v-divider inset class="transparent" vertical></v-divider>
-                <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
-        </v-app-bar>
-      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-        <v-container class="bottom" >
+  <v-card class="overflow-hidden mx-auto back-ground">
+    <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
+      <v-layout row wrap>
+        <v-flex xs12 md12>
+          <div class="my-2">
+            <v-btn icon class="link" router to="/reserve">
+              <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
+            </v-btn>
+          </div>
+          <v-row justify="center" align="center">
+            <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+          </v-row>
+        </v-flex>
+      </v-layout>
+      <v-divider inset class="transparent" vertical></v-divider>
+      <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
+    </v-app-bar>
+  <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
+    <v-container class="bottom" >
       <v-slide-group>
         <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
           <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
@@ -27,54 +27,54 @@
           </v-card>
         </v-slide-item>
       </v-slide-group>
-            <v-row justify="center">
-          <div class="col-md-4 pa-1">
-            <v-img class="text-left ma-2 my-1" :src="company.image" height="200"  style="border-radius: 10px;">
-              <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
-            </v-img>
-            <v-card-actions>
-              <v-row justify="left" no-gutters>
-                <div>
-                  <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon><span class="subtitle-2 ma-2 font">{{ company.name }}, {{ company.address }}- {{ company.town.name }}, {{ company.town.department.name}}</span>
-                </div> 
-                    <span>
-                      <v-icon size=15 color="amber accent-4">mdi-star</v-icon> 
-                      <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
-                      <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
-                      <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
-                      <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
-                    </span>
-              </v-row>
-            </v-card-actions>
-          </div>
-          </v-row>
-                        <v-slide-group style="bottom: 1.5em;">
-                          <v-slide-item v-for="(field, i ) in company.fields" :key="i">
-                          <v-hover >
-                            <v-card width="175" height="215" class="ma-2 indigo lighten-5" :elevation=6 style="border-radius: 10px;">
-                              <v-img class="white--text align-end" height="120" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
-                                <v-card-title style="position: absolute; top: 3.7em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
-                              </v-img>
-                              <v-card-subtitle style="position: absolute; top: 8.7em;" class="caption font font-weight-medium">Horarios disponibles:</v-card-subtitle>
-                              <v-card-title>
-                              <span v-if="field.type == 1" class="caption font-weight-bold font">5 Jugadores</span>
-                              <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
-                              <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
-                              </v-card-title>                                
-                                <v-chip x-small label dark class="ma-2 font-weight-bold back-ground font"  style="bottom: 2em; left: 0.5em;" >Q.{{ field.price }}</v-chip>
-                             <v-row justify="end">
-                             <v-card-actions style="position: absolute; bottom: -0.3em; right: -0.3em;">
-                              <v-btn dark small v-bind:to=" '/field/' +field.id+'/reservar' " class="link back-ground" >Reservar</v-btn>
-                              </v-card-actions>
-                            </v-row>
-                            </v-card>
-                            </v-hover>          
-                          </v-slide-item>
-                        </v-slide-group>
-                      </v-container>
-                    </v-sheet>
- </v-card>
-  </template>
+    <v-row justify="center">
+      <div class="col-md-4 pa-1">
+        <v-img class="text-left ma-2 my-1" :src="company.image" height="200"  style="border-radius: 10px;">
+          <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
+        </v-img>
+      <v-card-actions>
+        <v-row justify="left" no-gutters>
+          <div>
+            <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon><span class="subtitle-2 ma-2 font">{{ company.name }}, {{ company.address }}- {{ company.town.name }}, {{ company.town.department.name}}</span>
+          </div> 
+          <span>
+            <v-icon size=15 color="amber accent-4">mdi-star</v-icon> 
+            <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
+            <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
+            <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
+            <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
+          </span>
+        </v-row>
+      </v-card-actions>
+      </div>
+    </v-row>
+      <v-slide-group style="bottom: 1em;">
+        <v-slide-item v-for="(field, i ) in company.fields" :key="i">
+          <v-hover >
+            <v-card width="175" height="215" class="ma-2 indigo lighten-5" :elevation=6 style="border-radius: 10px;">
+              <v-img class="white--text align-end" height="120" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
+                <v-card-title style="position: absolute; top: 3.7em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
+              </v-img>
+            <v-card-subtitle style="position: absolute; top: 8.7em;" class="caption font font-weight-medium">Tipo de Cancha</v-card-subtitle>
+            <v-card-title>
+              <span v-if="field.type == 1" class="caption font-weight-bold font">5 Jugadores</span>
+              <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
+              <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
+            </v-card-title>                                
+              <v-chip x-small label dark class="ma-2 font-weight-bold back-ground font"  style="bottom: 2em; left: 0.5em;" >Q.{{ field.price }}</v-chip>
+              <v-row justify="end">
+                <v-card-actions style="position: absolute; bottom: -0.3em; right: -0.3em;">
+                  <v-btn dark small v-bind:to=" '/field/' +field.id+'/reservar' " class="link back-ground" >Reservar</v-btn>
+                </v-card-actions>
+            </v-row>
+            </v-card>
+          </v-hover>          
+        </v-slide-item>
+      </v-slide-group>
+    </v-container>
+  </v-sheet>
+  </v-card>
+</template>
 
 <script>
 import axios from 'axios'
@@ -111,7 +111,6 @@ export default {
           { src: "http://www.eje21.com.co/site/wp-content/uploads/2016/04/Cancha-sintetica-de-la-terminal-de-manizales.jpg"},
           { src: "https://files.rcnradio.com/public/styles/img_galeria/public/2019-02/whatsapp_image_2019-02-11_at_4.22.50_pm_1_0.jpeg?itok=pjSrd8tA"}
         ],
-  
       times: [
         '12:00 PM',
         '1:00 PM',
@@ -136,13 +135,13 @@ export default {
   },
     methods: {
        getCompany() {
-      //const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
-      const path = `http://192.168.1.109:8000/sport/field-company/${this.companyId}/`
-      axios.get(path).then((response)=> {
-        this.company = response.data;
-        console.log(response.data);
-        //return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
-        return axios.get('http://192.168.1.109:8000/sport/field-schedule/')
+        //const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
+        const path = `http:///127.0.0.1:8000/sport/field-company/${this.companyId}/`
+        axios.get(path).then((response)=> {
+          this.company = response.data;
+          console.log(response.data);
+          //return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
+          return axios.get('http:///127.0.0.1:8000/sport/field-schedule/')
       }).then((response)=>{
         this.field = response.data
         console.log(this.field);
@@ -150,7 +149,6 @@ export default {
         console.log(error);
       })
       },
-      
     },
     created(){
       this.getCompany()
@@ -166,7 +164,6 @@ export default {
   .font {
      font-family: 'Ubuntu', sans-serif;
    }
-  
    .link {
      text-decoration: none;
    }

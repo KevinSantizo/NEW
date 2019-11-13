@@ -37,12 +37,18 @@
             <div class="form-group" style="width: 50%;">
               <label for="customer">Cliente</label>
                     <select name="customer_reserve"  class="form-control font" v-model.trim="form.customer_reserve" style="border: 1px solid #011427 !important;" >
+                      <option value="" disabled selected>Elija un Cliente</option>
                       <option  v-for="(customer, i)  in customers" :key="i" :id="customer.id" :value="customer.id" >{{customer.first_name}} {{customer.last_name}}</option>
                     </select>
-                    <select  name="field_reserve"  class="form-control font" v-model.trim="form.field_reserve" style="border: 1px solid #011427 !important;" >
-                      <option :id="field.id" :value="field.id" >{{field.name}} {{field.price}}</option>
+                    <select name="field_reserve"  class="form-control font my-3" v-model.trim="form.field_reserve" style="border: 1px solid #011427 !important;" >
+                      <option value="" disabled selected>Seleccione la Cancha</option>
+                      <option   :id="field.id" :value="field.id" v-if="field.type == 1">Cancha {{ field.name }} de 5 Jugadores</option>
+                      <option   :id="field.id" :value="field.id" v-else-if="field.type == 2">Cancha {{ field.name }} de 7 Jugadores</option>
+                      <option   :id="field.id" :value="field.id" v-else >Cancha {{ field.name }} de 11Jugadores</option>
+
                     </select>
-                    <!--<input type="text" disabled name="field_reserve" :value="field.id" v-model.trim="form.field_reserve" class="form-control"  readonly>-->
+                      <!--<input type="number" :id="field.id" name="field_reserve" :value="field.id" v-model.trim="form.field_reserve" >
+                    <input type="text" disabled name="field_reserve" :value="field.id" v-model.trim="form.field_reserve" class="form-control"  readonly>-->
               </div>
            </v-row>  
           <v-hover >
@@ -55,7 +61,7 @@
                 <v-row justify="center" align="center"> 
                   <div class="form-group" style="width: 50%;">
                     <select class="form-control transparent font" name="schedule" v-model.trim="form.schedule" id="exampleFormControlSelect1" style="border: 1px solid white !important;" >
-                      <option value="" disabled>Elija un horario</option>
+                     <option value="" disabled selected>Elija un horario</option>
                       <option  v-for="(time, i)  in schedules" :key="i" :id="time.id" :value="time.id" v-if="time.field.id == field.id " >{{ time.start_time }}</option>
                     </select>
                   </div>
@@ -108,8 +114,8 @@
               <input type="number" input="test()" style="border: 1px solid grey !important; width: 75px;" class="form-control form-control-sm" :id="'txt-'+implem.id" disabled  min=0 max=50  placeholder="Cant.">
             </v-row>
           </v-row>-->
-            <v-text-field type="number"  :v-model="form.total"  name="total" :value="field.price"></v-text-field>
-        <span>Total: {{ field.price }}</span>
+          <span>Precio de la Cancha: {{field.price}}</span>
+          <v-text-field type="number" filled placeholder="Ingrese el precio de la cancha por favor" name="total" v-model.trim="form.total" ></v-text-field>
       </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -138,7 +144,6 @@ export default {
           implements: [ ],
           schedules: [ ],
           customers: [ ],
-          value: 200,
           enabled: false,
           months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
           dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab'],
@@ -175,22 +180,22 @@ export default {
     methods: {
         getField() {
         //const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
-        const path = `http://192.168.1.109:8000/sport/field-schedule/${this.fieldId}/`   
+        const path = `http:///127.0.0.1:8000/sport/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         console.log(this.field);           
         //return axios.get('http://192.168.88.222:8000/sport/implements/')  
-        return axios.get('http://192.168.1.109:8000/sport/implements/')
+        return axios.get('http:///127.0.0.1:8000/sport/implements/')
       }).then((response)=>{
         this.implements = response.data
         console.log(this.implements);
         
-        return axios.get('http://192.168.1.109:8000/sport/count/')
+        return axios.get('http:///127.0.0.1:8000/sport/count/')
       }).then((response) => {
         this.schedules = response.data
         console.log(this.schedules);
         
-        return axios.get('http://192.168.1.109:8000/user/do-customer/')
+        return axios.get('http:///127.0.0.1:8000/user/do-customer/')
       }).then((response)=>{
         this.customers = response.data
         console.log(this.customers);
@@ -211,7 +216,7 @@ export default {
         },
         onSubmit(evt){
             event.preventDefault()
-            const path = 'http://192.168.1.109:8000/sport/do-reservation/'
+            const path = 'http://172.20.10.4:8000/sport/do-reservation/'
             //const path = 'http://192.168.88.222:8000/user/do-customer/'
             axios.post(path, this.form).then((response) => {
                 this.form.schedule = response.data.schedule
