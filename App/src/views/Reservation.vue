@@ -40,15 +40,13 @@
                       <option value="" disabled selected>Elija un Cliente</option>
                       <option  v-for="(customer, i)  in customers" :key="i" :id="customer.id" :value="customer.id" >{{customer.first_name}} {{customer.last_name}}</option>
                     </select>
-                    <select name="field_reserve"  class="form-control font my-3" v-model.trim="form.field_reserve" style="border: 1px solid #011427 !important;" >
+                   <!-- <select name="field_reserve"  class="form-control font my-3" v-model.trim="form.field_reserve" style="border: 1px solid #011427 !important;" >
                       <option value="" disabled selected>Seleccione la Cancha</option>
                       <option   :id="field.id" :value="field.id" v-if="field.type == 1">Cancha {{ field.name }} de 5 Jugadores</option>
                       <option   :id="field.id" :value="field.id" v-else-if="field.type == 2">Cancha {{ field.name }} de 7 Jugadores</option>
                       <option   :id="field.id" :value="field.id" v-else >Cancha {{ field.name }} de 11Jugadores</option>
-
-                    </select>
-                      <!--<input type="number" :id="field.id" name="field_reserve" :value="field.id" v-model.trim="form.field_reserve" >
-                    <input type="text" disabled name="field_reserve" :value="field.id" v-model.trim="form.field_reserve" class="form-control"  readonly>-->
+                    </select> -->
+                    <input type="number"  :id="field.id" name="field_reserve"  :value="field.id" v-model.trim="form.field_reserve" >
               </div>
            </v-row>  
           <v-hover >
@@ -57,7 +55,6 @@
                 <v-row justify="center">
                   <div class="subtitle-1 white--text font-weight-medium font">Horarios</div>
                 </v-row>
-
                 <v-row justify="center" align="center"> 
                   <div class="form-group" style="width: 50%;">
                     <select class="form-control transparent font" name="schedule" v-model.trim="form.schedule" id="exampleFormControlSelect1" style="border: 1px solid white !important;" >
@@ -66,7 +63,6 @@
                     </select>
                   </div>
                 </v-row> 
-
               <!--<v-chip-group column multiple active-class="lime accent-3 black--text" >
               <v-row justify="space-around" class="ma-2">
               <v-chip small v-for="(time, i)  in schedules" :key="i" v-if="time.field.id == field.id ">
@@ -84,21 +80,8 @@
         </div>                                    
       <!--<span class="black--text font-weight-medium font">Resto de la semana <span class="caption grey--text" >(Próximamente)</span></span>
       <v-slide-group show-arrows>
-      <v-slide-item
-      v-for="(day, i) in days"
-      :key="i"
-      v-slot:default="{ active, toggle }"
-      >
-      <v-btn
-      disabled
-      small
-      class="mx-2 font"
-      :input-value="active"
-      active-class="lime accent-3 black--text"
-      depressed
-      rounded
-      @click="toggle"
-      >
+      <v-slide-item v-for="(day, i) in days" :key="i" v-slot:default="{ active, toggle }">
+      <v-btn disabled small class="mx-2 font" :input-value="active" active-class="lime accent-3 black--text" depressed  rounded @click="toggle">
       {{ day }}
       </v-btn>
       </v-slide-item>
@@ -115,7 +98,7 @@
             </v-row>
           </v-row>-->
           <span>Precio de la Cancha: {{field.price}}</span>
-          <v-text-field type="number" filled placeholder="Ingrese el precio de la cancha por favor" name="total" v-model.trim="form.total" ></v-text-field>
+          <input type="number" name="total" :value="field.price" v-model.trim="form.total" >
       </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -199,14 +182,13 @@ export default {
       }).then((response)=>{
         this.customers = response.data
         console.log(this.customers);
-        
       }).catch((error) => {
           console.log(error);
         })
         },
-        checkbox(_chk_id, _txt_id){
-          let check = document.getElementById(_chk_id)
-          let elementNum = document.getElementById(_txt_id)
+        checkbox(chk_id, txt_id){
+          let check = document.getElementById(chk_id)
+          let elementNum = document.getElementById(txt_id)
           if(check.checked == true){
                 elementNum.disabled = false
           }

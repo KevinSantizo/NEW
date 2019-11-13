@@ -38,7 +38,9 @@ class DoTownSerializer(serializers.ModelSerializer):
         detph = 1
 
 
-class CreateUserSerializer(serializers.ModelSerializer):
+class CustomerSerializer(serializers.ModelSerializer):
+    def create(self, validate_data):
+        instance = Customer.objects.create_user(**validate_data)
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
