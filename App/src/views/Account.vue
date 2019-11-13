@@ -115,4 +115,7 @@ export default {
   .bottom {
      padding-bottom: 70px;
    }
+   .link {
+     text-decoration: none;
+   }
 </style>

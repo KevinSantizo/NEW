@@ -216,7 +216,7 @@ export default {
         },
         onSubmit(evt){
             event.preventDefault()
-            const path = 'http://172.20.10.4:8000/sport/do-reservation/'
+            const path = 'http://127.0.0.1:8000/sport/do-reservation/'
             //const path = 'http://192.168.88.222:8000/user/do-customer/'
             axios.post(path, this.form).then((response) => {
                 this.form.schedule = response.data.schedule
