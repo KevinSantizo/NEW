@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sport/', include('sport.urls')),
     path('user/', include('user.urls')),
-    path('api-token-auth/',  obtain_jwt_token, name='api-token-auth'),
-    path('refresh-token-auth/',  refresh_jwt_token, name='refresh'),
-    path('verify-token-auth/',  verify_jwt_token, name='refresh')
+   # path('api-token-auth/',  obtain_jwt_token, name='api-token-auth'),
+    #path('refresh-token-auth/',  refresh_jwt_token, name='refresh'),
+    #path('verify-token-auth/',  verify_jwt_token, name='refresh')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
