@@ -174,19 +174,19 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
     methods: {
       getAll(){ 
-      const path = 'http://192.168.1.104:8000/sport/reservations/'
+      const path = 'http://192.168.1.109:8000/sport/reservations/'
       //const path = 'http://192.168.88.222:8000/sport/reservations/'
       axios.get(path).then((response) => {
         this.reservations = response.data
         console.log(this.reservations);
         
-        return axios.get('http://192.168.1.104:8000/sport/companies/')
+        return axios.get('http://192.168.1.109:8000/sport/companies/')
         //return axios.get('http://192.168.88.222:8000/sport/companies/');
         }).then((response) => {
           this.companies = response.data
           console.log(this.companies);
           
-          return axios.get('http://192.168.1.104:8000/sport/fields/')
+          return axios.get('http://192.168.1.109:8000/sport/fields/')
         }).then((response) => {
           this.fields = response.data
           console.log(this.fields);

@@ -39,13 +39,6 @@ class DoTownSerializer(serializers.ModelSerializer):
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
-    def create (self, validate_data):
-        hashed_pwd = make_password(validate_data)
-        user = User.objects.create(**validate_data)
-        user.password = hashed_pwd
-        user.save()
-        return user
-
     class Meta:
         model = User
         fields = ('username', 'email', 'password')

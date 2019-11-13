@@ -23,7 +23,8 @@
                         </div>
                         <label for="town"  class="font font-weight-medium my-2 body-2">Municipio</label>
                          <select name="town" v-model.trim="form.town" class="form-control  border body-2 transparent" required style="border: 1px solid grey !important;" id="town">
-                            <option v-for="(dep, i) in departments" :key=i :id="dep.id" :value="dep.id">{{ dep.name }}, {{dep.department.name}}</option>
+                             <option disabled value="">Seleccione un Municipio</option>
+                            <option v-for="(dep, i) in departments" :key=i :id="dep.id" :value="dep.id" selected>{{ dep.name }}, {{dep.department.name}}</option>
                         </select>
                         <!-- <label for="">This: {{selected}}</label><br>-->
                         
@@ -87,7 +88,7 @@ import swal from 'sweetalert'
     methods: {
         getDepartments(){            
             //const path = 'http://192.168.88.222:8000/user/towns/'
-            const path = 'http://192.168.1.104:8000/user/towns/'
+            const path = 'http://192.168.1.109:8000/user/towns/'
             axios.get(path).then((response) => {
                 this.departments = response.data
                 console.log(this.departments);
