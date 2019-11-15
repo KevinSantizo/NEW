@@ -10,6 +10,8 @@ import InfoCompany from '@/views/InfoCompany'
 import Reservation from '@/views/Reservation'
 import Account from '@/views/Account'
 import Test from '@/views/Test'
+import Logout from './views/Logout.vue'
+
 
 Vue.use(Router)
 
@@ -26,6 +28,7 @@ export default new Router({
     { path:'/companies/:companyId/info' , name:'InfoCompany', component: InfoCompany},
     { path:'/field/:fieldId/reservar', name:'Reservation', component: Reservation},
     { path:'/account', name: 'account', component: Account},
-    { path:'/test', name: 'test',  component: Test}
+    { path:'/test', name: 'test',  component: Test},
+    { path: '/logout', name: 'logout', component: Logout }
   ]
 })

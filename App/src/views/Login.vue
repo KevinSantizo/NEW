@@ -6,15 +6,15 @@
                 <v-btn block  color="red darken-1 white--text" ><v-icon left size="25">mdi-google-plus</v-icon> INICIA SESIÓN CON GOOGLE</v-btn>
                 <v-divider class="my-3"></v-divider>
                     <div>
-                        <form>
+                        <form @submit.prevent="login" id="login-form">
                             <span for="username" class="font body-2">Username</span>
-                            <input class="form-control transparent my-2 font body-2" type="text" v-model.trim="form.username" name="username"   id="username" required placeholder="Ingrese su nombre de usuario" style="border: 1px solid grey !important;">
+                            <input class="form-control transparent my-2 font body-2" type="text" v-model="username" name="username"   id="username" required placeholder="Ingrese su nombre de usuario" style="border: 1px solid grey !important;">
                             <span for="password" class="font body-2">Contraseña</span>
-                            <input class="form-control  transparent my-2 font body-2" type="password" v-model.trim="form.password" name="password" id="password" required placeholder="Ingrese su contraseña" style="border: 1px solid grey !important;">
-                            <v-btn router to='/home' block color="light-green accent-4 white--text" class="font link my-3" >INICIA SESIÓN</v-btn>          
-                        </form>
+                            <input class="form-control  transparent my-2 font body-2" type="password" v-model="password" name="password" id="password" required placeholder="Ingrese su contraseña" style="border: 1px solid grey !important;">
+                            <v-btn type="submit" form="login-form" block color="light-green accent-4 white--text" class="font link my-3" >INICIA SESIÓN</v-btn>          
+                        </form>     
                         <v-row justify="center" align="center" class="my-1">
-                            <router-link class="caption my-2 font">¿Olvidaste tu contraseña?</router-link>
+                           <!-- <router-link class="caption my-2 font">¿Olvidaste tu contraseña?</router-link>-->
                         </v-row>
                         <v-divider></v-divider>
                     </div>
@@ -25,7 +25,7 @@
                         </div>
                         <v-divider inset vertical class="mx-1"></v-divider>
                         <div>
-                        <router-link class="caption font" router :to="{name: 'register'}"><span> Regístrate</span></router-link>
+                        <router-link class="caption font"  :to="{name: 'register'}"><span> Regístrate</span></router-link>
                         </div>
                     </v-row>
                     <v-row justify="center" align="center" class="my-1">
@@ -43,17 +43,21 @@
     export default {
          data (){
              return {
-                 form:{
-                     username: '',
-                     password: '',
-                 },
-                loading: false,
-                selection: 1,
-                token: '',
+                username: '',
+                password: '',
+
              }
     },
 
     methods: {
+        login (){
+            let username = this.username
+            let password = this.password
+            this.$store.dispatch('login', { username, password })
+            .then(() => this.$router.push('/home'))
+
+            .catch(err => console.log(err))
+      },
           /*getToken() {
               alert('token')
               const path = 'http://192.168.88.222:8000/api-token-auth/'

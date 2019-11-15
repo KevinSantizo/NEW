@@ -1,52 +1,54 @@
 <template>
     <v-container height="100%" class="my-0">
-        <v-row justify="center" align="center" >
-            <div class="form-group ma-3">
-                <v-btn class="my-1" block  color="light-blue darken-4 white--text" ><v-icon left size="25">mdi-facebook</v-icon> REGÍSTRATE CON FACEBOOK</v-btn>
+        <v-card>
+             <form  @submit.prevent="register">
+        <v-card-text>
+          <v-container>
+            <v-row>
+                  <v-btn class="my-1" block  color="light-blue darken-4 white--text" ><v-icon left size="25">mdi-facebook</v-icon> REGÍSTRATE CON FACEBOOK</v-btn>
                 <v-btn block  color="red darken-1 white--text" ><v-icon left size="25">mdi-google-plus</v-icon> REGÍSTRATE CON GOOGLE</v-btn>
-                    <v-divider class="my-2"></v-divider>
-                    <div style="margin-top: -1em !important;">
-                    <form  @submit="onSubmit">
-                        <div class="row">
-                        <div class="col">
-                            <label for="name" class="font font-weight-medium body-2">Nombre</label>
-                            <input type="text" name="first_name" v-model.trim="form.first_name" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="name" placeholder="Ingrese su nombre">
-                        </div>
-                        <div class=" col">
-                            <label for="last_name"  class="font font-weight-medium body-2">Apellido</label>
-                            <input type="text" name="last_name" v-model.trim="form.last_name" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="last_name" placeholder="Ingrese su apellido">
-                        </div>
-                        </div>
-                        <div class="" >
-                            <label for="username"  class="font font-weight-medium my-2 body-2">Nombre de Usuario</label>
-                            <input type="text" name="username" v-model.trim="form.username" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="username" placeholder="Elja un nombre de usuario">
-                        </div>
-                        <label for="town"  class="font font-weight-medium my-2 body-2">Municipio</label>
-                         <select name="town" v-model.trim="form.town" class="form-control  border body-2 transparent" required style="border: 1px solid grey !important;" id="town">
-                             <option disabled value="">Seleccione un Municipio</option>
-                            <option v-for="(dep, i) in departments" :key=i :id="dep.id" :value="dep.id" selected>{{ dep.name }}, {{dep.department.name}}</option>
-                        </select>
-                        <!-- <label for="">This: {{selected}}</label><br>-->
-                        
-                         <div class="" >
-                            <label for="phone"  class="font font-weight-medium my-2 body-2">Teléfono</label>
-                            <input type="text" name="phone" v-model.trim="form.phone" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="phone" placeholder="Ingrese su teléfono">
-                        </div>
-                         <div class="" >
-                            <label for="email"  class="font font-weight-medium my-2 body-2">Email</label>
-                            <input type="email" name="email" v-model.trim="form.email" class="form-control  border font body-2 transparent" required style="border: 1px solid grey !important;" id="email" placeholder="Ingrese su e-mail">
-                        </div>
-                        <div class="" >
-                            <label for="password"  class="font font-weight-medium my-2 body-2">Contraseña</label>
-                            <input type="password" name="password" v-model.trim="form.password" class="form-control border font body-2 transparent" required style="border: 1px solid grey !important;" id="password" placeholder="Ingrese su contraseña">
-                        </div>
-                        <v-row justify="center" class="my-1 ma-0">
-                            <v-btn block  type="submit" color="light-green accent-4 white--text" class="font link my-3" >REGISTRARSE</v-btn>          
-                        </v-row>
-                    </form>
-                    <v-divider class="my-1"></v-divider>
-                <template>
-                    <v-row justify="center" align="center" class="my-1">
+                    <v-divider ></v-divider>
+              <v-col cols="12" sm="6" >
+                    <label for="first_name">Nombre</label>
+                    <input v-model="form.first_name" type="text" class="form-control form-control-sm border caption" id="first_name" placeholder="Ingresa tu nombre">
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                    <label for="last_name">Apellido</label>
+                    <input v-model="form.last_name" type="text" class="form-control form-control-sm border caption" id="last_name" placeholder="Ingresa tu apellido">
+              </v-col>
+              <v-col cols="12" sm="6" md="4"    >
+                    <label for="user_name">Nombre de usuario</label>
+                    <input v-model="form.username" type="text" class="form-control  form-control-sm border caption" id="user_name" placeholder="Ingresa un nombre de usuario. Ej. user1019">              
+                </v-col>
+               <v-col cols="12"   sm="6" >
+                <label for="email">Email</label>
+                    <input v-model="form.email" type="email" class="form-control form-control-sm border caption" id="email" placeholder="Ingresa tu correo electrónico">             
+                </v-col>
+                <v-col cols="12" sm="6">
+                    <label for="town">Municipio</label>
+                    <select class="form-control form-control-sm" id="town"  v-model="form.town">
+                        <option value="" disabled>Seleccione su Municipio...</option>
+                        <option v-for="(town, i) in departments" :key="i" :value="town.id" :id="town.id">{{town.name}}, {{town.department.name}}</option>
+                    </select>
+              </v-col>
+            <v-col cols="12" sm="6" >
+                <label for="phone">Teléfono</label>
+                    <input v-model="form.phone" type="text" class="form-control form-control-sm border caption" id="phone" placeholder="Ingresa tu número de teléfono">
+            </v-col>
+            <v-col cols="12" sm="6" >
+                <label for="password">Contraseña</label>
+                <input v-model="form.password" type="password" class="form-control form-control-sm border caption" id="password" placeholder="Ingresa tu número de contraseña">           
+            </v-col>
+            <v-row justify="center" class="ma-1" >
+                <v-btn block  type="submit" color="light-green accent-4 white--text" class="font link my-3" >REGISTRARSE</v-btn>          
+            </v-row>
+            </v-row>
+          </v-container>
+        </v-card-text>
+                </form>
+        <template >
+                    <v-col>
+                    <v-row justify="center" align="center" class="">
                         <div>
                         <span class="caption">¿Ya tienes una cuenta? </span>
                         </div>
@@ -58,10 +60,9 @@
                     <v-row justify="center" align="center" class="my-1">
                         <img src="@/assets/ball.svg" alt="" style="width: 35px;">
                     </v-row>
+                    </v-col>
                 </template>
-                </div>
-            </div>
-        </v-row>
+      </v-card>
     </v-container>
 </template>
 
@@ -78,9 +79,11 @@ import swal from 'sweetalert'
                      town: '',
                      first_name: '',
                      last_name:'',
+                     username:'',
                      phone:'',
                      email:'',
                      password:'',
+                     is_admin: null,
                  }
              }
          },
@@ -88,7 +91,7 @@ import swal from 'sweetalert'
     methods: {
         getDepartments(){            
             //const path = 'http://192.168.88.222:8000/user/towns/'
-            const path = 'http:///127.0.0.1:8000/user/towns/'
+            const path = 'http:///127.0.0.1:8000/api/towns/'
             axios.get(path).then((response) => {
                 this.departments = response.data
                 console.log(this.departments);
@@ -96,22 +99,21 @@ import swal from 'sweetalert'
                 console.log(error);
             })
         },
-        onSubmit(evt){
-            event.preventDefault()
-            const path = 'http:///127.0.0.1:8000/user/do-customer/'
-            //const path = 'http://192.168.88.222:8000/user/do-customer/'
-            axios.post(path, this.form).then((response) => {
-                this.form.town = response.data.town
-                this.form.first_name = response.data.first_name
-                this.form.last_name = response.data.last_name
-                this.form.phone = response.data.phone
-                this.form.email = response.data.email
-                this.form.password = response.data.password
-                swal("Usuario creado exitosamente", "", "success")
-                this.$router.push({ name: 'login' })
-            }).catch((error) => {
-                swal("Usuario no creado", "", "error")  
-            })
+        register (){
+            let data = {
+                town: this.form.town,
+                first_name: this.form.first_name,
+                last_name: this.form.last_name,
+                username: this.form.username,
+                phone: this.form.phone,
+                email: this.form.email,
+                password: this.form.password,
+                is_admin: this.form.is_admin
+            }
+             
+            this.$store.dispatch('register', data).then(() =>  
+            swal("Usuario creado exitosamente", "", "success"), 
+            this.$router.push('/')).catch(err => console.log(err))
         }
 
        /*
@@ -142,7 +144,7 @@ import swal from 'sweetalert'
     font-family: 'Ubuntu', sans-serif;
 }
 .border {
-    border: 1px solid grey !important;
+    border: 1px solid teal !important;
 
 }
 </style>

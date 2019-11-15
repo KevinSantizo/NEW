@@ -40,13 +40,13 @@
                       <option value="" disabled selected>Elija un Cliente</option>
                       <option  v-for="(customer, i)  in customers" :key="i" :id="customer.id" :value="customer.id" >{{customer.first_name}} {{customer.last_name}}</option>
                     </select>
-                   <!-- <select name="field_reserve"  class="form-control font my-3" v-model.trim="form.field_reserve" style="border: 1px solid #011427 !important;" >
+                    <select name="field_reserve"  class="form-control font my-3" v-model.trim="form.field_reserve" style="border: 1px solid #011427 !important;" >
                       <option value="" disabled selected>Seleccione la Cancha</option>
                       <option   :id="field.id" :value="field.id" v-if="field.type == 1">Cancha {{ field.name }} de 5 Jugadores</option>
                       <option   :id="field.id" :value="field.id" v-else-if="field.type == 2">Cancha {{ field.name }} de 7 Jugadores</option>
                       <option   :id="field.id" :value="field.id" v-else >Cancha {{ field.name }} de 11Jugadores</option>
-                    </select> -->
-                    <input type="number"  :id="field.id" name="field_reserve"  :value="field.id" v-model.trim="form.field_reserve" >
+                    </select> 
+                    <!--<input type="number"  :id="field.id" name="field_reserve"  :value="field.id" v-model.trim="form.field_reserve" >-->
               </div>
            </v-row>  
           <v-hover >
@@ -98,7 +98,7 @@
             </v-row>
           </v-row>-->
           <span>Precio de la Cancha: {{field.price}}</span>
-          <input type="number" name="total" :value="field.price" v-model.trim="form.total" >
+          <!--<input type="number" name="total" :value="field.price" v-model.trim="form.total" >-->
       </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

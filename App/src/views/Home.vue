@@ -3,7 +3,7 @@
     <v-app-bar absolute dark flat text scroll-target="#playground-example" extended  collapse-on-scroll class="back-ground">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="margin-top: 2em;">
-        <span class=" font-weight-bold title font">Bienvenido, Enrique</span>
+        <span class=" font-weight-bold title font">Bienvenido</span>
           <v-divider inset vertical class="mx-1"></v-divider>
           <img src="@/assets/balloon.png" app color="white" alt="" style="width: 25px; border-radius: 100px;">
           <v-divider class="my-1"></v-divider>
@@ -28,6 +28,7 @@
                 <v-btn icon @click="drawer = !drawer">
                 <v-icon color="grey" size=40>mdi-chevron-left</v-icon>
                 </v-btn>
+               
           </v-list-item>
         </template>
            <v-divider class="grey darken-1 "></v-divider>
@@ -41,6 +42,12 @@
                       <v-list-item-title class="font-weight-medium subtitle-1 link">{{ item.title }}</v-list-item-title>
                   </v-list-item-content>
               </v-list-item>
+                         <v-divider class="grey darken-1 "></v-divider>
+
+               <v-btn  v-if="isLoggedIn" v-bind:to="{ name: 'logout' }"  small class="ma-2 link" tile outlined color="white">
+                 <span>Cerrar Sesión</span>
+                 <v-icon left>mdi-account-plus-outline</v-icon>
+               </v-btn>
               </v-list-item-group>
               
           </v-list>
@@ -163,6 +170,9 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
   export default {
+          components: {
+        BottomNavigation
+  },
     data () {
       return {
         modalShow: false,
@@ -176,9 +186,7 @@ import BottomNavigation from '@/components/BottomNavigation'
             ],
         }
     },
-      components: {
-        BottomNavigation
-  },
+
     methods: {
       getAll(){ 
         const path = 'http:///127.0.0.1:8000/sport/reservations/'
@@ -202,9 +210,15 @@ import BottomNavigation from '@/components/BottomNavigation'
           })
       },
   },
+  
+  computed:{
+     isLoggedIn (){
+       return this.$store.getters.isLoggedIn
+   },
     created(){
       this.getAll()
-    },
+    }
+  }
 }
 </script>
 
