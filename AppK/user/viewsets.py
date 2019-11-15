@@ -1,23 +1,11 @@
 from rest_framework import viewsets
-from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import make_password
-from rest_framework.response import Response
-from user.models import Customer, Department, Town
+from user.models import Profile, Department, Town
 from user.serializer import (
-    CustomerSerializer, 
-    CreateUserSerializer, 
     DepartmentSerializer, 
     TownSerializer, 
-    DoCustomerSerializer, 
-    DoTownSerializer
+    DoTownSerializer,
+    ProfileSerializer
 )
-User = get_user_model()
-
-
-class CustomerViewSet(viewsets.ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-
 
 class DepartmentViewSet(viewsets.ModelViewSet):
     queryset = Department.objects.all()
@@ -25,24 +13,19 @@ class DepartmentViewSet(viewsets.ModelViewSet):
 
 
 class TownViewSet(viewsets.ModelViewSet):
-    permission_classes = []
-    authentication_classes = []
+    permission_classes = ()
+    authentication_classes = ()
     queryset = Town.objects.all()
     serializer_class = TownSerializer
-
-
-class DoCustomerViewSet(viewsets.ModelViewSet):
-    permission_classes = []
-    authentication_classes = []
-    queryset = Customer.objects.all()
-    serializer_class = DoCustomerSerializer
 
 
 class DoTownViewSet(viewsets.ModelViewSet):
     queryset = Town.objects.all()
     serializer_class = DoTownSerializer
 
-    
-class UserCeateViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = CreateUserSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = ()
+    authentication_classes = ()
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
