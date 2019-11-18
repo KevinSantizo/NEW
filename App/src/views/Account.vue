@@ -3,7 +3,7 @@
         <v-toolbar extended prominent flat text  class="back-ground" dark height="57">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
               <v-toolbar-title class="ma-9" style="top: -1em; position: absolute;">
-                <span class=" font-weight-bold title font">Enrique</span>
+                <span class=" font-weight-bold title font"></span>
                 <v-divider class="my-1"></v-divider>
                 <span class=" font-weight-medium subtitle-1 font">Reservaciones: {{reservations.length}}</span>
               </v-toolbar-title>
@@ -45,7 +45,7 @@
       </v-navigation-drawer>
               <BottomNavigation/>
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-        <v-container class="bottom" style="height: 100%;">
+        <v-container class="bottom" style="height: 1500px;">
           <v-row justify="center">
              <v-hover v-for="(reservation, i) in reservations" :key="i">
               <v-card class="link ma-1 amber lighten-4" outlined style="border-radius: 10px;"  width=375 height=150 gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"  :elevation=12>
@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     getReservations(){
-      const path = 'http:///127.0.0.1:8000/sport/reservations/'
+      const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
       axios.get(path).then((response)=>{
         this.reservations = response.data
         console.log(this.reservations);

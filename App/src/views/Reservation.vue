@@ -21,7 +21,7 @@
     </v-app-bar>
   <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
     <v-container class="bottom" >
-      <form @submit="onSubmit">
+      <form  @submit.prevent="reservation">
         <v-hover>
           <v-card :elevation=12 style="border-radius: 25px;">
             <v-card-title class="back-ground">
@@ -36,11 +36,11 @@
           <v-row justify="center">
             <div class="form-group" style="width: 50%;">
               <label for="customer">Cliente</label>
-                    <select name="customer_reserve"  class="form-control font" v-model.trim="form.customer_reserve" style="border: 1px solid #011427 !important;" >
+                    <select name="customer_reserve"  class="form-control font" v-model="form.customer_reserve" style="border: 1px solid #011427 !important;" >
                       <option value="" disabled selected>Elija un Cliente</option>
                       <option  v-for="(customer, i)  in customers" :key="i" :id="customer.id" :value="customer.id" >{{customer.first_name}} {{customer.last_name}}</option>
                     </select>
-                    <select name="field_reserve"  class="form-control font my-3" v-model.trim="form.field_reserve" style="border: 1px solid #011427 !important;" >
+                    <select name="field_reserve"  class="form-control font my-3" v-model="form.field_reserve" style="border: 1px solid #011427 !important;" >
                       <option value="" disabled selected>Seleccione la Cancha</option>
                       <option   :id="field.id" :value="field.id" v-if="field.type == 1">Cancha {{ field.name }} de 5 Jugadores</option>
                       <option   :id="field.id" :value="field.id" v-else-if="field.type == 2">Cancha {{ field.name }} de 7 Jugadores</option>
@@ -57,7 +57,7 @@
                 </v-row>
                 <v-row justify="center" align="center"> 
                   <div class="form-group" style="width: 50%;">
-                    <select class="form-control transparent font" name="schedule" v-model.trim="form.schedule" id="exampleFormControlSelect1" style="border: 1px solid white !important;" >
+                    <select class="form-control transparent font" name="schedule" v-model="form.schedule" id="exampleFormControlSelect1" style="border: 1px solid white !important;" >
                      <option value="" disabled selected>Elija un horario</option>
                       <option  v-for="(time, i)  in schedules" :key="i" :id="time.id" :value="time.id" v-if="time.field.id == field.id " >{{ time.start_time }}</option>
                     </select>
@@ -76,7 +76,7 @@
       <v-divider></v-divider>
       <div class="form-group">
         <label for="date">Fecha:</label>
-          <input type="date" name="schedule_date" v-model.trim="form.schedule_date" class="form-control" id="date" >
+          <input type="date" name="schedule_date" v-model="form.schedule_date" class="form-control" id="date" >
         </div>                                    
       <!--<span class="black--text font-weight-medium font">Resto de la semana <span class="caption grey--text" >(Próximamente)</span></span>
       <v-slide-group show-arrows>
@@ -97,8 +97,8 @@
               <input type="number" input="test()" style="border: 1px solid grey !important; width: 75px;" class="form-control form-control-sm" :id="'txt-'+implem.id" disabled  min=0 max=50  placeholder="Cant.">
             </v-row>
           </v-row>-->
-          <span>Precio de la Cancha: {{field.price}}</span>
-          <!--<input type="number" name="total" :value="field.price" v-model.trim="form.total" >-->
+          <span>Precio de la Cancha: {{field.price}}</span><br>
+          <input type="number" name="total" class="form-control" v-model="form.total" style="border: 1px solid #011427 !important; width: 350px;" placeholder="Por favor ingrese el precio dela cancha">
       </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -136,7 +136,7 @@ export default {
             schedule:'',
             customer_reserve:'',
             field_reserve:'',
-            implement:'',
+            implement: null,
           },
           times: [
             '12:00 PM',
@@ -163,22 +163,22 @@ export default {
     methods: {
         getField() {
         //const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
-        const path = `http:///127.0.0.1:8000/sport/field-schedule/${this.fieldId}/`   
+        const path = `https://api-backend-canchas.herokuapp.com/api/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         console.log(this.field);           
         //return axios.get('http://192.168.88.222:8000/sport/implements/')  
-        return axios.get('http:///127.0.0.1:8000/sport/implements/')
+        return axios.get('https://api-backend-canchas.herokuapp.com/api/implements/')
       }).then((response)=>{
         this.implements = response.data
         console.log(this.implements);
         
-        return axios.get('http:///127.0.0.1:8000/sport/count/')
+        return axios.get('https://api-backend-canchas.herokuapp.com/api/count/')
       }).then((response) => {
         this.schedules = response.data
         console.log(this.schedules);
         
-        return axios.get('http:///127.0.0.1:8000/user/do-customer/')
+        return axios.get('https://api-backend-canchas.herokuapp.com/api/users/')
       }).then((response)=>{
         this.customers = response.data
         console.log(this.customers);
@@ -196,22 +196,19 @@ export default {
             elementNum.disabled = true
           }
         },
-        onSubmit(evt){
-            event.preventDefault()
-            const path = 'http://127.0.0.1:8000/sport/do-reservation/'
+        reservation(){
             //const path = 'http://192.168.88.222:8000/user/do-customer/'
-            axios.post(path, this.form).then((response) => {
-                this.form.schedule = response.data.schedule
-                this.form.total = response.data.total
-                this.form.schedule = response.data.schedule
-                this.form.customer_reserve = response.data.customer_reserve
-                this.form.field_reserve = response.data.field_reserve
-                this.form.implement = response.data.implement
-                swal("Reservación creada exitosamente", "", "success")
-                this.$router.push({ name: 'home' })
-            }).catch((error) => {
-                swal("Reservación no creada", "", "error")  
-            })
+            let data = {
+              schedule_date: this.form.schedule_date,
+              total: this.form.total,
+              schedule: this.form.schedule,
+              customer_reserve: this.form.customer_reserve,
+              field_reserve: this.form.field_reserve,
+              implement: this.form.implement
+            }
+            this.$store.dispatch('reservation', data).then(() =>  
+            swal("Reservación exitosa", "", "success"), 
+            this.$router.push('/home')).catch(err => console.log(err))
         }
     },
     created(){

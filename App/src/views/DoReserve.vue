@@ -136,12 +136,12 @@ export default {
     methods: {
        getCompany() {
         //const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
-        const path = `http:///127.0.0.1:8000/sport/field-company/${this.companyId}/`
+        const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
         axios.get(path).then((response)=> {
           this.company = response.data;
           console.log(response.data);
           //return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
-          return axios.get('http:///127.0.0.1:8000/sport/field-schedule/')
+          return axios.get('https://api-backend-canchas.herokuapp.com/api/field-schedule/')
       }).then((response)=>{
         this.field = response.data
         console.log(this.field);

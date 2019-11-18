@@ -44,9 +44,9 @@
               </v-list-item>
                          <v-divider class="grey darken-1 "></v-divider>
 
-               <v-btn  v-if="isLoggedIn" v-bind:to="{ name: 'logout' }"  small class="ma-2 link" tile outlined color="white">
-                 <span>Cerrar Sesión</span>
-                 <v-icon left>mdi-account-plus-outline</v-icon>
+               <v-btn  v-if="isLoggedIn" v-bind:to="{ name: 'logout' }"  small class="ma-2 link" tile text color="white">
+                 <v-icon left>mdi-exit-to-app</v-icon> <span>Cerrar Sesión</span>
+                
                </v-btn>
               </v-list-item-group>
               
@@ -189,19 +189,19 @@ import BottomNavigation from '@/components/BottomNavigation'
 
     methods: {
       getAll(){ 
-        const path = 'http:///127.0.0.1:8000/sport/reservations/'
+        const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
         //const path = 'http://192.168.88.222:8000/sport/reservations/'
           axios.get(path).then((response) => {
           this.reservations = response.data
           console.log(this.reservations);
           
-          return axios.get('http:///127.0.0.1:8000/sport/companies/')
+          return axios.get('https://api-backend-canchas.herokuapp.com/api/companies/')
           //return axios.get('http://192.168.88.222:8000/sport/companies/');
           }).then((response) => {
             this.companies = response.data
             console.log(this.companies);
             
-            return axios.get('http:///127.0.0.1:8000/sport/fields/')
+            return axios.get('https://api-backend-canchas.herokuapp.com/api/fields/')
           }).then((response) => {
             this.fields = response.data
             console.log(this.fields);
@@ -210,14 +210,13 @@ import BottomNavigation from '@/components/BottomNavigation'
           })
       },
   },
-  
-  computed:{
-     isLoggedIn (){
-       return this.$store.getters.isLoggedIn
-   },
     created(){
       this.getAll()
-    }
+    },
+  computed: {
+     isLoggedIn (){
+       return this.$store.getters.isLoggedIn
+   }
   }
 }
 </script>

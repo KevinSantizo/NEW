@@ -32,7 +32,7 @@ export default new Vuex.Store({
         login({commit}, user){
             return new Promise((resolve, reject) => {
                 commit('auth_request')
-                axios({url: 'http://localhost:8000/api/api-token-auth/', data: user, method: 'POST' })
+                axios({url: 'https://api-backend-canchas.herokuapp.com/api/api-token-auth/', data: user, method: 'POST' })
                 .then(resp => {
                   const token = resp.data.token
                   var base64Url = token.split('.')[1];
@@ -54,10 +54,25 @@ export default new Vuex.Store({
     register({commit}, user){
         return new Promise((resolve, reject) => {
           commit('auth_request')
-          axios({url: 'http://localhost:8000/api/users/', data: user, method: 'POST' })
+          axios({url: 'https://api-backend-canchas.herokuapp.com/api/users/', data: user, method: 'POST' })
           .then(resp => {
             const user = resp.data.user
             commit('auth_success', user)
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('auth_error', err)
+            reject(err)
+          })
+        })
+    },
+    reservation({commit}, res){
+        return new Promise((resolve, reject) => {
+          commit('auth_request')
+          axios({url: 'https://api-backend-canchas.herokuapp.com/api/do-reservation/', data: res, method: 'POST' })
+          .then(resp => {
+            const res = resp.data.res
+            commit('auth_success', res)
             resolve(resp)
           })
           .catch(err => {

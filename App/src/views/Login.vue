@@ -55,8 +55,7 @@
             let password = this.password
             this.$store.dispatch('login', { username, password })
             .then(() => this.$router.push('/home'))
-
-            .catch(err => console.log(err))
+            .catch(err => alert('Usuario y/o contraseña inválidos'))
       },
           /*getToken() {
               alert('token')

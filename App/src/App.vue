@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import BottomNavigation from '@/components/BottomNavigation'
 
 export default {
   name: 'App',
