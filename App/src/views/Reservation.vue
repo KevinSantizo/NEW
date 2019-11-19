@@ -53,7 +53,7 @@
                   <div class="form-group" style="width: 50%;">
                     <select class="form-control transparent font" name="schedule" v-model="form.schedule" id="exampleFormControlSelect1" style="border: 1px solid white !important;" >
                      <option value="" disabled selected>Elija un horario</option>
-                      <option  v-for="(time, i)  in schedules" :key="i" :id="time.id" :value="time.id" v-if="time.field.id == field.id " >{{ time.start_time }}</option>
+                      <option  v-for="(time, i)  in field.schedules" :key="i" :id="time.id" :value="time.id">{{ time.start_time }}</option>
                     </select>
                   </div>
                 </v-row> 
@@ -166,12 +166,7 @@ export default {
         //return axios.get('https://api-backend-canchas.herokuapp.com/api/implements/')
       }).then((response)=>{
         this.implements = response.data
-        console.log(this.implements);
-        return axios.get('http://127.0.0.1:8000/api/count/')
-      }).then((response) => {
-        this.schedules = response.data
-        console.log(this.schedules);
-        
+        console.log(this.implements);        
         return axios.get('http://127.0.0.1:8000/api/users/')
       }).then((response)=>{
         this.customers = response.data
