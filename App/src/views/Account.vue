@@ -88,7 +88,8 @@ export default {
   },
   methods: {
     getReservations(){
-      const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
+      const path = 'http://127.0.0.1:8000/api/reservations/'
+      //const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
       axios.get(path).then((response)=>{
         this.reservations = response.data
         console.log(this.reservations);

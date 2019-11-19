@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import swal from 'sweetalert'
 
 Vue.use(Vuex)
 
@@ -32,7 +31,7 @@ export default new Vuex.Store({
         login({commit}, user){
             return new Promise((resolve, reject) => {
                 commit('auth_request')
-                axios({url: 'https://api-backend-canchas.herokuapp.com/api/api-token-auth/', data: user, method: 'POST' })
+                axios({url: 'http://127.0.0.1:8000/api/api-token-auth/', data: user, method: 'POST' })
                 .then(resp => {
                   const token = resp.data.token
                   var base64Url = token.split('.')[1];
@@ -54,14 +53,18 @@ export default new Vuex.Store({
     register({commit}, user){
         return new Promise((resolve, reject) => {
           commit('auth_request')
-          axios({url: 'https://api-backend-canchas.herokuapp.com/api/users/', data: user, method: 'POST' })
+          axios({url: 'http://127.0.0.1:8000/api/users/', data: user, method: 'POST' })
           .then(resp => {
-            const user = resp.data.user
-            commit('auth_success', user)
-            resolve(resp)
+          const token = resp.data.token
+          const user = resp.data.user
+          localStorage.setItem('token', token)
+          axios.defaults.headers.common['Authorization'] = token
+          commit('auth_success', token, user)
+          resolve(resp)
           })
           .catch(err => {
             commit('auth_error', err)
+            localStorage.removeItem('token')
             reject(err)
           })
         })
@@ -69,7 +72,7 @@ export default new Vuex.Store({
     reservation({commit}, res){
         return new Promise((resolve, reject) => {
           commit('auth_request')
-          axios({url: 'https://api-backend-canchas.herokuapp.com/api/do-reservation/', data: res, method: 'POST' })
+          axios({url: 'http://127.0.0.1:8000/api/do-reservation/', data: res, method: 'POST' })
           .then(resp => {
             const res = resp.data.res
             commit('auth_success', res)
@@ -81,20 +84,14 @@ export default new Vuex.Store({
           })
         })
     },
-    logout(context){
-        if(context.getters.isLoggedIn){
-          return new Promise((resolve, reject) => {
-                localStorage.removeItem('token')
-                context.commit('logout')
-                resolve()    
-              })
-              .catch(err => {
-                localStorage.removeItem('token')
-                context.commit('logout')
-                reject(err)
-              })
-        }
-      },
+    logout({commit}){
+      return new Promise((resolve) => {
+        commit('logout')
+        localStorage.removeItem('token')
+        delete axios.defaults.headers.common['Authorization']
+        resolve()
+      })
+    },
     },
       getters: {
         isLoggedIn: state => !!state.token,

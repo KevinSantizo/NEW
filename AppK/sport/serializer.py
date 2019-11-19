@@ -72,16 +72,38 @@ class CountScheduleSerializer(serializers.ModelSerializer):
         
 
 class FieldChildSerializer(serializers.ModelSerializer):
-    schedules = DoScheduleSerializer(many=True)
+    schedules = serializers.SerializerMethodField('get_schedules')
+    counts = serializers.SerializerMethodField('count_schedules')
+
+    def get_schedules(self, field):
+        sch = Schedule.objects.filter(start_time__gte=datetime.now(), status__exact=2, field=field)
+        serializer = DoScheduleSerializer(instance=sch, many=True)
+        return serializer.data
+
+    def count_schedules(self, field):
+        sch = Schedule.objects.filter(start_time__gte=datetime.now(), field=field).count()
+        return sch
+
+    class Meta:
+        model = Field
+        fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules', 'counts')
+        depth = 3
+
+
+class CountSerializer(serializers.ModelSerializer):
+    schedules = serializers.SerializerMethodField('get_count')
+
+    def get_count(self, field):
+        sch = Schedule.objects.filter(field=field).count()
+        return sch
+
     class Meta:
         model = Field
         fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules')
-        depth = 3
-        
         
 
 class CompanyFieldSerializer(serializers.ModelSerializer):
-    fields = FieldSerializer(many=True)
+    fields = FieldChildSerializer(many=True)
     class Meta:
         model = Company
         fields = ('town', 'id', 'name', 'address', 'phone', 'email', 'image', 'fields')
@@ -92,4 +114,5 @@ class ImplementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Implement
         fields = '__all__'
+
 

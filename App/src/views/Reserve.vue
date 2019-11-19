@@ -76,8 +76,8 @@ export default {
   },
     methods: {
       getCompanies() {
-      //const path = 'http://192.168.88.222:8000/sport/field-company/'
-      const path = 'https://api-backend-canchas.herokuapp.com/api/field-company/'
+      const path = 'http://127.0.0.1:8000/api/field-company/'
+      //const path = 'https://api-backend-canchas.herokuapp.com/api/field-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
         console.log(response.data);

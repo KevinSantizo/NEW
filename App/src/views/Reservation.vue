@@ -40,13 +40,7 @@
                       <option value="" disabled selected>Elija un Cliente</option>
                       <option  v-for="(customer, i)  in customers" :key="i" :id="customer.id" :value="customer.id" >{{customer.first_name}} {{customer.last_name}}</option>
                     </select>
-                    <select name="field_reserve"  class="form-control font my-3" v-model="form.field_reserve" style="border: 1px solid #011427 !important;" >
-                      <option value="" disabled selected>Seleccione la Cancha</option>
-                      <option   :id="field.id" :value="field.id" v-if="field.type == 1">Cancha {{ field.name }} de 5 Jugadores</option>
-                      <option   :id="field.id" :value="field.id" v-else-if="field.type == 2">Cancha {{ field.name }} de 7 Jugadores</option>
-                      <option   :id="field.id" :value="field.id" v-else >Cancha {{ field.name }} de 11Jugadores</option>
-                    </select> 
-                    <!--<input type="number"  :id="field.id" name="field_reserve"  :value="field.id" v-model.trim="form.field_reserve" >-->
+                    <input type="hidden"   :id="field.id" name="field_reserve"   v-model="this.form.field_reserve" >
               </div>
            </v-row>  
           <v-hover >
@@ -98,7 +92,7 @@
             </v-row>
           </v-row>-->
           <span>Precio de la Cancha: {{field.price}}</span><br>
-          <input type="number" name="total" class="form-control" v-model="form.total" style="border: 1px solid #011427 !important; width: 350px;" placeholder="Por favor ingrese el precio dela cancha">
+          <input type="hidden" name="total" class="form-control"  v-model="this.form.total" style="border: 1px solid #011427 !important; width: 350px;" placeholder="Por favor ingrese el precio de la cancha">
       </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -132,7 +126,7 @@ export default {
           dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab'],
           form: {
             schedule_date:'',
-            total:'',
+            total:"",
             schedule:'',
             customer_reserve:'',
             field_reserve:'',
@@ -160,32 +154,33 @@ export default {
           test2: 0
           }
     },
-    methods: {
-        getField() {
-        //const path = `http://192.168.88.222:8000/sport/field-schedule/${this.fieldId}/`   
-        const path = `https://api-backend-canchas.herokuapp.com/api/field-schedule/${this.fieldId}/`   
+    mounted() {
+        const path = `http://127.0.0.1:8000/api/field-schedule/${this.fieldId}/`   
+        //const path = `https://api-backend-canchas.herokuapp.com/api/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
-        console.log(this.field);           
-        //return axios.get('http://192.168.88.222:8000/sport/implements/')  
-        return axios.get('https://api-backend-canchas.herokuapp.com/api/implements/')
+        console.log(this.field);     
+        this.form.total = this.field.price;   
+        this.form.field_reserve = this.field.id   
+        return axios.get('http://127.0.0.1:8000/api/implements/')  
+        //return axios.get('https://api-backend-canchas.herokuapp.com/api/implements/')
       }).then((response)=>{
         this.implements = response.data
         console.log(this.implements);
-        
-        return axios.get('https://api-backend-canchas.herokuapp.com/api/count/')
+        return axios.get('http://127.0.0.1:8000/api/count/')
       }).then((response) => {
         this.schedules = response.data
         console.log(this.schedules);
         
-        return axios.get('https://api-backend-canchas.herokuapp.com/api/users/')
+        return axios.get('http://127.0.0.1:8000/api/users/')
       }).then((response)=>{
         this.customers = response.data
         console.log(this.customers);
       }).catch((error) => {
           console.log(error);
         })
-        },
+    },
+  methods: {
         checkbox(chk_id, txt_id){
           let check = document.getElementById(chk_id)
           let elementNum = document.getElementById(txt_id)
@@ -210,11 +205,8 @@ export default {
             swal("Reservación exitosa", "", "success"), 
             this.$router.push('/home')).catch(err => console.log(err))
         }
+  
     },
-    created(){
-      this.getField()
-    },
-
 }
 
 </script>

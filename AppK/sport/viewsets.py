@@ -16,7 +16,8 @@ from sport.serializer import (
     DoScheduleSerializer,
     FieldChildSerializer,
     ImplementSerializer,
-    CountScheduleSerializer
+    CountScheduleSerializer,
+    CountSerializer
     )
 
 
@@ -111,3 +112,10 @@ class ImplementViewSet(viewsets.ModelViewSet):
     authentication_classes = []
     queryset = Implement.objects.all()
     serializer_class = ImplementSerializer
+
+
+class CountViewSet(viewsets.ModelViewSet):
+    permission_classes = []
+    authentication_classes = []
+    queryset = Field.objects.all()
+    serializer_class = CountSerializer

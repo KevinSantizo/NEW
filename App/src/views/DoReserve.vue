@@ -55,7 +55,7 @@
               <v-img class="white--text align-end" height="120" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
                 <v-card-title style="position: absolute; top: 3.7em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
               </v-img>
-            <v-card-subtitle style="position: absolute; top: 8.7em;" class="caption font font-weight-medium">Tipo de Cancha</v-card-subtitle>
+            <v-card-subtitle style="position: absolute; top: 8.7em;" class="caption font font-weight-medium">Horarios disponibles: {{ field.counts }}</v-card-subtitle>
             <v-card-title>
               <span v-if="field.type == 1" class="caption font-weight-bold font">5 Jugadores</span>
               <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
@@ -135,13 +135,13 @@ export default {
   },
     methods: {
        getCompany() {
-        //const path = `http://192.168.88.222:8000/sport/field-company/${this.companyId}/`
-        const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
+        const path = `http://127.0.0.1:8000/api/field-company/${this.companyId}/`
+        //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
         axios.get(path).then((response)=> {
           this.company = response.data;
           console.log(response.data);
-          //return axios.get('http://192.168.88.222:8000/sport/field-schedule/')
-          return axios.get('https://api-backend-canchas.herokuapp.com/api/field-schedule/')
+          return axios.get('http://127.0.0.1:8000/api/field-schedule/')
+          //return axios.get('https://api-backend-canchas.herokuapp.com/api/field-schedule/')
       }).then((response)=>{
         this.field = response.data
         console.log(this.field);

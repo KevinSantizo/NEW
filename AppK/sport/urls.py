@@ -12,7 +12,8 @@ from sport.viewsets import (
      DoScheduleViewSet,
      FieldChildViewSet,
      ImplementViewSet,
-     CountScheduleViewSet
+     CountScheduleViewSet,
+     CountViewSet
 )
 from sport import views
 from django.urls import path
@@ -32,5 +33,6 @@ router.register('do-schedule', DoScheduleViewSet, basename='DoSchedule')
 router.register('field-schedule', FieldChildViewSet)
 router.register('implements', ImplementViewSet)
 router.register('count', CountScheduleViewSet,  basename='CountSchedule')
+router.register('count-sch', CountViewSet)
 
 urlpatterns = router.urls

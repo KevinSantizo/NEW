@@ -15,11 +15,11 @@ import Logout from './views/Logout.vue'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    { path: '/', name: 'login', component: Login },
+    { path: '/', name: 'login', component: Login,  },
     { path: '/home', name: 'home', component: Home },
     { path: '/companies', name: 'companies', component: Companies },
     { path: '/reserve', name: 'reserve', component: Reserve },
@@ -32,3 +32,16 @@ export default new Router({
     { path: '/logout', name: 'logout', component: Logout }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next()
+      return
+    }
+    next('/login') 
+  } else {
+    next() 
+  }
+})
+export default router

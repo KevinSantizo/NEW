@@ -189,19 +189,19 @@ import BottomNavigation from '@/components/BottomNavigation'
 
     methods: {
       getAll(){ 
-        const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
-        //const path = 'http://192.168.88.222:8000/sport/reservations/'
+        //const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
+        const path = 'http://127.0.0.1:8000/api/reservations/'
           axios.get(path).then((response) => {
           this.reservations = response.data
           console.log(this.reservations);
           
-          return axios.get('https://api-backend-canchas.herokuapp.com/api/companies/')
-          //return axios.get('http://192.168.88.222:8000/sport/companies/');
+          //return axios.get('https://api-backend-canchas.herokuapp.com/api/companies/')
+          return axios.get('http://127.0.0.1:8000/api/companies/');
           }).then((response) => {
             this.companies = response.data
             console.log(this.companies);
             
-            return axios.get('https://api-backend-canchas.herokuapp.com/api/fields/')
+            return axios.get('http://127.0.0.1:8000/api/fields/')
           }).then((response) => {
             this.fields = response.data
             console.log(this.fields);
