@@ -36,7 +36,7 @@
           <v-row justify="center">
             <div class="form-group" style="width: 50%;">
               <label for="customer">Hola {{user_name }} {{id_username}}</label>
-                    <input type="text"   :id="this.id_username" name="customer_reserve"   v-model="this.form.customer_reserve" >
+                    <input type="hidden" name="customer_reserve"   v-model="this.form.customer_reserve" >
                     <input type="hidden"   :id="field.id" name="field_reserve"   v-model="this.form.field_reserve" >
               </div>
            </v-row>  
@@ -212,7 +212,7 @@ export default {
         console.log(this.users);
         let find_user = this.users.find (v => v.id == this.$store.state.user)
         this.user_name = find_user.username
-        this.id_username = find_user.id       
+        this.form.customer_reserve = find_user.id       
         console.log(this.user_name);
         console.log('Username ' +find_user.username);
         

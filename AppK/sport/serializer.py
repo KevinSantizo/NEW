@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from datetime import datetime, time
 from sport.models import Field, Reservation, Company, Schedule, Implement
-from user.models import Department, Town
+from user.models import Department, Town, Profile
 from user.serializer import DepartmentSerializer, DoTownSerializer
 
 
@@ -73,7 +73,7 @@ class CountScheduleSerializer(serializers.ModelSerializer):
 
 class FieldChildSerializer(serializers.ModelSerializer):
     schedules = serializers.SerializerMethodField('get_schedules')
-    counts = serializers.SerializerMethodField('count_schedules')
+    quantity = serializers.SerializerMethodField('count_schedules')
 
     def get_schedules(self, field):
         sch = Schedule.objects.filter(start_time__gte=datetime.now(), status__exact=2, field=field)
@@ -86,8 +86,8 @@ class FieldChildSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Field
-        fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules', 'counts')
-        depth = 3
+        fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules', 'quantity')
+
 
 
 class CountSerializer(serializers.ModelSerializer):
@@ -116,3 +116,20 @@ class ImplementSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CustomerReservationSerializer(serializers.ModelSerializer):
+    reservations = serializers.SerializerMethodField('get_reservations')
+    quantity = serializers.SerializerMethodField('count_reservations')
+
+    def get_reservations(self, customer_reserve):
+        rsv = Reservation.objects.filter(customer_reserve=customer_reserve)
+        serializer = DoReservationSerializer(instance=rsv, many=True)
+        return serializer.data
+
+    def count_reservations(self, customer_reserve):
+        sch = Reservation.objects.filter(customer_reserve=customer_reserve).count()
+        return sch
+
+    class Meta:
+        model = Profile
+        fields = ('id', 'first_name', 'last_name', 'username', 'town', 'phone', 'email', 'password', 'reservations', 'quantity')
+        depth = 2

@@ -146,15 +146,14 @@
           <span class="font-color font font-weight-bold">Tus Reservaciones <v-icon class="font-color">mdi-calendar</v-icon></span>
         </v-row>
         <v-slide-group >
-          <v-slide-item v-for="(reservation, i ) in reservations" :key="i">
+          <v-slide-item v-for="(reservation, i ) in user_reservations.reservations" :key="i">
             <v-hover >
             <v-card  width="200" height="125" class="ma-2 amber lighten-4" :elevation=6 style="border-radius: 10px;">
-              <v-card-title  class="caption font font-weight-medium">{{ reservation.schedule.field.company.name}} {{ reservation.schedule.field.company.town.name}}</v-card-title>
+              <v-card-title  class="caption font font-weight-medium"></v-card-title>
               <v-card-subtitle>
-                <span class="caption font-weight-bold font">Fecha: {{ reservation.schedule_date}}</span><br>
-                <span class="caption font-weight-bold font">Hora: {{ reservation.schedule.start_time }}</span>   <br>
-                <span class="caption font-weight-bold font">Cliente: {{ reservation.customer_reserve.first_name }} {{ reservation.customer_reserve.last_name }}</span><br>
-                <span class="caption font-weight-bold font">Precio: {{ reservation.field_reserve.price}}</span>                                            
+                <span class="caption font-weight-bold font">Fecha: {{reservation.schedule_date}}</span><br>
+                <span class="caption font-weight-bold font">Hora: {{reservation.schedule}}</span>   <br>
+                <span class="caption font-weight-bold font">Precio:{{reservation.total}} </span>                                            
               </v-card-subtitle>          
               </v-card>
             </v-hover>          
@@ -177,6 +176,7 @@ import BottomNavigation from '@/components/BottomNavigation'
       return {
         modalShow: false,
         reservations: [ ] ,
+        user_reservations: [],
         companies: [ ],
         fields: [ ],     
         users: [ ],
@@ -191,18 +191,12 @@ import BottomNavigation from '@/components/BottomNavigation'
 
     mounted(){
         //const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
-        const path = 'http://127.0.0.1:8000/api/reservations/'
+        const path = 'http://127.0.0.1:8000/api/companies/'
           axios.get(path).then((response) => {
-          this.reservations = response.data
-          console.log(this.reservations);
-          
-          //return axios.get('https://api-backend-canchas.herokuapp.com/api/companies/')
-          return axios.get('http://127.0.0.1:8000/api/companies/');
-          }).then((response) => {
-            this.companies = response.data
-            console.log(this.companies);
-            
-            return axios.get('http://127.0.0.1:8000/api/fields/')
+          this.companies = response.data
+          console.log(this.companies);
+           
+          return axios.get('http://127.0.0.1:8000/api/fields/')
           }).then((response) => {
             this.fields = response.data
             console.log(this.fields);
@@ -232,11 +226,24 @@ import BottomNavigation from '@/components/BottomNavigation'
         console.log(error);
         
       })
+    },
+    getReservation(){
+      const path = 'http://127.0.0.1:8000/api/user-reservations/'
+      axios.get(path).then((response) => {
+        this.reservations = response.data
+        console.log(this.reservations);
+        let find_user_reservations = this.reservations.find(v => v.id == this.$store.state.user)
+        this.user_reservations = find_user_reservations
+        console.log(this.user_reservations);
+      })
     }
   },
     created(){
       this.getUser()
     },
+    created(){
+      this.getReservation()
+    }
 
 }
 </script>

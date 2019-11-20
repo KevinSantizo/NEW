@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework import routers
 from datetime import datetime, time
 from sport.models import Reservation, Field, Company, Schedule, Implement
-from user.models import Department, Town
+from user.models import Department, Town, Profile
 from sport.serializer import (
     ReservationSerializer, 
     DepartmentChildSerializer, 
@@ -17,7 +17,8 @@ from sport.serializer import (
     FieldChildSerializer,
     ImplementSerializer,
     CountScheduleSerializer,
-    CountSerializer
+    CountSerializer,
+     CustomerReservationSerializer
     )
 
 
@@ -119,3 +120,10 @@ class CountViewSet(viewsets.ModelViewSet):
     authentication_classes = []
     queryset = Field.objects.all()
     serializer_class = CountSerializer
+
+
+class CustomerReservationViewSet(viewsets.ModelViewSet):
+    permission_classes = []
+    authentication_classes = []
+    queryset = Profile.objects.all()
+    serializer_class = CustomerReservationSerializer
