@@ -23,7 +23,7 @@
                 <v-divider inset vertical class="mx-2 transparent"> 
                 </v-divider> 
                 <v-list-item-content>
-                    <v-list-item-title  class="font-weight-medium title">Apitec</v-list-item-title>
+                    <v-list-item-title  class="font-weight-medium title">{{ user_name }}</v-list-item-title>
                 </v-list-item-content>
                 <v-btn icon @click="drawer = !drawer">
                 <v-icon color="grey" size=40>mdi-chevron-left</v-icon>
@@ -179,6 +179,8 @@ import BottomNavigation from '@/components/BottomNavigation'
         reservations: [ ] ,
         companies: [ ],
         fields: [ ],     
+        users: [ ],
+        user_name: '',
         drawer: false, 
         items : [
                 {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
@@ -187,8 +189,7 @@ import BottomNavigation from '@/components/BottomNavigation'
         }
     },
 
-    methods: {
-      getAll(){ 
+    mounted(){
         //const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
         const path = 'http://127.0.0.1:8000/api/reservations/'
           axios.get(path).then((response) => {
@@ -205,19 +206,38 @@ import BottomNavigation from '@/components/BottomNavigation'
           }).then((response) => {
             this.fields = response.data
             console.log(this.fields);
-          }).catch((error) => {
+          })
+          .catch((error) => {
             console.log(error);
           })
-      },
   },
-    created(){
-      this.getAll()
-    },
-  computed: {
+
+    computed: {
      isLoggedIn (){
        return this.$store.getters.isLoggedIn
    }
-  }
+  },
+  methods: {
+    getUser(){
+      const path = 'http://127.0.0.1:8000/api/users/'
+      axios.get(path).then((response) =>{
+        this.users = response.data
+        console.log(this.users);
+        let find_user = this.users.find (v => v.id == this.$store.state.user)
+        this.user_name = find_user.username
+        console.log(this.user_name);
+        console.log('Username ' +find_user.username);
+        
+      }).catch((error)=>{
+        console.log(error);
+        
+      })
+    }
+  },
+    created(){
+      this.getUser()
+    },
+
 }
 </script>
 

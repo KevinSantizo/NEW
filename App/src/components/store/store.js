@@ -7,13 +7,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         status: '',
-        token: localStorage.getItem('token') || '',
-        user: {},
+        token: localStorage.getItem('token') || null,
+        user: localStorage.getItem('user') || null,
     },
     mutations: {
-        auth_request(state){
-            state.status = 'loading'
-        },
         auth_success(state, token, user){
             state.status = 'success'
             state.token = token
@@ -30,16 +27,17 @@ export default new Vuex.Store({
     actions:{
         login({commit}, user){
             return new Promise((resolve, reject) => {
-                commit('auth_request')
                 axios({url: 'http://127.0.0.1:8000/api/api-token-auth/', data: user, method: 'POST' })
-                .then(resp => {
-                  const token = resp.data.token
+                .then(async (resp) => {
+                  const parseResponde = await resp.data
+                  const token = parseResponde.token
                   var base64Url = token.split('.')[1];
                   var base64 = base64Url.replace('-', '+').replace('_', '/');
                   console.log(JSON.parse(window.atob(base64)))        
-                  const user = resp.data.user
+                  const user = JSON.parse(window.atob(base64)).user_id
+                  console.log(user, 'ID USUARIO')
                   localStorage.setItem('token', token)
-                  localStorage.setItem('user.id', JSON.parse(window.atob(base64)))
+                  localStorage.setItem('user', user)
                   axios.defaults.headers.common['Authorization'] = token
                   commit('auth_success', token, user)
                   resolve(resp)
@@ -52,7 +50,6 @@ export default new Vuex.Store({
     },
     register({commit}, user){
         return new Promise((resolve, reject) => {
-          commit('auth_request')
           axios({url: 'http://127.0.0.1:8000/api/users/', data: user, method: 'POST' })
           .then(resp => {
           const token = resp.data.token
@@ -71,7 +68,6 @@ export default new Vuex.Store({
     },
     reservation({commit}, res){
         return new Promise((resolve, reject) => {
-          commit('auth_request')
           axios({url: 'http://127.0.0.1:8000/api/do-reservation/', data: res, method: 'POST' })
           .then(resp => {
             const res = resp.data.res

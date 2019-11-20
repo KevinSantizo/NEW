@@ -35,11 +35,8 @@
             <span class="black--text font-weight-medium font">{{field.company.name}} , {{field.company.town.name}}</span><br>
           <v-row justify="center">
             <div class="form-group" style="width: 50%;">
-              <label for="customer">Cliente</label>
-                    <select name="customer_reserve"  class="form-control font" v-model="form.customer_reserve" style="border: 1px solid #011427 !important;" >
-                      <option value="" disabled selected>Elija un Cliente</option>
-                      <option  v-for="(customer, i)  in customers" :key="i" :id="customer.id" :value="customer.id" >{{customer.first_name}} {{customer.last_name}}</option>
-                    </select>
+              <label for="customer">Hola {{user_name }} {{id_username}}</label>
+                    <input type="text"   :id="this.id_username" name="customer_reserve"   v-model="this.form.customer_reserve" >
                     <input type="hidden"   :id="field.id" name="field_reserve"   v-model="this.form.field_reserve" >
               </div>
            </v-row>  
@@ -121,6 +118,8 @@ export default {
           implements: [ ],
           schedules: [ ],
           customers: [ ],
+          user_name: '',
+          id_username:'',
           enabled: false,
           months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
           dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab'],
@@ -175,6 +174,12 @@ export default {
           console.log(error);
         })
     },
+    computed: {
+     isLoggedIn (){
+       return this.$store.getters.isLoggedIn
+   }
+  },
+
   methods: {
         checkbox(chk_id, txt_id){
           let check = document.getElementById(chk_id)
@@ -199,8 +204,26 @@ export default {
             this.$store.dispatch('reservation', data).then(() =>  
             swal("Reservación exitosa", "", "success"), 
             this.$router.push('/home')).catch(err => console.log(err))
-        }
-  
+        },
+        getUser(){
+      const path = 'http://127.0.0.1:8000/api/users/'
+      axios.get(path).then((response) =>{
+        this.users = response.data
+        console.log(this.users);
+        let find_user = this.users.find (v => v.id == this.$store.state.user)
+        this.user_name = find_user.username
+        this.id_username = find_user.id       
+        console.log(this.user_name);
+        console.log('Username ' +find_user.username);
+        
+      }).catch((error)=>{
+        console.log(error);
+        
+      })
+    }
+    },
+     created(){
+      this.getUser()
     },
 }
 

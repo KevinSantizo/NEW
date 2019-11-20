@@ -52,9 +52,9 @@
                             </v-row>
                           </div>
                           <v-spacer></v-spacer>
-                          <row>
+                          <v-row>
                           <v-btn text outlined small v-bind:to=" 'companies/'+company.id+'/info' " class="link" style="bottom: 0.5em; position: absolute; right: 0.5em;" ><v-icon small>mdi-information-variant</v-icon></v-btn>
-                          </row>                    
+                          </v-row>                    
                         </v-card-actions>
                       </v-card>
                     </v-hover>
