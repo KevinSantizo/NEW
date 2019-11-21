@@ -2,10 +2,9 @@
    <v-card  class="overflow-hidden mx-auto back-ground">
         <v-toolbar extended prominent flat text  class="back-ground" dark height="57">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-              <v-toolbar-title class="ma-9" style="top: -1em; position: absolute;">
+              <v-toolbar-title class="ma-9" style="top: 0em; position: absolute;">
                 <span class=" font-weight-bold title font"></span>
-                <v-divider class="my-1"></v-divider>
-                <span class=" font-weight-medium subtitle-1 font">Reservaciones: {{user_reservations.reservations.quantity}}</span>
+                <span class=" font-weight-medium subtitle-1 font">Reservaciones: {{ quant }}</span>
               </v-toolbar-title>
             <v-spacer>
             </v-spacer>
@@ -48,16 +47,18 @@
         <v-container class="bottom" style="height: 1500px;">
           <v-row justify="center">
              <v-hover v-for="(reservation, i) in user_reservations.reservations" :key="i">
-              <v-card class="link ma-1 amber lighten-4" outlined style="border-radius: 10px;"  width=375 height=150 gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"  :elevation=12>
-                <v-card-title  class="caption font font-weight-bold"></v-card-title>
-              <v-card-subtitle>
-                <!--<span v-if="reservation.field.type == 1" class="caption font-weight-bold font">Tipo de cancha: 5 Jugadores</span>
-                <span v-else-if="reservation.field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
-                <span v-else class="caption font-weight-bold font">11 Jugadores</span><br>
-                <span class="caption font-weight-bold font">Fecha: </span><br>
-                <span class="caption font-weight-bold font">Hora: </span>--> 
-                </v-card-subtitle>          
-                <v-chip small  label dark class="ma-1 font-weight-bold light-blue darken-4 font">Total: Q.</v-chip>                    
+              <v-card class="link ma-1" outlined style="border-radius: 10px;"  width=375 gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"  :elevation=12>
+                <v-img src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px">
+              <v-card-title></v-card-title>
+                <v-card-subtitle>
+                <span v-if="reservation.field_reserve.type == 1" class="caption font-weight-bold font  white--text">Tipo de cancha: 5 Jugadores</span>
+                <span v-else-if="reservation.field_reserve.type == 2" class="caption font-weight-bold font  white--text">7 Jugadores</span>
+                <span v-else class="caption font-weight-bold font  white--text">11 Jugadores</span><br>
+                <span class="caption font-weight-bold font  white--text">Fecha: {{ reservation.schedule_date }}</span><br>
+                <span class="caption font-weight-bold font  white--text">Hora: </span>
+                </v-card-subtitle>  
+            </v-img>                    
+                <v-chip small  label dark class="ma-1 font-weight-bold light-blue darken-4 font">Total: Q. {{ reservation.total }}</v-chip>                    
               </v-card>
           </v-hover>
           </v-row>
@@ -75,9 +76,13 @@ export default {
   data: () => ({
     reservations:[ ],
     user_reservations: [ ],
-    users: [ ],
-    quant: '',
+    months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
     user_name: '',
+    quant: '',
+    card: [
+      {src: 'https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg'}
+    ],
      drawer: false, 
         items : [
                 {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
@@ -87,6 +92,11 @@ export default {
      components: {
     BottomNavigation
   },
+    computed: {
+     isLoggedIn (){
+       return this.$store.getters.isLoggedIn
+   }
+  },
   mounted() {
       const path = 'http://127.0.0.1:8000/api/user-reservations/'
       axios.get(path).then((response) => {
@@ -94,37 +104,13 @@ export default {
         console.log(this.reservations);
         let find_user_reservations = this.reservations.find(v => v.id == this.$store.state.user)
         this.user_reservations = find_user_reservations
-        console.log(this.user_reservations);
-      })
-  },
-  computed: {
-     isLoggedIn (){
-       return this.$store.getters.isLoggedIn
-   }
-  },
-  methods: {
-    getUser(){
-      const path = 'http://127.0.0.1:8000/api/users/'
-      axios.get(path).then((response) =>{
-        this.users = response.data
-        console.log(this.users);
-        let find_user = this.users.find (v => v.id == this.$store.state.user)
-        this.user_name = find_user.username
-        this.quant = find_user.quantity
-        console.log(this.quantity);
-        console.log(this.user_name);
-        console.log('Cantidad: ' + find_user.quantity);
+        this.user_name = find_user_reservations.username
+        console.log(find_user_reservations);
+        this.quant= find_user_reservations.quantity
+        console.log('Cantidad' + ' ' + this.quant);
         
-        console.log('Username ' +find_user.username);
-        
-      }).catch((error)=>{
-        console.log(error); 
       })
-    },
-  },
-   created(){
-      this.getUser()
-    }
+  }
 }
 </script>
 

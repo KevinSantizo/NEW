@@ -68,7 +68,7 @@ export default new Vuex.Store({
     },
     reservation({commit}, res){
         return new Promise((resolve, reject) => {
-   axios({url: 'http://127.0.0.1:8000/api/do-reservation/', data: res, method: 'POST' })
+        axios({url: 'http://127.0.0.1:8000/api/do-reservation/', data: res, method: 'POST' })
           .then(resp => {
             const res = resp.data.res
             commit('auth_success', res)

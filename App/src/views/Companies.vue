@@ -10,8 +10,8 @@
             <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
       <BottomNavigation/>
-      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;">
-        <v-container class="bottom">
+      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
+        <v-container class="bottom" >
           <v-item-group v-model="selected" multiple> 
             <v-row  justify="space-around">
               <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">

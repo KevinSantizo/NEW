@@ -199,22 +199,10 @@ import BottomNavigation from '@/components/BottomNavigation'
         
       })
     },
-    getReservation(){
-      const path = 'http://127.0.0.1:8000/api/user-reservations/'
-      axios.get(path).then((response) => {
-        this.reservations = response.data
-        console.log(this.reservations);
-        let find_user_reservations = this.reservations.find(v => v.id == this.$store.state.user)
-        this.user_reservations = find_user_reservations
-        console.log(this.user_reservations);
-      })
-    }
+
   },
     created(){
       this.getUser()
-    },
-    created(){
-      this.getReservation()
     }
 
 }

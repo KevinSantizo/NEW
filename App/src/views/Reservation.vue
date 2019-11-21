@@ -220,6 +220,9 @@ export default {
       })
     }
     },
+    created(){
+      this.reservation()
+    },
      created(){
       this.getUser()
     },
