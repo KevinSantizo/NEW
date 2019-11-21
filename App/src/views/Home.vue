@@ -132,34 +132,6 @@
             </v-card>
           </v-hover>
         </v-row>
-        <v-divider class="back-ground"></v-divider>
-        <template v-if="reservations.length == 0">
-          <v-row justify="center" align="center">
-            <v-chip class="ma-2 font" close color="red darken-3" outlined justify="center">No tienes Reservaciones</v-chip>    
-          </v-row>
-          <v-row justify="center" align="center">
-            <router-link :to="{name: 'reserve'}" class="font">Reserva aquí</router-link>
-          </v-row>
-        </template>
-      <template v-else>
-        <v-row justify="center">
-          <span class="font-color font font-weight-bold">Tus Reservaciones <v-icon class="font-color">mdi-calendar</v-icon></span>
-        </v-row>
-        <v-slide-group >
-          <v-slide-item v-for="(reservation, i ) in user_reservations.reservations" :key="i">
-            <v-hover >
-            <v-card  width="200" height="125" class="ma-2 amber lighten-4" :elevation=6 style="border-radius: 10px;">
-              <v-card-title  class="caption font font-weight-medium"></v-card-title>
-              <v-card-subtitle>
-                <span class="caption font-weight-bold font">Fecha: {{reservation.schedule_date}}</span><br>
-                <span class="caption font-weight-bold font">Hora: {{reservation.schedule}}</span>   <br>
-                <span class="caption font-weight-bold font">Precio:{{reservation.total}} </span>                                            
-              </v-card-subtitle>          
-              </v-card>
-            </v-hover>          
-          </v-slide-item>
-        </v-slide-group>
-      </template>
       </v-container>
     </v-sheet>      
   </v-card>

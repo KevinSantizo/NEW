@@ -11,6 +11,7 @@ class FieldSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
@@ -28,6 +29,7 @@ class DoReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
         fields = '__all__'
+        depth = 4
         
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -62,6 +64,7 @@ class DoScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = '__all__'
+        depth = 4
 
 
 class CountScheduleSerializer(serializers.ModelSerializer):
@@ -87,7 +90,7 @@ class FieldChildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Field
         fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules', 'quantity')
-
+        detph = 3
 
 
 class CountSerializer(serializers.ModelSerializer):
@@ -133,3 +136,17 @@ class CustomerReservationSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('id', 'first_name', 'last_name', 'username', 'town', 'phone', 'email', 'password', 'reservations', 'quantity')
         depth = 2
+
+
+class FieldScheduleSerializer(serializers.ModelSerializer):
+    schedules = serializers.SerializerMethodField('get_schedules')
+    def get_schedules(self, field):
+        sch = Schedule.objects.filter(start_time__gte=datetime.now(), status__exact=2, field=field)
+        serializer = DoScheduleSerializer(instance=sch, many=True)
+        return serializer.data
+        
+    class Meta:
+        model = Field
+        fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules')
+        read_only_fields = ('company', 'id', 'name', 'status', 'type', 'price', 'schedules')
+        depth = 4

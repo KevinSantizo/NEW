@@ -3,7 +3,7 @@
     <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
       <v-layout row wrap>
         <div class="my-2">
-          <v-btn icon class="link" v-bind:to=" '/do_reserve/'+field.company.id+ '/reserve' ">
+          <v-btn icon class="link" v-bind:to=" '/do_reserve/'+field.company+ '/reserve' ">
             <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
           </v-btn>
         </div>
@@ -108,7 +108,6 @@
 <script>
 import axios from 'axios'
 import swal from 'sweetalert'
-
 export default {
     data () {
        return {
@@ -154,7 +153,7 @@ export default {
           }
     },
     mounted() {
-        const path = `http://127.0.0.1:8000/api/field-schedule/${this.fieldId}/`   
+        const path = `http://127.0.0.1:8000/api/thefield/${this.fieldId}/`   
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
@@ -174,12 +173,11 @@ export default {
           console.log(error);
         })
     },
-    computed: {
+   computed: {
      isLoggedIn (){
        return this.$store.getters.isLoggedIn
    }
   },
-
   methods: {
         checkbox(chk_id, txt_id){
           let check = document.getElementById(chk_id)
@@ -226,7 +224,6 @@ export default {
       this.getUser()
     },
 }
-
 </script>
 
 <style scoped>

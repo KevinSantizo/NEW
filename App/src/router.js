@@ -75,10 +75,6 @@ let router = new Router({
       name: 'logout', 
       component: Logout 
     },
-    {
-      path: '*',
-      redirect: '/login'
-    }
   ]
 })
 

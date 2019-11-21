@@ -5,7 +5,7 @@
               <v-toolbar-title class="ma-9" style="top: -1em; position: absolute;">
                 <span class=" font-weight-bold title font"></span>
                 <v-divider class="my-1"></v-divider>
-                <span class=" font-weight-medium subtitle-1 font">Reservaciones: {{reservations.length}}</span>
+                <span class=" font-weight-medium subtitle-1 font">Reservaciones: {{user_reservations.reservations.quantity}}</span>
               </v-toolbar-title>
             <v-spacer>
             </v-spacer>
@@ -22,7 +22,7 @@
                 <v-divider inset vertical class="mx-2 transparent"> 
                 </v-divider> 
                 <v-list-item-content>
-                    <v-list-item-title  class="font-weight-medium title">Apitec</v-list-item-title>
+                    <v-list-item-title  class="font-weight-medium title">{{user_name}}</v-list-item-title>
                 </v-list-item-content>
                 <v-btn icon @click="drawer = !drawer">
                 <v-icon color="grey" size=40>mdi-chevron-left</v-icon>
@@ -47,17 +47,17 @@
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
         <v-container class="bottom" style="height: 1500px;">
           <v-row justify="center">
-             <v-hover v-for="(reservation, i) in reservations" :key="i">
+             <v-hover v-for="(reservation, i) in user_reservations.reservations" :key="i">
               <v-card class="link ma-1 amber lighten-4" outlined style="border-radius: 10px;"  width=375 height=150 gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"  :elevation=12>
-                <v-card-title  class="caption font font-weight-bold">{{ reservation.schedule.field.company.name}} {{ reservation.schedule.field.company.town.name}}</v-card-title>
+                <v-card-title  class="caption font font-weight-bold"></v-card-title>
               <v-card-subtitle>
-                <span v-if="reservation.field_reserve.type == 1" class="caption font-weight-bold font">Tipo de cancha: 5 Jugadores</span>
-                <span v-else-if="reservation.field_reserve.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
+                <!--<span v-if="reservation.field.type == 1" class="caption font-weight-bold font">Tipo de cancha: 5 Jugadores</span>
+                <span v-else-if="reservation.field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
                 <span v-else class="caption font-weight-bold font">11 Jugadores</span><br>
-                <span class="caption font-weight-bold font">Fecha: {{ reservation.schedule_date}}</span><br>
-                <span class="caption font-weight-bold font">Hora: {{ reservation.schedule.start_time }}</span>     
+                <span class="caption font-weight-bold font">Fecha: </span><br>
+                <span class="caption font-weight-bold font">Hora: </span>--> 
                 </v-card-subtitle>          
-                <v-chip small  label dark class="ma-1 font-weight-bold light-blue darken-4 font">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
+                <v-chip small  label dark class="ma-1 font-weight-bold light-blue darken-4 font">Total: Q.</v-chip>                    
               </v-card>
           </v-hover>
           </v-row>
@@ -74,34 +74,57 @@ import BottomNavigation from '@/components/BottomNavigation'
 export default {
   data: () => ({
     reservations:[ ],
+    user_reservations: [ ],
+    users: [ ],
+    quant: '',
+    user_name: '',
      drawer: false, 
         items : [
                 {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
                 {title: 'Mis Reservaciones', icon: 'mdi-calendar', to: '/account'},
             ],
-            colors: [
-              {color: 'indigo darken-4'},
-            ]
     }),
      components: {
     BottomNavigation
   },
-  methods: {
-    getReservations(){
-      const path = 'http://127.0.0.1:8000/api/reservations/'
-      //const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
-      axios.get(path).then((response)=>{
+  mounted() {
+      const path = 'http://127.0.0.1:8000/api/user-reservations/'
+      axios.get(path).then((response) => {
         this.reservations = response.data
         console.log(this.reservations);
+        let find_user_reservations = this.reservations.find(v => v.id == this.$store.state.user)
+        this.user_reservations = find_user_reservations
+        console.log(this.user_reservations);
+      })
+  },
+  computed: {
+     isLoggedIn (){
+       return this.$store.getters.isLoggedIn
+   }
+  },
+  methods: {
+    getUser(){
+      const path = 'http://127.0.0.1:8000/api/users/'
+      axios.get(path).then((response) =>{
+        this.users = response.data
+        console.log(this.users);
+        let find_user = this.users.find (v => v.id == this.$store.state.user)
+        this.user_name = find_user.username
+        this.quant = find_user.quantity
+        console.log(this.quantity);
+        console.log(this.user_name);
+        console.log('Cantidad: ' + find_user.quantity);
+        
+        console.log('Username ' +find_user.username);
         
       }).catch((error)=>{
-        console.log(error)
+        console.log(error); 
       })
-    }
+    },
   },
-  created(){
-    this.getReservations()
-  }
+   created(){
+      this.getUser()
+    }
 }
 </script>
 
