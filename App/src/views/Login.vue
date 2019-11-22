@@ -39,7 +39,6 @@
 
 
 <script>
-    import axios from 'axios'
     export default {
          data (){
              return {
@@ -55,7 +54,7 @@
             let password = this.password
             this.$store.dispatch('login', { username, password })
             .then(() => this.$router.push('/home'))
-            .catch(err => alert('Usuario y/o contraseña inválidos'))
+            .catch(err => alert('Usuario y/o contraseña inválidos')+ err)
       },
           /*getToken() {
               alert('token')

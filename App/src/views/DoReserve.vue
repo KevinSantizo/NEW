@@ -17,7 +17,7 @@
       <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
     </v-app-bar>
   <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-    <v-container class="bottom" >
+    <v-container class="bottom" style="height: 1500px;">
       <v-slide-group>
         <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
           <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
@@ -135,18 +135,16 @@ export default {
   },
     methods: {
        getCompany() {
-        const path = `http://127.0.0.1:8000/api/field-company/${this.companyId}/`
+        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
-        axios.get(path).then((response)=> {
+          axios.get(path).then((response)=> {
           this.company = response.data;
-          console.log(response.data);
-          return axios.get('http://127.0.0.1:8000/api/field-schedule/')
+          //console.log('Company ' + this.company);
+          return axios.get('http://192.168.88.222:8000/api/field-schedule/')
           //return axios.get('https://api-backend-canchas.herokuapp.com/api/field-schedule/')
       }).then((response)=>{
         this.field = response.data
-        console.log(this.field);
-      }).catch((error)=>{
-        console.log(error);
+        //console.log(this.field);
       })
       },
     },

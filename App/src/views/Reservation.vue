@@ -3,7 +3,7 @@
     <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
       <v-layout row wrap>
         <div class="my-2">
-          <v-btn icon class="link" v-bind:to=" '/do_reserve/'+field.company+ '/reserve' ">
+          <v-btn icon class="link" v-bind:to=" '/do_reserve/'+field.company.id+ '/reserve' ">
             <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
           </v-btn>
         </div>
@@ -153,25 +153,23 @@ export default {
           }
     },
     mounted() {
-        const path = `http://127.0.0.1:8000/api/thefield/${this.fieldId}/`   
+        const path = `http://192.168.88.222:8000/api/thefield/${this.fieldId}/`   
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
-        console.log(this.field);     
+        //console.log(this.field);     
         this.form.total = this.field.price;   
         this.form.field_reserve = this.field.id   
-        return axios.get('http://127.0.0.1:8000/api/implements/')  
+        return axios.get('http://192.168.88.222:8000/api/implements/')  
         //return axios.get('https://api-backend-canchas.herokuapp.com/api/implements/')
       }).then((response)=>{
         this.implements = response.data
-        console.log(this.implements);        
-        return axios.get('http://127.0.0.1:8000/api/users/')
+        //console.log(this.implements);        
+        return axios.get('http://192.168.88.222:8000/api/users/')
       }).then((response)=>{
         this.customers = response.data
-        console.log(this.customers);
-      }).catch((error) => {
-          console.log(error);
-        })
+        //console.log(this.customers);
+      })
     },
    computed: {
      isLoggedIn (){
@@ -201,27 +199,21 @@ export default {
             }
             this.$store.dispatch('reservation', data).then(() =>  
             swal("Reservación exitosa", "", "success"), 
-            this.$router.push('/home')).catch(err => console.log(err))
+            this.$router.push('/home'))
         },
         getUser(){
-      const path = 'http://127.0.0.1:8000/api/users/'
-      axios.get(path).then((response) =>{
+        const path = 'http://192.168.88.222:8000/api/users/'
+        axios.get(path).then((response) =>{
         this.users = response.data
-        console.log(this.users);
+        //console.log(this.users);
         let find_user = this.users.find (v => v.id == this.$store.state.user)
         this.user_name = find_user.username
         this.form.customer_reserve = find_user.id       
-        console.log(this.user_name);
-        console.log('Username ' +find_user.username);
-        
-      }).catch((error)=>{
-        console.log(error);
+       // console.log(this.user_name);
+        //console.log('Username ' +find_user.username);
         
       })
     }
-    },
-    created(){
-      this.reservation()
     },
      created(){
       this.getUser()

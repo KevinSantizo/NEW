@@ -28,7 +28,7 @@
                         </div>
                         <v-row align="end" class="lightbox white--text  my-5 pa-2 fill-height">
                             <v-col>
-                                <div class="subheading font">{{ company.name }}</div>
+                                <div class="subheading font">{{ this.name }}</div>
                                 <div class="body-1 font">{{ company.email }}</div>
                             </v-col>
                         </v-row>
@@ -53,7 +53,7 @@
                         </v-slide-item>
                     </v-slide-group>
             <v-card-title style="margin-top: 0em;">
-            <span class="font-weight-medium font" style="color: red !important;">{{ company.name }} - {{company.town.name}}</span>
+            <span class="font-weight-medium font" style="color: red !important;">{{ name }} - {{company.town.name}}</span>
            <v-divider inset vertical class="mx-1 transparent">
            </v-divider>
            <v-chip label outlined><span class="caption font font-color">{{company.address }}, {{ company.town.name }} - {{ company.town.department.name}}</span></v-chip>
@@ -130,6 +130,7 @@ export default {
        return {
         companyId: this.$route.params.companyId,
         company: [],
+        name: '',
         months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
         images: [
@@ -151,15 +152,14 @@ export default {
       
     methods: {
         getCompany(){
-        const path = `http://127.0.0.1:8000/api/field-company/${this.companyId}/`   
+        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`   
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`   
         axios.get(path).then((response)=> {
         this.company = response.data
-        console.log(this.company);
-        
-      }).catch((error) => {
-          console.log(error);
-        })
+        this.name = this.company.name
+        //console.log(this.name);
+        //console.log(this.company);
+      })
         }
     },
     created(){

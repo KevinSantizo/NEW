@@ -3,7 +3,7 @@
     <v-app-bar absolute dark flat text scroll-target="#playground-example" extended  collapse-on-scroll class="back-ground">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="margin-top: 2em;">
-        <span class=" font-weight-bold title font">Bienvenido</span>
+        <span class=" font-weight-bold title font">Bienvenido {{ user_name }}</span>
           <v-divider inset vertical class="mx-1"></v-divider>
           <img src="@/assets/balloon.png" app color="white" alt="" style="width: 25px; border-radius: 100px;">
           <v-divider class="my-1"></v-divider>
@@ -17,13 +17,14 @@
     <v-navigation-drawer dense dark absolute v-model="drawer"  temporary class="back-ground" >
       <template v-slot:prepend>
           <v-list-item> 
-              <v-avatar class="profile my-5" tile style="border-radius: 10px;"> 
-                    <img src="@/assets/apitec.png" alt="">
+              <v-avatar class="profile my-5"  size="75"> 
+                    <img src="https://static.platzi.com/static/website/v2/images/avatar_default.afdd5b436fc2.png" alt="">
                 </v-avatar> 
                 <v-divider inset vertical class="mx-2 transparent"> 
                 </v-divider> 
                 <v-list-item-content>
-                    <v-list-item-title  class="font-weight-medium title">{{ user_name }}</v-list-item-title>
+                    <v-list-item-title  class="font-weight-medium title">{{ name }}</v-list-item-title>
+                    <span>{{last_name}}</span>
                 </v-list-item-content>
                 <v-btn icon @click="drawer = !drawer">
                 <v-icon color="grey" size=40>mdi-chevron-left</v-icon>
@@ -32,11 +33,11 @@
           </v-list-item>
         </template>
            <v-divider class="grey darken-1 "></v-divider>
-          <v-list>
-          <v-list-item-group  v-model="items" class="link">
+          <v-list shaped>
+          <v-list-item-group  v-model="items" class="link" color="amber darken-1">
               <v-list-item  class="link"   v-for="item in items" :key="item.title" router :to="item.to" min-width="2" >
                   <v-list-item-icon>
-                      <v-icon medium color="white" class="link" size=25>{{ item.icon }}</v-icon>
+                      <v-icon medium class="link" size=25>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title class="font-weight-medium subtitle-1 link">{{ item.title }}</v-list-item-title>
@@ -108,7 +109,11 @@
               <v-row class="fill-height pa-4" align="center" justify="center">                       
                 <div class="subtitle-1 font-weight-bold font">Buscar Chamuscas</div>
                   <v-divider inset vertical class="mx-1"></v-divider>
-                <span class="grey--text caption">(Próximamente)</span>
+                                <v-avatar size=90 class="ma-1" >
+
+                 <v-img  src="@/assets/prox.png" >
+                </v-img>
+                              </v-avatar>
               </v-row>
               <v-row class="pa-5">
                 <span text center class=" font-weight-bold title font ma-2" style="bottom: -0.5em; position: absolute; right: 0em;">Chamusca<v-icon right size="20">mdi-soccer</v-icon></span>
@@ -121,10 +126,11 @@
                 <v-img  src="@/assets/torneo.jpg">
                 </v-img>
               </v-avatar>
-              <v-row class="fill-height pa-4" align="center" justify="center">                       
-                <div class="subtitle-1 font-weight-bold font">Inscríbete a un Torneo <br></div>
-                  <v-divider inset vertical class="mx-1"></v-divider>
-                <span class="grey--text caption">(Próximamente)</span>
+              <v-row class="fill-height pa-4" align="center" justify="center">   
+              <v-avatar size=75 class="ma-3 profile">                    
+                 <v-img  src="@/assets/prox.png" style="width: 35px; height: 75px;" >
+                </v-img>
+              </v-avatar>
               </v-row>
               <v-row class="pa-5"> 
                 <span text center class=" font-weight-bold title font ma-2" style="bottom: -0.5em; position: absolute; right: 0em;">Torneos<v-icon right size="20">mdi-trophy</v-icon></span>
@@ -153,6 +159,8 @@ import BottomNavigation from '@/components/BottomNavigation'
         fields: [ ],     
         users: [ ],
         user_name: '',
+        name: '',
+        last_name: '',
         drawer: false, 
         items : [
                 {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
@@ -163,19 +171,17 @@ import BottomNavigation from '@/components/BottomNavigation'
 
     mounted(){
         //const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
-        const path = 'http://127.0.0.1:8000/api/companies/'
+        const path = 'http://192.168.88.222:8000/api/companies/'
           axios.get(path).then((response) => {
           this.companies = response.data
-          console.log(this.companies);
+          //console.log(this.companies);
            
-          return axios.get('http://127.0.0.1:8000/api/fields/')
+          return axios.get('http://192.168.88.222:8000/api/fields/')
           }).then((response) => {
             this.fields = response.data
-            console.log(this.fields);
+            //console.log(this.fields);
           })
-          .catch((error) => {
-            console.log(error);
-          })
+         
   },
 
     computed: {
@@ -185,18 +191,16 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
   methods: {
     getUser(){
-      const path = 'http://127.0.0.1:8000/api/users/'
+      const path = 'http://192.168.88.222:8000/api/users/'
       axios.get(path).then((response) =>{
         this.users = response.data
-        console.log(this.users);
+        //console.log(this.users);
         let find_user = this.users.find (v => v.id == this.$store.state.user)
         this.user_name = find_user.username
-        console.log(this.user_name);
-        console.log('Username ' +find_user.username);
-        
-      }).catch((error)=>{
-        console.log(error);
-        
+        this.name = find_user.first_name
+        this.last_name = find_user.last_name
+        //console.log(this.user_name);
+        //console.log('Username ' +find_user.username);
       })
     },
 

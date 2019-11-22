@@ -11,7 +11,7 @@
         </v-app-bar>
       <BottomNavigation/>
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-        <v-container class="bottom" >
+        <v-container class="bottom" style="height: 100%;">
           <v-item-group v-model="selected" multiple> 
             <v-row  justify="space-around">
               <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
@@ -89,10 +89,10 @@ export default {
     methods: {
       getCompanies() {
         //const path = 'https://api-backend-canchas.herokuapp.com/api/companies/'
-        const path = 'http://127.0.0.1:8000/api/companies/'
+        const path = 'http://192.168.88.222:8000/api/companies/'
         axios.get(path).then((response)=> {
           this.companies = response.data
-          console.log(this.companies);
+          //console.log(this.companies);
         })
         }
     },

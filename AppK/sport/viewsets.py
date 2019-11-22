@@ -19,7 +19,8 @@ from sport.serializer import (
     CountScheduleSerializer,
     CountSerializer,
     CustomerReservationSerializer,
-    FieldScheduleSerializer
+    FieldScheduleSerializer,
+    MakeReservationSerializer
     )
 
 
@@ -135,3 +136,10 @@ class FieldScheduleViewSet(viewsets.ModelViewSet):
     authentication_classes = []
     queryset = Field.objects.all()
     serializer_class = FieldScheduleSerializer
+
+
+class MakeReservationViewSet(viewsets.ModelViewSet):
+    permission_classes = []
+    authentication_classes = []
+    queryset = Reservation.objects.all()
+    serializer_class = MakeReservationSerializer

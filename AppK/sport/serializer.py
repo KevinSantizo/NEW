@@ -11,7 +11,6 @@ class FieldSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
@@ -150,3 +149,9 @@ class FieldScheduleSerializer(serializers.ModelSerializer):
         fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules')
         read_only_fields = ('company', 'id', 'name', 'status', 'type', 'price', 'schedules')
         depth = 4
+
+
+class MakeReservationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = '__all__'

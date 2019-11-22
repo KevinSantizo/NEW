@@ -12,14 +12,14 @@
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
         <v-container class="bottom" >
             <v-item-group> 
-            <v-row justify="space-around">
+            <v-row justify-space-around>
             <v-col  v-for="(company, index) in companies" :key="index" cols="12" md="4"> 
                 <v-hover >
                   <v-card :elevation=12  style="border-radius: 10px;">
                     <v-img :src="company.image" height="150px">
                     </v-img>
                     <v-footer class="white"  padless>
-                      <v-row justify="left" no-gutters>
+                      <v-row  no-gutters>
                         <v-col >
                         <div>
                           <span class="caption ma-2 font ">{{ company.name }} {{ company.address}}</span>
@@ -32,15 +32,21 @@
                     </v-footer>
                     <v-card-actions>
                       <div class="reserve">
-                        <v-row justify="left" align="left" class="ma-1 my-1">
+                        <v-row  class="ma-1 my-1" v-if="company.fields.length == 0">
+                          <div>
+                            <v-chip small label class=" ma-1"  color="red" text-color="white" >Sin canchas <v-icon right small>mdi-close-box</v-icon></v-chip>
+                          </div>
+                          <v-spacer></v-spacer>
+                            <v-btn text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font-color font" disabled>Reservar<v-icon  size=15>mdi-chevron-right</v-icon>
+                            </v-btn>
+                        </v-row>
+                        <v-row  class="ma-1 my-1" v-else>
                           <div>
                             <span class="ma-1 font-weight-bold font-color font" color="teal darken-4">Canchas: {{ company.fields.length }}</span><br>
-                            
                           </div>
-                          <v-row justify="end" align="center" class="ma-1"> 
-                            <v-btn text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font-color font">Reservar<v-icon right size=15>mdi-chevron-right</v-icon>
+                          <v-spacer></v-spacer>
+                            <v-btn text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font-color font" >Reservar<v-icon  size=15>mdi-chevron-right</v-icon>
                             </v-btn>
-                          </v-row>
                         </v-row>
                       </div>
                     </v-card-actions>
@@ -76,11 +82,11 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://127.0.0.1:8000/api/field-company/'
+      const path = 'http://192.168.88.222:8000/api/field-company/'
       //const path = 'https://api-backend-canchas.herokuapp.com/api/field-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
-        console.log(response.data);
+        //console.log(response.data);
       })
       },
     },
