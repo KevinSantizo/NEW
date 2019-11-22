@@ -34,7 +34,7 @@
         </template>
            <v-divider class="grey darken-1 "></v-divider>
           <v-list shaped>
-          <v-list-item-group  v-model="items" class="link" color="amber darken-1">
+          <v-list-item-group  v-model="items" class="link" color="cyan lighten-3">
               <v-list-item  class="link"   v-for="item in items" :key="item.title" router :to="item.to" min-width="2" >
                   <v-list-item-icon>
                       <v-icon medium class="link" size=25>{{ item.icon }}</v-icon>
@@ -171,12 +171,12 @@ import BottomNavigation from '@/components/BottomNavigation'
 
     mounted(){
         //const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
-        const path = 'http://192.168.88.222:8000/api/companies/'
+        const path = 'http://192.168.1.28:8000/api/companies/'
           axios.get(path).then((response) => {
           this.companies = response.data
           //console.log(this.companies);
            
-          return axios.get('http://192.168.88.222:8000/api/fields/')
+          return axios.get('http://192.168.1.28:8000/api/fields/')
           }).then((response) => {
             this.fields = response.data
             //console.log(this.fields);
@@ -191,7 +191,7 @@ import BottomNavigation from '@/components/BottomNavigation'
   },
   methods: {
     getUser(){
-      const path = 'http://192.168.88.222:8000/api/users/'
+      const path = 'http://192.168.1.28:8000/api/users/'
       axios.get(path).then((response) =>{
         this.users = response.data
         //console.log(this.users);

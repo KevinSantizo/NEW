@@ -27,7 +27,7 @@ export default new Vuex.Store({
     actions:{
         login({commit}, user){
             return new Promise((resolve, reject) => {
-                axios({url: 'http://192.168.88.222:8000/api/api-token-auth/', data: user, method: 'POST' })
+                axios({url: 'http://192.168.1.28:8000/api/api-token-auth/', data: user, method: 'POST' })
                 .then(async (resp) => {
                   const parseResponde = await resp.data
                   const token = parseResponde.token
@@ -50,7 +50,7 @@ export default new Vuex.Store({
     },
     register({commit}, user){
         return new Promise((resolve, reject) => {
-          axios({url: 'http://192.168.88.222:8000/api/users/', data: user, method: 'POST' })
+          axios({url: 'http://192.168.1.28:8000/api/users/', data: user, method: 'POST' })
           .then(resp => {
           const token = resp.data.token
           const user = resp.data.user
@@ -68,7 +68,7 @@ export default new Vuex.Store({
     },
     reservation({commit}, res){
         return new Promise((resolve, reject) => {
-        axios({url: 'http://192.168.88.222:8000/api/make-reservation/', data: res, method: 'POST' })
+        axios({url: 'http://192.168.1.28:8000/api/make-reservation/', data: res, method: 'POST' })
           .then(resp => {
             const res = resp.data.res
             commit('auth_success', res)

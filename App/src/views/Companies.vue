@@ -89,10 +89,10 @@ export default {
     methods: {
       getCompanies() {
         //const path = 'https://api-backend-canchas.herokuapp.com/api/companies/'
-        const path = 'http://192.168.88.222:8000/api/companies/'
+        const path = 'http://192.168.1.28:8000/api/companies/'
         axios.get(path).then((response)=> {
           this.companies = response.data
-          //console.log(this.companies);
+          console.log(this.companies);
         })
         }
     },

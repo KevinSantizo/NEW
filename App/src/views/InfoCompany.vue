@@ -43,15 +43,15 @@
                 </v-row>
             <v-hover>
             <v-card class="mx-auto overflow-hidden my-2 transparent" :elevation=12 style="max-width: 600px; border: 1px solid white; border-radius: 10px;">
-                    <v-slide-group>
-                        <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
-                            <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
-                                <v-img :src="image.src" class="text-right" height="100" width="200">
-                                <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
-                                </v-img>
-                            </v-card>
-                        </v-slide-item>
-                    </v-slide-group>
+                <v-slide-group>
+                    <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
+                        <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
+                            <v-img :src="image.src" class="text-right" height="100" width="200">
+                            <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
+                            </v-img>
+                        </v-card>
+                    </v-slide-item>
+                </v-slide-group>
             <v-card-title style="margin-top: 0em;">
             <span class="font-weight-medium font" style="color: red !important;">{{ name }} - {{company.town.name}}</span>
            <v-divider inset vertical class="mx-1 transparent">
@@ -152,7 +152,7 @@ export default {
       
     methods: {
         getCompany(){
-        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`   
+        const path = `http://192.168.1.28:8000/api/field-company/${this.companyId}/`   
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`   
         axios.get(path).then((response)=> {
         this.company = response.data

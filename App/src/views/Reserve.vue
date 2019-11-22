@@ -31,24 +31,25 @@
                       </v-row>
                     </v-footer>
                     <v-card-actions>
-                      <div class="reserve">
-                        <v-row  class="ma-1 my-1" v-if="company.fields.length == 0">
-                          <div>
-                            <v-chip small label class=" ma-1"  color="red" text-color="white" >Sin canchas <v-icon right small>mdi-close-box</v-icon></v-chip>
-                          </div>
+                      <div class="reserve link" v-if="company.fields.length == 0" outlined >
+                        <v-row  class="ma-1">
+                          <div class="">
+                            <v-chip outlined label class=" ma-1" disabled color="red" >Sin canchas <v-icon right small>mdi-close-box</v-icon></v-chip>                          </div>
                           <v-spacer></v-spacer>
-                            <v-btn text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font-color font" disabled>Reservar<v-icon  size=15>mdi-chevron-right</v-icon>
-                            </v-btn>
-                        </v-row>
-                        <v-row  class="ma-1 my-1" v-else>
-                          <div>
-                            <span class="ma-1 font-weight-bold font-color font" color="teal darken-4">Canchas: {{ company.fields.length }}</span><br>
-                          </div>
-                          <v-spacer></v-spacer>
-                            <v-btn text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font-color font" >Reservar<v-icon  size=15>mdi-chevron-right</v-icon>
+                            <v-btn text small class="link font-weight-bold font-color font my-1" disabled>Reservar<v-icon  size=15>mdi-plus-circle-outline</v-icon>
                             </v-btn>
                         </v-row>
                       </div>
+                      <v-btn class="reserve link color-c" v-bind:to=" '/do_reserve/'+company.id+ '/reserve'" v-else outlined>
+                        <v-row  class="ma-1">
+                          <div class="my-1">
+                            <span class="font-weight-bold color-c font-color font">Canchas: {{ company.fields.length }}</span><br>
+                          </div>
+                          <v-spacer></v-spacer>
+                            <span text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font-color font my-1" >Reservar<v-icon  size=15>mdi-plus-circle-outline</v-icon>
+                            </span>
+                        </v-row>
+                      </v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-hover>
@@ -82,7 +83,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.88.222:8000/api/field-company/'
+      const path = 'http://192.168.1.28:8000/api/field-company/'
       //const path = 'https://api-backend-canchas.herokuapp.com/api/field-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
@@ -118,7 +119,6 @@ export default {
     border-radius: 10px;
    }
    .reserve {
-     border: solid 0.5px grey;
      width: 100%;
      border-radius: 5px;
      margin-top: -0.5em; 
@@ -160,6 +160,9 @@ export default {
     background-color: #011427;
   }
   .font-color {
-    color: #011427;
+    color: #011427 !important;
+  }
+  .color-c {
+    color: #011427 !important;
   }
 </style>

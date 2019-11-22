@@ -153,19 +153,19 @@ export default {
           }
     },
     mounted() {
-        const path = `http://192.168.88.222:8000/api/thefield/${this.fieldId}/`   
+        const path = `http://192.168.1.28:8000/api/thefield/${this.fieldId}/`   
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         //console.log(this.field);     
         this.form.total = this.field.price;   
         this.form.field_reserve = this.field.id   
-        return axios.get('http://192.168.88.222:8000/api/implements/')  
+        return axios.get('http://192.168.1.28:8000/api/implements/')  
         //return axios.get('https://api-backend-canchas.herokuapp.com/api/implements/')
       }).then((response)=>{
         this.implements = response.data
         //console.log(this.implements);        
-        return axios.get('http://192.168.88.222:8000/api/users/')
+        return axios.get('http://192.168.1.28:8000/api/users/')
       }).then((response)=>{
         this.customers = response.data
         //console.log(this.customers);
@@ -202,7 +202,7 @@ export default {
             this.$router.push('/home'))
         },
         getUser(){
-        const path = 'http://192.168.88.222:8000/api/users/'
+        const path = 'http://192.168.1.28:8000/api/users/'
         axios.get(path).then((response) =>{
         this.users = response.data
         //console.log(this.users);

@@ -88,7 +88,7 @@ import swal from 'sweetalert'
 
     methods: {
         getDepartments(){            
-            const path = 'http://192.168.88.222:8000/api/towns/'
+            const path = 'http://192.168.1.28:8000/api/towns/'
             //const path = 'https://api-backend-canchas.herokuapp.com/api/towns/'
             axios.get(path).then((response) => {
                 this.departments = response.data
