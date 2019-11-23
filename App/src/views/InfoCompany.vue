@@ -22,7 +22,7 @@
             <v-row justify="center">
                 <v-hover>
                 <v-card  width="400"  class="my-1"  style="border-radius: 10px;">
-                    <v-img :src="company.image">
+                    <v-img :src="company.image" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.6)">
                         <div style="position: absolute; right: 0em;">
                             <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
                         </div>
@@ -34,7 +34,7 @@
                         </v-row>
                     </v-img>
                     <v-card-actions>
-                    <v-rating v-model="rating" background-color="amber darken-4" color="amber darken-4"></v-rating>
+                    <v-rating v-model="rating" background-color="amber darken-4" readonly color="amber darken-4"></v-rating>
                     <v-spacer></v-spacer>
                     <v-chip small class="light-green accent-4 font-weight-bold font" dark>Destacada</v-chip>
                       </v-card-actions>
@@ -46,7 +46,7 @@
                 <v-slide-group>
                     <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
                         <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
-                            <v-img :src="image.src" class="text-right" height="100" width="200">
+                            <v-img :src="image.src" class="text-right" height="100" width="200" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.3)">
                             <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
                             </v-img>
                         </v-card>
@@ -65,7 +65,7 @@
             </v-hover>
             <v-row justify="center">
             <div style="width: 400px;" class="ma-5 my-1">
-                <v-row no-gutters>
+                <v-row no-gutters justify="space-around">
                     <v-col sm="5" md="6">
                         <v-hover>
                          <v-card class="my-2 indigo darken-4 " :elevation=12 dark height="75" width="170" style="border-radius: 20px;">
@@ -90,7 +90,7 @@
                         </v-card>
                         </v-hover>
                     </v-col>
-                    <v-col sm="5" md="6">
+                              <!--<v-col sm="5" md="6">
                         <v-hover>
                         <v-card class="my-2 orange darken-4" :elevation=12 dark height="75" width="170" style="border-radius: 20px;">
                             <v-row class="fill-height" align="center" justify="center">
@@ -103,9 +103,10 @@
                         </v-card>
                         </v-hover>
                     </v-col>
+          
                     <v-col sm="5" md="6">
                         <v-hover>   
-                        <v-card class="my-2 cyan" :elevation=12 dark height="75" width="170" style="border-radius: 20px;">
+                        <v-card class="my-2 cyan link" v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " :elevation=12 dark height="75" width="170" style="border-radius: 20px;">
                             <v-row class="fill-height" align="center" justify="center">
                                 <v-icon right size=30>mdi-calendar</v-icon> 
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
@@ -113,8 +114,18 @@
                             </v-row>
                         </v-card>
                         </v-hover>
-                    </v-col>
+                    </v-col>-->
                 </v-row>  
+                <v-divider></v-divider>
+                <span class="font">Dudas y Sugerencias</span>
+                <v-form ref="form" v-model="valid" lazy-validation>
+                    <v-text-field v-model="names" :counter="10" :rules="nameRules"  class="font" label="Nombre" required ></v-text-field>
+                    <v-text-field v-model="email" :rules="emailRules" class="font" label="E-mail" required ></v-text-field>
+                    <v-text-field v-model="email" :rules="emailRules"  class="font" label="Mensaje" required ></v-text-field>
+                    <v-btn color="success" class="ma-1 font"  @click="validate"  > Enviar </v-btn>
+                    <v-btn color="error" class="ma-1 link font" router to='/home'>Cancelar</v-btn>
+                    <v-btn color="primary" class="ma-1 font" @click="reset">Limpiar</v-btn>
+                </v-form>
             </div>
             </v-row>
             </v-item-group>
@@ -125,12 +136,16 @@
 
 <script>
 import axios from 'axios'
+
+let URL =  'http://192.168.88.222:8000/'
 export default {
     data () {
        return {
         companyId: this.$route.params.companyId,
         company: [],
         name: '',
+        user_reservations: [ ],
+        reservations: [ ],
         months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
         images: [
@@ -147,20 +162,53 @@ export default {
           { src: "https://files.rcnradio.com/public/styles/img_galeria/public/2019-02/whatsapp_image_2019-02-11_at_4.22.50_pm_1_0.jpeg?itok=pjSrd8tA"}
         ],
         rating: 3,
+        valid: true,
+        names: '',
+        nameRules: [
+            v => !!v || 'Nombre requerido',
+            v => (v && v.length <= 10) || 'El nombre debe contener menos de 10 caracteres',
+        ],
+        email: '',
+        emailRules: [
+            v => !!v || 'E-mail requerido',
+            v => /.+@.+\..+/.test(v) || 'E-mail  debe ser válido',
+        ],
+        message:'',
+        messageRules: [
+            v => !!v || 'Mensaje requerido',
+            v => (v && v.length <= 100) || 'El nombre debe contener menos de 10 caracteres',
+        ]
        }
        },
-      
+         computed: {
+     isLoggedIn (){
+       return this.$store.getters.isLoggedIn
+   }
+},
     methods: {
         getCompany(){
-        const path = `http://192.168.1.28:8000/api/field-company/${this.companyId}/`   
+        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`   
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`   
         axios.get(path).then((response)=> {
         this.company = response.data
         this.name = this.company.name
         //console.log(this.name);
         //console.log(this.company);
+      }).catch((error)=>{
+          console.log(error);
       })
+        },
+        validate () {
+        if (this.$refs.form.validate()) {
+          this.snackbar = true
         }
+      },
+      reset () {
+        this.$refs.form.reset()
+      },
+      resetValidation () {
+        this.$refs.form.resetValidation()
+      },
     },
     created(){
       this.getCompany()

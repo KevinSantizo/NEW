@@ -12,18 +12,12 @@
       <BottomNavigation/>
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
         <v-container class="bottom" style="height: 100%;">
-          <v-item-group v-model="selected" multiple> 
             <v-row  justify="space-around">
               <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
                   <v-hover >
-                    <v-card  max="300" :elevation=12 style="border-radius: 10px;">
+                    <v-card  v-bind:to=" 'companies/'+company.id+'/info' " class="link" max="300" :elevation=12 style="border-radius: 10px;">
                       <v-item v-slot:default="{ active, toggle }">
-                        <v-img  :src="company.image" height="10em" class="text-right pa-2" @click="toggle"  >
-                          <v-btn icon  text color="red accent-4" @click="toggle" :input-value="active">
-                            <v-icon active-class="red accent-4"  @click="toggle" :input-value="active">
-                              {{ active ? 'mdi-heart' : 'mdi-heart-outline' }}
-                            </v-icon>
-                          </v-btn>
+                        <v-img  :src="company.image" height="10em" class="text-right pa-2" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
                             <v-card-title class="title white--text">
                               <v-row class="fill-height flex-column" justify="space-between">
                                 <div class="description">
@@ -60,7 +54,6 @@
                     </v-hover>
                   </v-col>
                 </v-row>
-              </v-item-group>
             </v-container>
         </v-sheet>
     </v-card>
@@ -69,6 +62,8 @@
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
+
+let URL = 'http://192.168.88.222:8000/'
 
 export default {
   data: () => ({
@@ -89,7 +84,7 @@ export default {
     methods: {
       getCompanies() {
         //const path = 'https://api-backend-canchas.herokuapp.com/api/companies/'
-        const path = 'http://192.168.1.28:8000/api/companies/'
+        const path = URL+'api/companies/'
         axios.get(path).then((response)=> {
           this.companies = response.data
           console.log(this.companies);
@@ -120,7 +115,7 @@ export default {
   }
    .description {
      position: absolute;
-     margin-top: 3.5em;
+     margin-top: 5.5em;
      margin-left: 0.2em;
    }
    .bottom {

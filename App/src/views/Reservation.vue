@@ -32,14 +32,18 @@
               </v-row>
             </v-card-title>
           <v-card-text>
-            <span class="black--text font-weight-medium font">{{field.company.name}} , {{field.company.town.name}}</span><br>
+            <span class="color-c subtitle-1 font-weight-medium font">{{field.company.name}} , {{field.company.town.name}}</span><br>
+            <span class="color-c subtitle-1 font-weight-medium font">Hola {{user_name }} {{id_username}}</span>
           <v-row justify="center">
             <div class="form-group" style="width: 50%;">
-              <label for="customer">Hola {{user_name }} {{id_username}}</label>
-                    <input type="hidden" name="customer_reserve"   v-model="this.form.customer_reserve" >
+                    <input type="hidden" name="customer_reserve"  v-model="this.form.customer_reserve" >
                     <input type="hidden"   :id="field.id" name="field_reserve"   v-model="this.form.field_reserve" >
               </div>
            </v-row>  
+        <div class="form-group">
+        <label for="date" class="font subtitle-1 color-c" >Fecha:</label>
+          <input type="date" name="schedule_date" style="border: 2px solid #011427;" v-model="form.schedule_date" class="form-control" id="date" >
+        </div>   
           <v-hover >
             <v-card max-width="100%" height=100 color="back-ground" >
               <v-card-text>
@@ -47,6 +51,7 @@
                   <div class="subtitle-1 white--text font-weight-medium font">Horarios</div>
                 </v-row>
                 <v-row justify="center" align="center"> 
+                  
                   <div class="form-group" style="width: 50%;">
                     <select class="form-control transparent font" name="schedule" v-model="form.schedule" id="exampleFormControlSelect1" style="border: 1px solid white !important;" >
                      <option value="" disabled selected>Elija un horario</option>
@@ -65,10 +70,7 @@
             </v-card>
       </v-hover>
       <v-divider></v-divider>
-      <div class="form-group">
-        <label for="date">Fecha:</label>
-          <input type="date" name="schedule_date" v-model="form.schedule_date" class="form-control" id="date" >
-        </div>                                    
+                                
       <!--<span class="black--text font-weight-medium font">Resto de la semana <span class="caption grey--text" >(Próximamente)</span></span>
       <v-slide-group show-arrows>
       <v-slide-item v-for="(day, i) in days" :key="i" v-slot:default="{ active, toggle }">
@@ -77,7 +79,6 @@
       </v-btn>
       </v-slide-item>
       </v-slide-group> -->  
-        <v-divider class="ma-1"></v-divider>                                 
          <!--<div class=" black--text font-weight-medium font">Extras: <span class="ma-2 font "  v-for="(implement, i) in this.implements" :key="i">{{ implement.name }} +Q{{ implement.price}}</span></div>        
           <v-row v-for="(implem, i) in this.implements" :key="i"  class="my-3">
             <v-row   justify="center">
@@ -88,17 +89,29 @@
               <input type="number" input="test()" style="border: 1px solid grey !important; width: 75px;" class="form-control form-control-sm" :id="'txt-'+implem.id" disabled  min=0 max=50  placeholder="Cant.">
             </v-row>
           </v-row>-->
-          <span>Precio de la Cancha: {{field.price}}</span><br>
+          <span class="color-c font">Precio de la Cancha: {{field.price}}</span><br>
+          <span class="color-c font">Total: {{ field.price }}</span>
           <input type="hidden" name="total" class="form-control"  v-model="this.form.total" style="border: 1px solid #011427 !important; width: 350px;" placeholder="Por favor ingrese el precio de la cancha">
       </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-            <v-btn color="red accent-4"  class="link" outlineded text  router to='/home'>Cancelar</v-btn>
-            <v-btn type="submit" color="light-green accent-4" outlined>Guardar</v-btn>
+            <v-btn color="red accent-4"  class="link font" text  router to='/home'>Cancelar</v-btn>
+            <v-btn type="submit" class="font" color="light-green accent-4" rounded outlined>Guardar</v-btn>
         </v-card-actions>
       </v-card>
       </v-hover>
       </form>
+      <v-row justify="center" class="my-2">
+        <v-avatar size="75" color="red">
+          <img :src="field.company.image" alt="alt">
+        </v-avatar>
+      </v-row>
+      <v-row justify="center"> 
+      <span class="caption grey--text font">&copy; {{ field.company.name}}, {{ field.company.town.name}}. Todos los Derechos Reservados</span>
+      </v-row>
+      <v-row justify="center"> 
+      <span class="caption grey--text font">Design By: <a href="http://apitec.io/"> Apitec</a></span>
+      </v-row>
     </v-container>
     </v-sheet>
   </v-card>
@@ -108,6 +121,8 @@
 <script>
 import axios from 'axios'
 import swal from 'sweetalert'
+
+let URL = 'http://192.168.88.222:8000/' 
 export default {
     data () {
        return {
@@ -153,19 +168,19 @@ export default {
           }
     },
     mounted() {
-        const path = `http://192.168.1.28:8000/api/thefield/${this.fieldId}/`   
+        const path = `${URL}api/thefield/${this.fieldId}/`   
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-schedule/${this.fieldId}/`   
         axios.get(path).then((response) => {
         this.field = response.data
         //console.log(this.field);     
         this.form.total = this.field.price;   
         this.form.field_reserve = this.field.id   
-        return axios.get('http://192.168.1.28:8000/api/implements/')  
+        return axios.get(URL+'api/implements/')  
         //return axios.get('https://api-backend-canchas.herokuapp.com/api/implements/')
       }).then((response)=>{
         this.implements = response.data
         //console.log(this.implements);        
-        return axios.get('http://192.168.1.28:8000/api/users/')
+        return axios.get(URL+'api/users/')
       }).then((response)=>{
         this.customers = response.data
         //console.log(this.customers);
@@ -202,22 +217,34 @@ export default {
             this.$router.push('/home'))
         },
         getUser(){
-        const path = 'http://192.168.1.28:8000/api/users/'
+        const path = URL+'api/users/'
         axios.get(path).then((response) =>{
         this.users = response.data
         //console.log(this.users);
         let find_user = this.users.find (v => v.id == this.$store.state.user)
         this.user_name = find_user.username
-        this.form.customer_reserve = find_user.id       
+        this.form.customer_reserve = find_user.id    
+         var today = new Date();
+         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+          this.form.schedule_date = date   
        // console.log(this.user_name);
         //console.log('Username ' +find_user.username);
         
       })
-    }
+    },
+    /*getCurrentDay(){
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      this.form.schedule_date = date
+      console.log(date);
+    }*/
     },
      created(){
       this.getUser()
     },
+    /*created(){
+      this.getCurrentDay()
+    }*/
 }
 </script>
 
@@ -237,9 +264,12 @@ export default {
      margin-top:  0.2em;
    }
    .bottom {
-     margin-bottom:  50px;
+     margin-bottom:  10px;
    }
  .back-ground {
     background-color: #011427;
+ }
+ .color-c {
+   color: #011427 !important;
  }
 </style>

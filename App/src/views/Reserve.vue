@@ -15,7 +15,7 @@
             <v-row justify-space-around>
             <v-col  v-for="(company, index) in companies" :key="index" cols="12" md="4"> 
                 <v-hover >
-                  <v-card :elevation=12  style="border-radius: 10px;">
+                  <v-card :elevation=12  style="border-radius: 10px;" v-if="company.fields.length == 0" disabled>
                     <v-img :src="company.image" height="150px">
                     </v-img>
                     <v-footer class="white"  padless>
@@ -34,19 +34,38 @@
                       <div class="reserve link" v-if="company.fields.length == 0" outlined >
                         <v-row  class="ma-1">
                           <div class="">
-                            <v-chip outlined label class=" ma-1" disabled color="red" >Sin canchas <v-icon right small>mdi-close-box</v-icon></v-chip>                          </div>
+                            <v-chip outlined label class=" ma-1" disabled color="red" >Sin canchas <v-icon right small>mdi-close-box</v-icon></v-chip>                          
+                          </div>
                           <v-spacer></v-spacer>
-                            <v-btn text small class="link font-weight-bold font-color font my-1" disabled>Reservar<v-icon  size=15>mdi-plus-circle-outline</v-icon>
+                            <v-btn text small class="link font-weight-bold font-color font my-1" disabled>Ver canchas<v-icon  size=20>mdi-stadium</v-icon>
                             </v-btn>
                         </v-row>
                       </div>
-                      <v-btn class="reserve link color-c" v-bind:to=" '/do_reserve/'+company.id+ '/reserve'" v-else outlined>
+                    </v-card-actions>
+                  </v-card>
+                  <v-card :elevation=12  style="border-radius: 10px; link" v-else v-bind:to=" '/do_reserve/'+company.id+ '/reserve'">
+                    <v-img :src="company.image" height="150px">
+                    </v-img>
+                    <v-footer class="white"  padless>
+                      <v-row  no-gutters>
+                        <v-col >
+                        <div>
+                          <span class="caption ma-2 font  link">{{ company.name }} {{ company.address}}</span>
+                        </div> 
+                            <span class="caption ma-2">
+                              <v-icon color="black" size="15" class="caption font link">mdi-map-marker</v-icon>{{ company.town.name}}, {{ company.town.department.name }}
+                            </span>
+                            </v-col>
+                      </v-row>
+                    </v-footer>
+                    <v-card-actions>
+                      <v-btn class="reserve link color-c" v-bind:to=" '/do_reserve/'+company.id+ '/reserve'" outlined>
                         <v-row  class="ma-1">
                           <div class="my-1">
-                            <span class="font-weight-bold color-c font-color font">Canchas: {{ company.fields.length }}</span><br>
+                            <span class="font-weight-bold color-c font-color font link">Canchas: {{ company.fields.length }}</span><br>
                           </div>
                           <v-spacer></v-spacer>
-                            <span text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font-color font my-1" >Reservar<v-icon  size=15>mdi-plus-circle-outline</v-icon>
+                            <span text small v-bind:to=" '/do_reserve/'+company.id+ '/reserve' " class="link font-weight-bold font-color font my-1" >Ver canchas<v-icon  size=20>mdi-stadium</v-icon>
                             </span>
                         </v-row>
                       </v-btn>
@@ -65,6 +84,7 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
+let URL = 'http://192.168.88.222:8000/'
 export default {
         
   data ()  {
@@ -83,7 +103,7 @@ export default {
   },
     methods: {
       getCompanies() {
-      const path = 'http://192.168.1.28:8000/api/field-company/'
+      const path = URL+'api/field-company/'
       //const path = 'https://api-backend-canchas.herokuapp.com/api/field-company/'
       axios.get(path).then((response)=> {
         this.companies = response.data
@@ -142,7 +162,7 @@ export default {
      margin-left: -0.2em;
    }
    .link {
-     text-decoration: none;
+     text-decoration: none !important;
    }
    .heart {
      position: absolute;

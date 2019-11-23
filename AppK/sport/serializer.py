@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from datetime import datetime, time
+from datetime import datetime, time, date
 from sport.models import Field, Reservation, Company, Schedule, Implement
 from user.models import Department, Town, Profile
 from user.serializer import DepartmentSerializer, DoTownSerializer
@@ -78,12 +78,14 @@ class FieldChildSerializer(serializers.ModelSerializer):
     quantity = serializers.SerializerMethodField('count_schedules')
 
     def get_schedules(self, field):
-        sch = Schedule.objects.filter(start_time__gte=datetime.now(), status__exact=2, field=field)
+        today = date.today()
+        sch = Schedule.objects.filter(start_time__gte=datetime.now(), date=today, status__exact=2, field=field)
         serializer = DoScheduleSerializer(instance=sch, many=True)
         return serializer.data
 
     def count_schedules(self, field):
-        sch = Schedule.objects.filter(start_time__gte=datetime.now(), field=field).count()
+        today = date.today()
+        sch = Schedule.objects.filter(start_time__gte=datetime.now(), date=today, field=field).count()
         return sch
 
     class Meta:
@@ -139,15 +141,23 @@ class CustomerReservationSerializer(serializers.ModelSerializer):
 
 class FieldScheduleSerializer(serializers.ModelSerializer):
     schedules = serializers.SerializerMethodField('get_schedules')
+    quantity = serializers.SerializerMethodField('count_schedules')
+
     def get_schedules(self, field):
-        sch = Schedule.objects.filter(start_time__gte=datetime.now(), status__exact=2, field=field)
+        today = date.today()
+        sch = Schedule.objects.filter(start_time__gte=datetime.now(), status__exact=2, date=today, field=field)
         serializer = DoScheduleSerializer(instance=sch, many=True)
         return serializer.data
-        
+
+    def count_schedules(self, field):
+        today = date.today()
+        sch = Schedule.objects.filter(start_time__gte=datetime.now(), status__exact=2, date=today, field=field).count()
+        return sch
+
     class Meta:
         model = Field
-        fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules')
-        read_only_fields = ('company', 'id', 'name', 'status', 'type', 'price', 'schedules')
+        fields = ( 'company', 'id', 'name', 'status', 'type', 'price', 'schedules', 'quantity')
+        read_only_fields = ('company', 'id', 'name', 'status', 'type', 'price', 'schedules', 'quantity' )
         depth = 4
 
 
@@ -155,3 +165,26 @@ class MakeReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
         fields = '__all__'
+
+
+class UserReservationTodaySeralizer(serializers.ModelSerializer):
+    reservations = serializers.SerializerMethodField('today_reservation')
+    quantity= serializers.SerializerMethodField('get_reservations')
+
+    def today_reservation(self, customer_reserve):
+        today = date.today()
+        res = Reservation.objects.filter(schedule_date=today, customer_reserve=customer_reserve)
+        serializer = DoReservationSerializer(instance=res, many=True)
+        return serializer.data
+
+    def get_reservations(self, customer_reserve):
+            today = date.today()
+            q = Reservation.objects.filter(schedule_date=today, customer_reserve=customer_reserve).count()
+            return q
+
+    class Meta:
+        model = Profile
+        fields = ('id', 'first_name', 'last_name', 'username', 'town', 'phone', 'email', 'password', 'reservations', 'quantity')
+
+
+

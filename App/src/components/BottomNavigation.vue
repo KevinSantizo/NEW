@@ -5,7 +5,7 @@
       <v-icon app text size=35>mdi-home-outline</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
-    <v-btn  icon class="link ma-2">
+    <v-btn disabled icon class="link ma-2">
       <!--<span class="caption font-weight-bold font">Partidos</span>-->
       <v-icon size=35>mdi-soccer</v-icon>
     </v-btn>

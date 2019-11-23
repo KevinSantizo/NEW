@@ -4,12 +4,12 @@
             <v-app-bar-nav-icon @click="drawer = !drawer" large></v-app-bar-nav-icon>
               <v-toolbar-title class="ma-9" style="top: 0em; position: absolute;">
                 <span class=" font-weight-bold title font"></span>
-                <span class=" font-weight-medium subtitle-1 font">Reservaciones <v-divider inset vertical></v-divider> {{ quant }}</span>
+                <span class=" font-weight-medium title font">Reservaciones <v-divider inset vertical></v-divider> {{ quant }}</span>
               </v-toolbar-title>
             <v-spacer>
             </v-spacer>
-            <v-btn router to="/reserve" icon text class="my-2">
-             <v-icon color="white" size="40">mdi-plus-circle-outline</v-icon>
+            <v-btn router to="/reserve" icon text class="my-2 link">
+             <v-icon color="white" size="35">mdi-plus-box-outline</v-icon>
             </v-btn>
         </v-toolbar>
         <v-navigation-drawer dense dark absolute v-model="drawer" temporary class="back-ground" >
@@ -37,9 +37,13 @@
                       <v-icon medium class="link" size=25>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
                     <v-list-item-content>
-                      <v-list-item-title class="font-weight-medium subtitle-1 link">{{ item.title }}</v-list-item-title>
+                      <v-list-item-title class="font-weight-medium subtitle-1 link font">{{ item.title }}</v-list-item-title>
                   </v-list-item-content>
               </v-list-item>
+              <v-divider class="grey darken-1 "></v-divider>
+               <v-btn  v-if="isLoggedIn" v-bind:to="{ name: 'logout' }"  small class="ma-2 link" tile text color="white">
+                 <v-icon left>mdi-power</v-icon> <span class="font ">Cerrar Sesión</span>
+               </v-btn>
               </v-list-item-group>
           </v-list>
       </v-navigation-drawer>
@@ -61,7 +65,7 @@
                 <span v-else class="body-2 font-weight-bold font  white--text">11 Jugadores</span><br>
                 </v-card-subtitle>  
                 <v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
-                  <img :src="'http://192.168.1.28:8000'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
+                <img :src="'http://192.168.88.222:8000'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
                 </v-card>
             </v-img>                    
              <v-card-actions>
@@ -84,6 +88,7 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
+let URL = 'http://192.168.88.222:8000/'
 export default {
   data: () => ({
     reservations:[ ],
@@ -113,7 +118,7 @@ export default {
    }
   },
   mounted() {
-      const path = 'http://192.168.1.28:8000/api/user-reservations/'
+      const path = URL+'api/user-reservations/'
       axios.get(path).then((response) => {
         this.reservations = response.data
         //console.log(this.reservations);

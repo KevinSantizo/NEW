@@ -18,15 +18,6 @@
     </v-app-bar>
   <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
     <v-container class="bottom">
-      <v-slide-group>
-        <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
-          <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
-            <v-img :src="image.src" class="text-right" height="100" width="200">
-              <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
-            </v-img>
-          </v-card>
-        </v-slide-item>
-      </v-slide-group>
     <v-row justify="center">
       <div class="col-md-4 pa-1">
         <v-img class="text-left ma-2 my-1" :src="company.image" height="200"  style="border-radius: 10px;">
@@ -37,40 +28,59 @@
           <div>
             <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon><span class="subtitle-2 ma-2 font">{{ company.name }}, {{ company.address }}- {{ company.town.name }}, {{ company.town.department.name}}</span>
           </div> 
-          <span>
-            <v-icon size=15 color="amber accent-4">mdi-star</v-icon> 
-            <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
-            <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
-            <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
-            <v-icon size=15 color="amber accent-4">mdi-star</v-icon>
-          </span>
         </v-row>
       </v-card-actions>
       </div>
     </v-row>
-      <v-slide-group style="bottom: 1em;">
-        <v-slide-item v-for="(field, i ) in company.fields" :key="i">
-          <v-hover >
-            <v-card width="175" height="215" class="ma-2 indigo lighten-5" :elevation=6 style="border-radius: 10px;">
-              <v-img class="white--text align-end" height="120" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
-                <v-card-title style="position: absolute; top: 3.7em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
-              </v-img>
-            <v-card-subtitle style="position: absolute; top: 8.7em;" class="caption font font-weight-medium">Horarios disponibles: {{ field.quantity }}</v-card-subtitle>
-            <v-card-title>
-              <span v-if="field.type == 1" class="caption font-weight-bold font">5 Jugadores</span>
-              <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
-              <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
-            </v-card-title>                                
-              <v-chip x-small label dark class="ma-2 font-weight-bold back-ground font"  style="bottom: 2em; left: 0.5em;" >Q.{{ field.price }}</v-chip>
-              <v-row justify="end">
-                <v-card-actions style="position: absolute; bottom: -0.3em; right: -0.3em;">
-                  <v-btn dark small v-bind:to=" '/field/' +field.id+'/reservar' " class="link back-ground" >Reservar</v-btn>
-                </v-card-actions>
-            </v-row>
-            </v-card>
-          </v-hover>          
+      <v-slide-group style="top: -1em;">
+        <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
+          <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
+            <v-img :src="image.src" class="text-right" height="100" width="200">
+              <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
+            </v-img>
+          </v-card>
         </v-slide-item>
       </v-slide-group>
+      <v-carousel style="bottom: 1.5em;" cycle height="260" interval=3000 delimiter-icon="mdi-minus">
+        <v-carousel-item v-for="(field, i ) in company.fields" :key="i"> 
+          <v-hover >
+            <v-row justify="center" v-if="field.quantity==0">
+            <v-card width="275" v-bind:to=" '/field/' +field.id+'/reservar' "  disabled height="200" class="ma-2 indigo lighten-5 link" :elevation=6 style="border-radius:">
+              <v-img class="white--text " height="200" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
+              <v-card-title style="position: absolute; top: -0.5em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
+                <v-row class="fill-height" align="center" justify="center">                       
+                  <v-chip label outlined dark color="white" class="headline font-weight-bold font link"> Reservar <v-icon right>mdi-calendar-clock</v-icon></v-chip>
+              </v-row>
+                  <v-card-subtitle style="position: absolute; top: 7.5em;" class="font font-weight-bold">Sin horarios <v-icon >mdi-emoticon-sad-outline</v-icon></v-card-subtitle>
+                    <v-card-title style="position: absolute; bottom: 1.2em;">
+                      <span v-if="field.type == 1" class="caption font-weight-bold font">5 Jugadores</span>
+                      <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
+                      <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
+                  </v-card-title>
+                  <v-chip small label dark class="ma-2 font-weight-bold back-ground font" style="bottom: 4em;">Q.{{ field.price }}</v-chip>
+              </v-img>                               
+            </v-card>
+            </v-row>
+             <v-row justify="center" v-else>
+            <v-card width="275" v-bind:to=" '/field/' +field.id+'/reservar' "   height="200" class="ma-2 indigo lighten-5 link" :elevation=6 style="border-radius:">
+              <v-img class="white--text " height="200" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
+              <v-card-title style="position: absolute; top: -0.5em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
+                <v-row class="fill-height" align="center" justify="center">                       
+                  <v-chip label outlined dark color="white" class="headline font-weight-bold font link"> Reservar <v-icon right>mdi-calendar-clock</v-icon></v-chip>
+              </v-row>
+                  <v-card-subtitle style="position: absolute; top: 7.5em;" class="font font-weight-bold">Horarios disponibles: {{ field.quantity }}</v-card-subtitle>
+                    <v-card-title style="position: absolute; bottom: 1.2em;">
+                      <span v-if="field.type == 1" class="caption font-weight-bold font">5 Jugadores</span>
+                      <span v-else-if="field.type == 2" class="caption font-weight-bold font">7 Jugadores</span>
+                      <span v-else class="caption font-weight-bold font">11 Jugadores</span>                              
+                  </v-card-title>
+                  <v-chip small label dark class="ma-2 font-weight-bold back-ground font" style="bottom: 4em;">Q.{{ field.price }}</v-chip>
+              </v-img>                               
+            </v-card>
+            </v-row>
+          </v-hover>          
+        </v-carousel-item>
+      </v-carousel>
     </v-container>
   </v-sheet>
   </v-card>
@@ -79,6 +89,9 @@
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
+
+let URL = 'http://192.168.88.222:8000/'
+
 export default {
   data () {
     return {
@@ -135,16 +148,16 @@ export default {
   },
     methods: {
        getCompany() {
-        const path = `http://192.168.1.28:8000/api/field-company/${this.companyId}/`
+        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
           axios.get(path).then((response)=> {
           this.company = response.data;
           //console.log('Company ' + this.company);
-          return axios.get('http://192.168.1.28:8000/api/field-schedule/')
+          return axios.get(URL+'api/thefield/')
           //return axios.get('https://api-backend-canchas.herokuapp.com/api/field-schedule/')
       }).then((response)=>{
         this.field = response.data
-        //console.log(this.field);
+        console.log(this.field);
       })
       },
     },
@@ -175,5 +188,8 @@ export default {
    }
  .back-ground {
     background-color: #011427 !important;
+  }
+  .font-color {
+    color: #011427 !important;
   }
 </style>
