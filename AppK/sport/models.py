@@ -3,6 +3,19 @@ from user.models import  Profile, Town, Department
 
 # Create your models here.
 
+
+class Company(models.Model):
+    town = models.ForeignKey(Town, related_name='companies', on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    phone = models.CharField(max_length=25)
+    email = models.EmailField(unique=True)
+    image = models.ImageField(upload_to='pictures')
+
+    def __str__(self):
+        return self.name + ', ' + self.address 
+
+
 class Field(models.Model):
     company = models.ForeignKey('Company', related_name='fields', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100, null=True)
@@ -31,19 +44,8 @@ class Field(models.Model):
     price = models.FloatField(null=True)
 
     def __str__(self):
-        return ' Type Field: ' + self.type + ', Cancha: ' + self.name + ', Price: ' + str(self.price) + ', Company:' + self.company.name + ' - ' + self.company.town.name + ' - ' + self.company.town.department.name 
+        return ' Type Field: ' + self.type + ', Cancha: ' + self.name + ', Price: ' + str(self.price) + ', Company:' + self.company.name + ' - ' + self.company.town.name + ' - ' + self.company.town.department.name        
 
-
-class Company(models.Model):
-    town = models.ForeignKey(Town, related_name='companies', on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    phone = models.CharField(max_length=25)
-    email = models.EmailField(unique=True)
-    image = models.ImageField(upload_to='pictures')
-
-    def __str__(self):
-        return self.name + ', ' + self.address 
 
 
 class Reservation(models.Model):
@@ -57,6 +59,7 @@ class Reservation(models.Model):
     def __str__(self):
         return  'Customer: ' + self.customer_reserve.first_name + ' --- Type Field: --- ' + self.field_reserve.type + ' --- Date Reserved: --- ' \
                + str(self.schedule_date) + ' --- Price: --- ' + self.field_reserve.price + self.implement.name
+
 
 
 class Schedule(models.Model):

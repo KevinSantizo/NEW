@@ -16,7 +16,6 @@
               <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
                   <v-hover >
                     <v-card  v-bind:to=" 'companies/'+company.id+'/info' " class="link" max="300" :elevation=12 style="border-radius: 10px;">
-                      <v-item v-slot:default="{ active, toggle }">
                         <v-img  :src="company.image" height="10em" class="text-right pa-2" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
                             <v-card-title class="title white--text">
                               <v-row class="fill-height flex-column" justify="space-between">
@@ -35,7 +34,6 @@
                             </v-row>
                           </v-card-title>
                         </v-img>
-                      </v-item>
                         <v-card-actions>
                           <div class="">
                             <v-row>
@@ -63,56 +61,33 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'http://127.0.0.1:8000/'
 
 export default {
-  data: () => ({
-    companies: [ ],
-    selected: [],
-    expand: false,
-    expand2: false,
-    show: false,
-    months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-    dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
-    activeBtn: 1,
-    showNav: true,
-    color: false
-  }),
   components: {
     BottomNavigation
   },
-    methods: {
-      getCompanies() {
-        //const path = 'https://api-backend-canchas.herokuapp.com/api/companies/'
-        const path = URL+'api/companies/'
-        axios.get(path).then((response)=> {
-          this.companies = response.data
-          console.log(this.companies);
-        })
-        }
-    },
-    created(){
-      this.getCompanies()
-    }
+
+  data: () => ({
+    companies: [ ],
+    months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
+  }),
+
+  mounted () {
+    //const path = 'https://api-backend-canchas.herokuapp.com/api/companies/'
+    const path = URL+'api/companies/'
+    axios.get(path).then((response)=> {
+    this.companies = response.data
+    console.log(this.companies);
+    })   
+  }
 }
 </script>
 
 <style scoped>
    @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
-  .v-card {
-    transition: opacity .4s ease-in-out;
-  }
-  .v-card:not(.on-hover) {
-    opacity: 0.9;
-  }
-  .show-btns {
-    color: rgba(255, 255, 255, 1) !important;
-  }
-  .container {
-      max-width: 100%;
-     max-height: 100%;
 
-  }
    .description {
      position: absolute;
      margin-top: 5.5em;

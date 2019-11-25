@@ -65,7 +65,7 @@
                 <span v-else class="body-2 font-weight-bold font  white--text">11 Jugadores</span><br>
                 </v-card-subtitle>  
                 <v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
-                <img :src="'http://192.168.88.222:8000'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
+                <img :src="'http://127.0.0.1:8000'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
                 </v-card>
             </v-img>                    
              <v-card-actions>
@@ -88,8 +88,11 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'http://127.0.0.1:8000/'
 export default {
+  components: {
+    BottomNavigation
+  },
   data: () => ({
     reservations:[ ],
     user_reservations: [ ],
@@ -105,32 +108,38 @@ export default {
     ],
      drawer: false, 
         items : [
-                {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
-                {title: 'Mis Reservaciones', icon: 'mdi-calendar', to: '/account'},
-            ],
+          {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
+          {title: 'Mis Reservaciones', icon: 'mdi-calendar', to: '/account'},
+      ],
     }),
-     components: {
-    BottomNavigation
-  },
     computed: {
      isLoggedIn (){
        return this.$store.getters.isLoggedIn
-   }
-  },
-  mounted() {
-      const path = URL+'api/user-reservations/'
-      axios.get(path).then((response) => {
-        this.reservations = response.data
-        //console.log(this.reservations);
-        let find_user_reservations = this.reservations.find(v => v.id == this.$store.state.user)
-        this.user_reservations = find_user_reservations
-        this.user_name = find_user_reservations.username
-         this.name = find_user_reservations.first_name
-        this.last_name = find_user_reservations.last_name
-        console.log(find_user_reservations);
-        this.quant= find_user_reservations.quantity
-        //console.log('Cantidad' + ' ' + this.quant); 
-      })
+   }, 
+},
+
+methods:{
+  getUser(){
+      let path = URL+'api/user-reservations/'
+      const requestOne = axios.get(path)
+      requestOne.then((response)=>{
+      this.reservations = response.data
+      console.log(this.reservations)
+      let find_user_reservations = this.reservations.find(v => v.id == this.$store.state.user)
+      this.user_reservations = find_user_reservations
+      this.user_name = find_user_reservations.username
+      this.name = find_user_reservations.first_name
+      this.last_name = find_user_reservations.last_name
+      console.log(find_user_reservations);
+      this.quant= find_user_reservations.quantity
+      console.log('Cantidad' + ' ' + this.quant);
+    }).catch(error => {
+        console.error(error);
+      });
+  }
+},
+  created(){
+    this.getUser()
   }
 }
 </script>

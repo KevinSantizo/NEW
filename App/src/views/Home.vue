@@ -189,52 +189,69 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'http://127.0.0.1:8000/'
   export default {
-          components: {
+     components: {
         BottomNavigation
   },
-    data () {
-      return {
-        modalShow: false,
-        reservations: [ ] ,
-        user_reservations: [],
-        companies: [ ],
-        fields: [ ],     
-        users: [ ],
-        user_reservation_today: [ ],
-        user_today_reservation:[ ],
-        user_name: '',
-        name: '',
-        last_name: '',
-        drawer: false, 
-        items : [
-                {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
-                {title: 'Mis Reservaciones', icon: 'mdi-calendar', to: '/account'},
-            ],
-        }
+
+    data: () => ({
+      modalShow: false,
+      reservations: [ ] ,
+      user_reservations: [],
+      companies: [ ],
+      fields: [ ],     
+      users: [ ],
+      user_reservation_today: [ ],
+      user_today_reservation:[ ],
+      user_name: '',
+      name: '',
+      last_name: '',
+      drawer: false, 
+      items : [
+              {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
+              {title: 'Mis Reservaciones', icon: 'mdi-calendar', to: '/account'},
+          ],
+    }),
+
+    mounted () {
+      let path_1 = URL+'api/companies/'
+      let path_2 = URL+'api/fields/'
+      let path_3 = URL+'api/users/'
+      const requestOne = axios.get(path_1)
+      const requestTwo = axios.get(path_2)
+      const requestThree = axios.get(path_3)
+
+      axios 
+      .all([requestOne, requestTwo, requestThree])
+      .then(
+        axios.spread((...responses) => {
+          const responseOne = responses[0].data;
+          const responseTwo = responses[1].data;
+          const responesThree = responses[2].data;
+
+          this.companies = responseOne
+          this.fields = responseTwo
+          this.users = responesThree
+
+          console.log(this.companies)
+          console.log(this.fields)
+          console.log(this.users)          
+          // use/access the results
+          console.log(responseOne, responseTwo, responesThree);
+        })
+      )
+      .catch(errors => {
+        // react on errors.
+        console.error(errors);
+      });
     },
 
-    mounted(){
-        //const path = 'https://api-backend-canchas.herokuapp.com/api/reservations/'
-        const path = URL+'api/companies/'
-          axios.get(path).then((response) => {
-          this.companies = response.data
-          //console.log(this.companies);
-           
-          return axios.get(URL+'api/fields/')
-          }).then((response) => {
-            this.fields = response.data
-            //console.log(this.fields);
-          })
-         
-  },
-
-    computed: {
-     isLoggedIn (){
-       return this.$store.getters.isLoggedIn
-   }
-  },
+  computed: {
+    isLoggedIn (){
+      return this.$store.getters.isLoggedIn
+    }
+   },
   methods: {
     getUser(){
       const path = URL+'api/users/'
@@ -253,7 +270,7 @@ let URL = 'http://192.168.88.222:8000/'
         console.log(this.user_reservation_today);
         let find_user_reservation_today = this.user_reservation_today.find(v => v.id == this.$store.state.user)
         this.user_today_reservation = find_user_reservation_today
-        console.log(this.user_today_reservation);
+        console.log(this.user_today_reservation)
       }).catch((error)=>{
         console.log(error);
       })
@@ -263,8 +280,8 @@ let URL = 'http://192.168.88.222:8000/'
     created(){
       this.getUser()
     }
-
 }
+      
 </script>
 
 <style scoped>
