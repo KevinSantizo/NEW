@@ -157,8 +157,8 @@
                  <v-slide-group >
                   <v-slide-item v-for="reservation in this.user_today_reservation.reservations" :key="reservation.id" :reservation="reservation"> 
                     <v-hover >
-                      <v-card class="link ma-1 transform" outlined style="border-radius: 10px;"  width=325>
-                        <v-img gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)"  src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end"  height="200px">
+                      <v-card class="link ma-1 grey" outlined style="border-radius: 5px;"  width=325 height=285>
+                        <v-img gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)"  src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end"  height="250px">
                       <v-icon  style="top: 0.2em; right: 0.2em; position: absolute;" size="30" color="white">mdi-soccer</v-icon>
                       <v-card-title><span></span>{{ reservation.field_reserve.company.name }}, {{ reservation.field_reserve.company.town.department.name }}</v-card-title>
                         <v-card-subtitle>
@@ -170,16 +170,13 @@
                         <span v-else class="body-2 font-weight-bold font  white--text">11 Jugadores</span><br>
                         </v-card-subtitle>    
                         <v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
-                        <img :src="'http://192.168.88.222:8000'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
+                        <img :src="'http://127.0.0.1:8000'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
                         </v-card>
                     </v-img>                    
-                    <v-card-actions>
-                      <v-chip label dark class="font-weight-bold back-ground font">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
-                        <v-spacer></v-spacer>
-                        <v-btn icon>
-                          <v-icon class="color-c" size="40">mdi-soccer-field</v-icon>
-                        </v-btn>
-                    </v-card-actions>
+                    <v-chip label dark small class="font-weight-bold back-ground font ma-1">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
+                      <v-btn icon>
+                        <v-icon class="color-c" size="40">mdi-soccer-field</v-icon>
+                      </v-btn>
                     </v-card>
                   </v-hover>       
             </v-slide-item>
@@ -193,7 +190,7 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'http://127.0.0.1:8000/'
   export default {
      components: {
         BottomNavigation

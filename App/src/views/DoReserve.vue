@@ -67,7 +67,7 @@
               <v-card-title style="position: absolute; top: -0.5em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
                 <v-row class="fill-height" align="center" justify="center">                       
                   <v-chip label outlined dark color="white" class="headline font-weight-bold font link"> Reservar <v-icon right>mdi-calendar-clock</v-icon></v-chip>
-              </v-row>
+                </v-row>
                   <v-card-subtitle style="position: absolute; top: 7.5em;" class="font font-weight-bold">Horarios disponibles: {{ field.quantity }}</v-card-subtitle>
                     <v-card-title style="position: absolute; bottom: 1.2em;">
                       <span v-if="field.type == 1" class="caption font-weight-bold font">5 Jugadores</span>
@@ -90,7 +90,7 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'http://127.0.0.1:8000/'
 
 export default {
   components: {
@@ -120,7 +120,7 @@ export default {
   },
     methods: {
        getCompany() {
-        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`
+        const path = `http://127.0.0.1:8000/api/field-company/${this.companyId}/`
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
           axios.get(path).then((response)=> {
           this.company = response.data;

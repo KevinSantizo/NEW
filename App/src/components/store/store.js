@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 Vue.use(Vuex)
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'http://127.0.0.1:8000/'
 export default new Vuex.Store({
     state: {
         status: '',

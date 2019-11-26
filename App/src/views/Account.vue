@@ -3,8 +3,8 @@
         <v-toolbar extended prominent flat text  class="back-ground" dark height="57">
             <v-app-bar-nav-icon @click="drawer = !drawer" large></v-app-bar-nav-icon>
             <template v-slot:extension>
-              <v-fab-transition>
-                <v-btn color="cyan lighten-3" class="link hidden" router to="/reserve"   fab dark absolute  bottom right>
+              <v-fab-transition >
+                <v-btn color="cyan lighten-3" class="link" v-show="!hidden" router to="/reserve"  @click="hidden = !hidden" fab dark absolute  bottom right>
                   <v-icon >mdi-plus</v-icon>
                 </v-btn>
               </v-fab-transition>
@@ -58,8 +58,8 @@
           <v-row justify="center">
 
              <v-hover v-for="(reservation, i) in this.user_reservations.reservations" :key="i">
-              <v-card class="link ma-1" outlined style="border-radius: 10px;"  width=375 :elevation=12>
-                <v-img src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)" height="200px">
+              <v-card class="link ma-1" outlined style="border-radius: 10px;"  width=325 height=285 :elevation=12>
+                <v-img src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)" height="250px">
               <v-icon  style="top: 0.2em; right: 0.2em; position: absolute;" size="30" color="white">mdi-soccer</v-icon>
               <v-card-title><span></span>{{ reservation.field_reserve.company.name }}, {{ reservation.field_reserve.company.town.department.name }}</v-card-title>
                 <v-card-subtitle>
@@ -71,17 +71,14 @@
                 <span class="body-2 font-weight-bold font  white--text">Hora: {{ reservation.schedule.start_time}} </span><br>
                 </v-card-subtitle>  
                  <!--<v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
-                <v-img :src="'http://192.168.88.222:8000/'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
+                <v-img :src="'http://127.0.0.1:8000/'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
                 </v-img>
                 </v-card>-->
-            </v-img>                    
-             <v-card-actions>
-                <v-chip label dark class="font-weight-bold back-ground font">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
-                      <v-spacer></v-spacer>
+              </v-img>                    
+                <v-chip label dark small class="font-weight-bold back-ground font ma-1">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
                       <v-btn icon>
                         <v-icon class="color-c" size="40">mdi-soccer-field</v-icon>
                       </v-btn>
-                </v-card-actions>
               </v-card>
           </v-hover>
           </v-row>
@@ -95,7 +92,7 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'http://127.0.0.1:8000/'
 export default {
   components: {
     BottomNavigation
@@ -166,4 +163,8 @@ mounted(){
    .link {
      text-decoration: none;
    }
+
+   #hidden {
+    transition: top 0.3s; /* Transition effect when sliding down (and up) */ 
+}
 </style>
