@@ -90,7 +90,7 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://127.0.0.1:8000/'
+let URL = 'http://192.168.88.222:8000/'
 
 export default {
   components: {
@@ -120,7 +120,7 @@ export default {
   },
     methods: {
        getCompany() {
-        const path = `http://127.0.0.1:8000/api/field-company/${this.companyId}/`
+        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
           axios.get(path).then((response)=> {
           this.company = response.data;

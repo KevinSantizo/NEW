@@ -134,7 +134,7 @@
           </v-hover>
         </v-row>
         <v-divider></v-divider>
-         <div class="green accent-4 text-center my-1  round"><span class="white--text">Reservaciones para Hoy {{this.user_today_reservation.quantity}}</span></div>
+         <div class="back-ground accent-4 text-center my-1 round"  label><span class="title white--text">Hoy: {{this.user_today_reservation.quantity}} reservaciones</span></div>
               <template v-if="this.user_today_reservation.quantity==0">
                 <v-row justify="center" align="center">
                 <v-chip class="ma-2" close color="red darken-3" outlined justify="center">
@@ -142,14 +142,22 @@
               </v-chip>    
               </v-row>
               <v-row justify="center" align="center">
-                <router-link :to="{name: 'companies'}">Reserva aquí</router-link>
+                <router-link :to="{name: 'reserve'}">Reserva aquí</router-link>
               </v-row>
               </template>
               <div v-else>
+                <v-row justify="center" class="ma-3">
+                  <v-fab-transition>
+                <v-btn  color="black"  class="link" router to="/reserve"  fab dark large outlined>
+                  <v-icon>mdi-plus</v-icon>
+                </v-btn>
+              </v-fab-transition>
+                      <!--<v-btn  class="link" router to="/reserve" icon text> <v-icon right size="50">mdi-plus-circle-outline</v-icon></v-btn>-->
+                  </v-row>
                  <v-slide-group >
-                  <v-slide-item v-for="(reservation, i ) in user_today_reservation.reservations" :key="i"> 
+                  <v-slide-item v-for="reservation in this.user_today_reservation.reservations" :key="reservation.id" :reservation="reservation"> 
                     <v-hover >
-                      <v-card class="link ma-1" outlined style="border-radius: 10px;"  width=325>
+                      <v-card class="link ma-1 transform" outlined style="border-radius: 10px;"  width=325>
                         <v-img gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)"  src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end"  height="200px">
                       <v-icon  style="top: 0.2em; right: 0.2em; position: absolute;" size="30" color="white">mdi-soccer</v-icon>
                       <v-card-title><span></span>{{ reservation.field_reserve.company.name }}, {{ reservation.field_reserve.company.town.department.name }}</v-card-title>
@@ -176,27 +184,23 @@
                   </v-hover>       
             </v-slide-item>
           </v-slide-group>
-              <v-row justify="center" class="ma-1">
-                <v-btn color="success" class="link" router to="/reserve" rounded outlined>Nueva <v-icon right>mdi-plus-box-outline</v-icon></v-btn>
-            </v-row>
           </div>
       </v-container>
     </v-sheet>      
   </v-card>
 </template>
-
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://127.0.0.1:8000/'
+let URL = 'http://192.168.88.222:8000/'
   export default {
      components: {
         BottomNavigation
   },
 
-    data: () => ({
-      modalShow: false,
+    data () {
+      return {
       reservations: [ ] ,
       user_reservations: [],
       companies: [ ],
@@ -212,71 +216,59 @@ let URL = 'http://127.0.0.1:8000/'
               {title: 'Inicio', icon: 'mdi-home', to  : '/home'},
               {title: 'Mis Reservaciones', icon: 'mdi-calendar', to: '/account'},
           ],
-    }),
-
+          }
+    },
+    /*
     mounted () {
-      let path_1 = URL+'api/companies/'
-      let path_2 = URL+'api/fields/'
-      let path_3 = URL+'api/users/'
-      const requestOne = axios.get(path_1)
-      const requestTwo = axios.get(path_2)
-      const requestThree = axios.get(path_3)
-
-      axios 
-      .all([requestOne, requestTwo, requestThree])
-      .then(
-        axios.spread((...responses) => {
-          const responseOne = responses[0].data;
-          const responseTwo = responses[1].data;
-          const responesThree = responses[2].data;
-
-          this.companies = responseOne
-          this.fields = responseTwo
-          this.users = responesThree
-
-          console.log(this.companies)
-          console.log(this.fields)
-          console.log(this.users)          
-          // use/access the results
-          console.log(responseOne, responseTwo, responesThree);
-        })
-      )
-      .catch(errors => {
-        // react on errors.
-        console.error(errors);
-      });
+      Promise.all([
+      axios.get(URL+'api/companies/'),
+      axios.get(URL+'api/fields/'),
+      axios.get(URL+'api/users/')
+      ]).then((responses)=>{
+        this.companies = responses[0].data
+        this.fields = responses[1].data
+        this.users = responses[2].data
+        console.log(this.companies);
+        console.log(this.fields);
+        console.log(this.users);
+      })
+},*/
+  mounted () {
+      Promise.all([
+      axios.get(URL+'api/companies/'),
+      axios.get(URL+'api/fields/'),
+      ]).then((responses)=>{
+        this.companies = responses[0].data
+        this.fields = responses[1].data        
+        console.log(this.companies);
+        console.log(this.fields);
+      }).catch((error)=>{
+        console.log(error);
+      })
     },
 
   computed: {
     isLoggedIn (){
       return this.$store.getters.isLoggedIn
     }
-   },
-  methods: {
-    getUser(){
-      const path = URL+'api/users/'
-      axios.get(path).then((response) =>{
-        this.users = response.data
-        //console.log(this.users);
-        let find_user = this.users.find (v => v.id == this.$store.state.user)
-        this.user_name = find_user.username
-        this.name = find_user.first_name
-        this.last_name = find_user.last_name
-        //console.log(this.user_name);
-        //console.log('Username ' +find_user.username);
-        return axios.get(URL+'api/user-reservation-today/')
-      }).then((response)=>{
-        this.user_reservation_today = response.data
-        console.log(this.user_reservation_today);
-        let find_user_reservation_today = this.user_reservation_today.find(v => v.id == this.$store.state.user)
-        this.user_today_reservation = find_user_reservation_today
-        console.log(this.user_today_reservation)
-      }).catch((error)=>{
-        console.log(error);
-      })
-    },
+   }, 
 
-  },
+    methods: {
+      getUser(){
+        axios.get(URL+'api/user-reservation-today/').then((response)=>{
+          this.user_reservation_today = response.data
+          let find_user = this.user_reservation_today.find (v => v.id == this.$store.state.user)
+          this.user_today_reservation = find_user
+          this.user_name = find_user.username
+          this.name = find_user.first_name
+          this.last_name = find_user.last_name
+          console.log(this.user_today_reservation);
+          console.log(this.user_name);
+          console.log(this.name);
+          console.log(this.user_reservation_today);
+        })
+      }
+    },
     created(){
       this.getUser()
     }
@@ -324,4 +316,5 @@ let URL = 'http://127.0.0.1:8000/'
   .color-c {
     color: #011427 !important;
   }
+
 </style>

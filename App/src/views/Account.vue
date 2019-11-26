@@ -2,15 +2,19 @@
    <v-card  class="overflow-hidden mx-auto back-ground">
         <v-toolbar extended prominent flat text  class="back-ground" dark height="57">
             <v-app-bar-nav-icon @click="drawer = !drawer" large></v-app-bar-nav-icon>
+            <template v-slot:extension>
+              <v-fab-transition>
+                <v-btn color="cyan lighten-3" class="link hidden" router to="/reserve"   fab dark absolute  bottom right>
+                  <v-icon >mdi-plus</v-icon>
+                </v-btn>
+              </v-fab-transition>
+            </template>
               <v-toolbar-title class="ma-9" style="top: 0em; position: absolute;">
                 <span class=" font-weight-bold title font"></span>
                 <span class=" font-weight-medium title font">Reservaciones <v-divider inset vertical></v-divider> {{ quant }}</span>
               </v-toolbar-title>
             <v-spacer>
             </v-spacer>
-            <v-btn router to="/reserve" icon text class="my-2 link">
-             <v-icon color="white" size="35">mdi-plus-box-outline</v-icon>
-            </v-btn>
         </v-toolbar>
         <v-navigation-drawer dense dark absolute v-model="drawer" temporary class="back-ground" >
       <template v-slot:prepend>
@@ -41,6 +45,7 @@
                   </v-list-item-content>
               </v-list-item>
               <v-divider class="grey darken-1 "></v-divider>
+
                <v-btn  v-if="isLoggedIn" v-bind:to="{ name: 'logout' }"  small class="ma-2 link" tile text color="white">
                  <v-icon left>mdi-power</v-icon> <span class="font ">Cerrar Sesión</span>
                </v-btn>
@@ -51,7 +56,8 @@
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
         <v-container class="bottom">
           <v-row justify="center">
-             <v-hover v-for="(reservation, i) in user_reservations.reservations" :key="i">
+
+             <v-hover v-for="(reservation, i) in this.user_reservations.reservations" :key="i">
               <v-card class="link ma-1" outlined style="border-radius: 10px;"  width=375 :elevation=12>
                 <v-img src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)" height="200px">
               <v-icon  style="top: 0.2em; right: 0.2em; position: absolute;" size="30" color="white">mdi-soccer</v-icon>
@@ -59,14 +65,15 @@
                 <v-card-subtitle>
                 <span class="body-2 font-weight-bold font  white--text">Fecha: {{ reservation.field_reserve.company.address }}</span><br>
                 <span class="body-2 font-weight-bold font  white--text">Fecha: {{ reservation.schedule_date }}</span><br>
-                <span class="body-2 font-weight-bold font  white--text">Hora: {{ reservation.schedule.start_time}} </span><br>
                  <span v-if="reservation.field_reserve.type == 1" class="body-2 font-weight-bold font  white--text">Tipo de cancha: 5 Jugadores</span>
                 <span v-else-if="reservation.field_reserve.type == 2" class="body-2 font-weight-bold font  white--text">7 Jugadores</span>
                 <span v-else class="body-2 font-weight-bold font  white--text">11 Jugadores</span><br>
+                <span class="body-2 font-weight-bold font  white--text">Hora: {{ reservation.schedule.start_time}} </span><br>
                 </v-card-subtitle>  
-                <v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
-                <img :src="'http://127.0.0.1:8000'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
-                </v-card>
+                 <!--<v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
+                <v-img :src="'http://192.168.88.222:8000/'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
+                </v-img>
+                </v-card>-->
             </v-img>                    
              <v-card-actions>
                 <v-chip label dark class="font-weight-bold back-ground font">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
@@ -88,7 +95,7 @@
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://127.0.0.1:8000/'
+let URL = 'http://192.168.88.222:8000/'
 export default {
   components: {
     BottomNavigation
@@ -103,6 +110,7 @@ export default {
     last_name: '',
     quant: '',
     rating: 4.3,
+    hidden: false,
     card: [
       {src: 'https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg'}
     ],
@@ -118,8 +126,7 @@ export default {
    }, 
 },
 
-methods:{
-  getUser(){
+mounted(){
       let path = URL+'api/user-reservations/'
       const requestOne = axios.get(path)
       requestOne.then((response)=>{
@@ -136,11 +143,8 @@ methods:{
     }).catch(error => {
         console.error(error);
       });
-  }
 },
-  created(){
-    this.getUser()
-  }
+
 }
 </script>
 
@@ -157,6 +161,7 @@ methods:{
   }
   .bottom {
      padding-bottom: 70px;
+     margin-top: 30px;
    }
    .link {
      text-decoration: none;

@@ -69,7 +69,7 @@
 import axios from'axios'
 import swal from 'sweetalert'
 
-let URL =  'http://127.0.0.1:8000/'
+let URL =  'http://192.168.88.222:8000/'
     export default {
          data(){
              return {

@@ -122,7 +122,7 @@
 import axios from 'axios'
 import swal from 'sweetalert'
 
-let URL = 'http://192.168.8.205:8000/' 
+let URL = 'http://192.168.88.222:8000/' 
 export default {
     data () {
        return {
@@ -213,9 +213,15 @@ export default {
               implement: this.form.implement
             }
             this.$store.dispatch('reservation', data).then(() =>  
-            swal("Reservación exitosa", "", "success"), 
-            this.$router.push('/home'))
-        },
+            swal({
+              title: "Reservación guardada exitosamente!",
+              type: "success"
+              }).then(function() {
+              // Redirect the user
+              window.location.href = "/home";
+              })
+            )
+    },
         getUser(){
         const path = URL+'api/users/'
         axios.get(path).then((response) =>{
@@ -238,7 +244,8 @@ export default {
       this.form.schedule_date = date
       console.log(date);
     }*/
-    },
+
+},
      created(){
       this.getUser()
     },

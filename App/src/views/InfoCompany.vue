@@ -22,14 +22,14 @@
             <v-row justify="center">
                 <v-hover>
                 <v-card  width="400"  class="my-1"  style="border-radius: 10px;">
-                    <v-img :src="company.image" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.6)">
+                    <v-img :src="this.company.image" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.6)">
                         <div style="position: absolute; right: 0em;">
                             <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
                         </div>
                         <v-row align="end" class="lightbox white--text  my-5 pa-2 fill-height">
                             <v-col>
-                                <div class="subheading font">{{ this.name }}</div>
-                                <div class="body-1 font">{{ company.email }}</div>
+                                <div class="subheading font">{{ this.company.name }}</div>
+                                <div class="body-1 font">{{ this.company.email }}</div>
                             </v-col>
                         </v-row>
                     </v-img>
@@ -44,7 +44,7 @@
             <v-hover>
             <v-card class="mx-auto overflow-hidden my-2 transparent" :elevation=12 style="max-width: 600px; border: 1px solid white; border-radius: 10px;">
                 <v-slide-group>
-                    <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
+                    <v-slide-item v-for="image in images" :key="image.id" :image="image" v-slot:default="{ active, toggle }">
                         <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
                             <v-img :src="image.src" class="text-right" height="100" width="200" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.3)">
                             <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
@@ -53,10 +53,10 @@
                     </v-slide-item>
                 </v-slide-group>
             <v-card-title style="margin-top: 0em;">
-            <span class="font-weight-medium font" style="color: red !important;">{{ name }} - {{company.town.name}}</span>
+            <span class="font-weight-medium font" style="color: red !important;">{{ this.company.name }} - {{this.company.town.name}}</span>
            <v-divider inset vertical class="mx-1 transparent">
            </v-divider>
-           <v-chip label outlined><span class="caption font font-color">{{company.address }}, {{ company.town.name }} - {{ company.town.department.name}}</span></v-chip>
+           <v-chip label outlined><span class="caption font font-color">{{this.company.address }}, {{ this.company.town.name }} - {{ this.company.town.department.name}}</span></v-chip>
         </v-card-title>
                       <div class="pa-2 caption font font-color">
                         <em>Portions of the materials used are trademarks and/or copyrighted works of Epic Games, Inc. All rights reserved by Epic. This material is not official and is not endorsed by Epic.</em>
@@ -74,7 +74,7 @@
                                 <v-divider inset vertical class="mx-1 transparent"></v-divider>
                                 <span class="font">Canchas</span>
                                 <v-divider inset vertical class="mx-2"></v-divider>
-                                <span class="font">{{ company.fields.length }}</span>
+                                <span class="font">{{ this.company.fields.length }}</span>
                             </v-row>
                         </v-card>
                         </v-hover>
@@ -121,7 +121,7 @@
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field v-model="names" :counter="10" :rules="nameRules"  class="font" label="Nombre" required ></v-text-field>
                     <v-text-field v-model="email" :rules="emailRules" class="font" label="E-mail" required ></v-text-field>
-                    <v-text-field v-model="email" :rules="emailRules"  class="font" label="Mensaje" required ></v-text-field>
+                    <v-text-field v-model="message" :rules="messageRules"  class="font" label="Mensaje" required ></v-text-field>
                     <v-btn color="success" class="ma-1 font"  @click="validate"  > Enviar </v-btn>
                     <v-btn color="error" class="ma-1 link font" router to='/home'>Cancelar</v-btn>
                     <v-btn color="primary" class="ma-1 font" @click="reset">Limpiar</v-btn>
@@ -136,16 +136,12 @@
 
 <script>
 import axios from 'axios'
-
-let URL =  'http://192.168.8.205:8000/'
+let URL =  'http://192.168.88.222:8000/'
 export default {
     data () {
        return {
         companyId: this.$route.params.companyId,
         company: [],
-        name: '',
-        user_reservations: [ ],
-        reservations: [ ],
         months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab',],
         images: [
@@ -186,18 +182,6 @@ export default {
    }
 },
     methods: {
-        getCompany(){
-        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`   
-        //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`   
-        axios.get(path).then((response)=> {
-        this.company = response.data
-        this.name = this.company.name
-        //console.log(this.name);
-        //console.log(this.company);
-      }).catch((error)=>{
-          console.log(error);
-      })
-        },
         validate () {
         if (this.$refs.form.validate()) {
           this.snackbar = true
@@ -210,8 +194,14 @@ export default {
         this.$refs.form.resetValidation()
       },
     },
-    created(){
-      this.getCompany()
+
+    mounted(){
+        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`   
+        //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`   
+        axios.get(path).then((response)=> {
+        this.company = response.data
+        console.log(this.company);
+      })
     }
 }
 </script>
