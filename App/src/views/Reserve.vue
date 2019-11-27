@@ -16,7 +16,7 @@
             <v-col  v-for="(company, index) in companies" :key="index" cols="12" md="4"> 
                 <v-hover >
                   <v-card :elevation=12  style="border-radius: 10px;" v-if="company.fields.length == 0" disabled>
-                    <v-img :src="company.image" height="150px">
+                    <v-img :src="company.image" height="150px" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
                     </v-img>
                     <v-footer class="white"  padless>
                       <v-row  no-gutters>
@@ -44,7 +44,7 @@
                     </v-card-actions>
                   </v-card>
                   <v-card :elevation=12  style="border-radius: 10px; link" v-else v-bind:to=" '/do_reserve/'+company.id+ '/reserve'">
-                    <v-img :src="company.image" height="150px">
+                    <v-img :src="company.image" height="150px" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
                     </v-img>
                     <v-footer class="white"  padless>
                       <v-row  no-gutters>

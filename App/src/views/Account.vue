@@ -1,11 +1,17 @@
 <template>
    <v-card  class="overflow-hidden mx-auto back-ground">
         <v-toolbar extended prominent flat text  class="back-ground" dark height="57">
-            <v-app-bar-nav-icon @click="drawer = !drawer" large></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon color="amber lighten-5" @click="drawer = !drawer" large></v-app-bar-nav-icon>
             <template v-slot:extension>
+<<<<<<< HEAD
               <v-fab-transition >
                 <v-btn color="cyan lighten-3" class="link" v-show="!hidden" router to="/reserve"  @click="hidden = !hidden" fab dark absolute  bottom right>
                   <v-icon >mdi-plus</v-icon>
+=======
+              <v-fab-transition>
+                <v-btn  class="link amber lighten-5" router to="/reserve"  fab absolute  top right>
+                  <v-icon class="color-c">mdi-plus</v-icon>
+>>>>>>> de371b13e1c35b1f058458d8d9d3648911d324f0
                 </v-btn>
               </v-fab-transition>
             </template>
@@ -29,13 +35,13 @@
                     <span>{{last_name}}</span>
                 </v-list-item-content>
                 <v-btn icon @click="drawer = !drawer">
-                <v-icon color="grey" size=40>mdi-chevron-left</v-icon>
+                <v-icon color="amber lighten-5" size=40>mdi-chevron-left</v-icon>
                 </v-btn>
           </v-list-item>
         </template>
            <v-divider class="grey darken-1 "></v-divider>
           <v-list shaped>
-          <v-list-item-group  v-model="items" class="link" color="cyan lighten-3">
+          <v-list-item-group  v-model="items" class="link" color="amber lighten-5">
               <v-list-item  class="link"   v-for="item in items" :key="item.title" router :to="item.to" min-width="2" >
                   <v-list-item-icon>
                       <v-icon medium class="link" size=25>{{ item.icon }}</v-icon>
@@ -54,12 +60,17 @@
       </v-navigation-drawer>
         <BottomNavigation/>
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-        <v-container class="bottom">
+        <v-container class="bottom amber lighten-5">
           <v-row justify="center">
 
              <v-hover v-for="(reservation, i) in this.user_reservations.reservations" :key="i">
+<<<<<<< HEAD
               <v-card class="link ma-1" outlined style="border-radius: 10px;"  width=325 height=285 :elevation=12>
                 <v-img src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)" height="250px">
+=======
+              <v-card class="link ma-1 amber lighten-5" outlined style="border-radius: 10px;"  width=375  height=265 :elevation=12>
+                <v-img src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)" height="215px">
+>>>>>>> de371b13e1c35b1f058458d8d9d3648911d324f0
               <v-icon  style="top: 0.2em; right: 0.2em; position: absolute;" size="30" color="white">mdi-soccer</v-icon>
               <v-card-title><span></span>{{ reservation.field_reserve.company.name }}, {{ reservation.field_reserve.company.town.department.name }}</v-card-title>
                 <v-card-subtitle>
@@ -70,6 +81,7 @@
                 <span v-else class="body-2 font-weight-bold font  white--text">11 Jugadores</span><br>
                 <span class="body-2 font-weight-bold font  white--text">Hora: {{ reservation.schedule.start_time}} </span><br>
                 </v-card-subtitle>  
+<<<<<<< HEAD
                  <!--<v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
                 <v-img :src="'http://127.0.0.1:8000/'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
                 </v-img>
@@ -79,11 +91,25 @@
                       <v-btn icon>
                         <v-icon class="color-c" size="40">mdi-soccer-field</v-icon>
                       </v-btn>
+=======
+                 <v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
+                <v-img :src="'http://192.168.88.222:8000'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
+                </v-img>
+                </v-card>
+            </v-img>     
+            <v-card-actions>
+               <v-chip label dark small class="font-weight-bold back-ground font ">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
+                  <v-btn icon><v-icon class="color-c" size="33">mdi-soccer-field</v-icon></v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn class="link" icon color="amber darken-1" outlined><v-icon size=25 color="amber darken-1">mdi-pencil-outline</v-icon></v-btn>
+                  <v-divider inset vertical class="mx-1 transparent"></v-divider>
+                  <v-btn class="link" icon  color="red accent-4" outlined data-toggle="modal" ><v-icon size=25 color="red accent-4">mdi-trash-can-outline</v-icon></v-btn>
+            </v-card-actions>               
+>>>>>>> de371b13e1c35b1f058458d8d9d3648911d324f0
               </v-card>
           </v-hover>
           </v-row>
         </v-container>
-
       </v-sheet>
  </v-card>
 </template>
@@ -142,6 +168,16 @@ mounted(){
       });
 },
 
+methods: {
+  deleteData(reservation, id) {
+      axios.delete(URL+'api/make-reservation/'+reservation.id)
+      .then(response => {
+        this.reservation.splice(id, 1)
+        console.log(this.reservation);
+      });
+    },
+}
+
 }
 </script>
 
@@ -158,7 +194,7 @@ mounted(){
   }
   .bottom {
      padding-bottom: 70px;
-     margin-top: 30px;
+
    }
    .link {
      text-decoration: none;

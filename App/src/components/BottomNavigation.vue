@@ -1,8 +1,8 @@
 <template>
   <v-bottom-navigation class="back-ground border" dark absolute height=60>
-    <v-btn icon class="link ma-2" router to="/home" >
+    <v-btn icon class="link ma-2 " color="amber lighten-5" router to="/home" >
       <!--<span class="caption font-weight-bold font">Inicio</span>-->
-      <v-icon app text size=35>mdi-home-outline</v-icon>
+      <v-icon app text size=35 color="amber lighten-5">mdi-home-outline</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
     <v-btn disabled icon class="link ma-2">
@@ -10,14 +10,14 @@
       <v-icon size=35>mdi-soccer</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
-     <v-btn icon class="link ma-2"  router to="/companies" >
+     <v-btn icon class="link ma-2" color="amber lighten-5"  router to="/companies" >
       <!--<span  class="caption font-weight-bold font">Torneos</span>-->
-      <v-icon size=35>mdi-domain</v-icon>
+      <v-icon size=35 color="amber lighten-5" >mdi-domain</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
-    <v-btn icon class="link ma-2" router to="/account" >
+    <v-btn icon class="link ma-2" color="amber lighten-5"  router to="/account" >
       <!--<span class="caption font-weight-bold font">Mi Perfil</span>-->
-      <v-icon size=35>mdi-account-outline</v-icon>
+      <v-icon size=35 color="amber lighten-5" >mdi-account-outline</v-icon>
     </v-btn>
 
   </v-bottom-navigation>

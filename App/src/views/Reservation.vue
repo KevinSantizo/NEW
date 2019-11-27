@@ -134,7 +134,6 @@ export default {
           customers: [ ],
           user_name: '',
           id_username:'',
-          enabled: false,
           months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
           dayss: ['Dom', 'Lun', 'Ma', 'Mie', 'Jue', 'Vie', 'Sab'],
           form: {
@@ -168,23 +167,15 @@ export default {
           }
     },
     mounted() {
-        const path = `${URL}api/thefield/${this.fieldId}/`   
-        //const path = `https://api-backend-canchas.herokuapp.com/api/field-schedule/${this.fieldId}/`   
-        axios.get(path).then((response) => {
+        axios.get(`${URL}api/thefield/${this.fieldId}/`)
+        .then((response)=>{
         this.field = response.data
-        //console.log(this.field);     
-        this.form.total = this.field.price;   
-        this.form.field_reserve = this.field.id   
-        return axios.get(URL+'api/implements/')  
-        //return axios.get('https://api-backend-canchas.herokuapp.com/api/implements/')
-      }).then((response)=>{
-        this.implements = response.data
-        //console.log(this.implements);        
-        return axios.get(URL+'api/users/')
-      }).then((response)=>{
-        this.customers = response.data
-        //console.log(this.customers);
+      }).catch((error)=>{
+        console.log(error);
       })
+    },
+    created(){
+      this.getUser()
     },
    computed: {
      isLoggedIn (){
@@ -203,7 +194,6 @@ export default {
           }
         },
         reservation(){
-            //const path = 'http://192.168.88.222:8000/user/do-customer/'
             let data = {
               schedule_date: this.form.schedule_date,
               total: this.form.total,
@@ -215,9 +205,8 @@ export default {
             this.$store.dispatch('reservation', data).then(() =>  
             swal({
               title: "Reservación guardada exitosamente!",
-              type: "success"
+              icon: "success"
               }).then(function() {
-              // Redirect the user
               window.location.href = "/home";
               })
             )
@@ -226,32 +215,15 @@ export default {
         const path = URL+'api/users/'
         axios.get(path).then((response) =>{
         this.users = response.data
-        //console.log(this.users);
         let find_user = this.users.find (v => v.id == this.$store.state.user)
         this.user_name = find_user.username
         this.form.customer_reserve = find_user.id    
-         var today = new Date();
-         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-          this.form.schedule_date = date   
-       // console.log(this.user_name);
-        //console.log('Username ' +find_user.username);
-        
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        this.form.schedule_date = date   
       })
     },
-    /*getCurrentDay(){
-      var today = new Date();
-      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-      this.form.schedule_date = date
-      console.log(date);
-    }*/
-
 },
-     created(){
-      this.getUser()
-    },
-    /*created(){
-      this.getCurrentDay()
-    }*/
 }
 </script>
 
