@@ -1,7 +1,7 @@
 <template>
   <v-card class="overflow-hidden ">
     <v-app-bar absolute dark flat text scroll-target="#playground-example" extended  collapse-on-scroll class="back-ground">
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon color="amber lighten-5" large @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="margin-top: 2em;">
         <span class=" font-weight-bold title font">Bienvenido {{ user_name }}</span>
           <v-divider inset vertical class="mx-1"></v-divider>
@@ -9,10 +9,6 @@
           <v-divider class="my-1"></v-divider>
         <span class=" font-weight-medium subtitle-1 font">Haz tus reservaciones</span>
       </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-btn icon>
-    <v-icon outlined class="font-color">mdi-magnify</v-icon>
-    </v-btn>           
     </v-app-bar>
     <v-navigation-drawer dense dark absolute v-model="drawer"  temporary class="back-ground" >
       <template v-slot:prepend>
@@ -27,13 +23,13 @@
                     <span class="font">{{last_name}}</span>
                 </v-list-item-content>
                 <v-btn icon @click="drawer = !drawer">
-                <v-icon color="grey" size=40>mdi-chevron-left</v-icon>
+                <v-icon color="amber lighten-5" size=40>mdi-chevron-left</v-icon>
                 </v-btn>           
           </v-list-item>
         </template>
            <v-divider class="grey darken-1 "></v-divider>
           <v-list shaped>
-          <v-list-item-group  v-model="items" class="link" color="cyan lighten-3">
+          <v-list-item-group  v-model="items" class="link" color="amber lighten-5">
               <v-list-item  class="link"   v-for="item in items" :key="item.title" router :to="item.to" min-width="2" >
                   <v-list-item-icon>
                       <v-icon medium class="link" size=25>{{ item.icon }}</v-icon>
@@ -51,7 +47,7 @@
       </v-navigation-drawer>
     <BottomNavigation/> 
     <v-sheet  id="playground-example" class="overflow-y-auto margin" max-height="725" >
-      <v-container class="bottom" >
+      <v-container class="bottom amber lighten-5" >
         <v-row justify="center">
           <v-hover>
               <v-card  router to="/reserve" class="my-1 ma-2 link "  style="border-radius: 10px; background-color: #DF2935 !important;" dark width=375 height=200 :elevation=12>
@@ -134,8 +130,8 @@
           </v-hover>
         </v-row>
         <v-divider></v-divider>
-         <div class="back-ground accent-4 text-center my-1 round"  label><span class="title white--text">Hoy: {{this.user_today_reservation.quantity}} reservaciones</span></div>
               <template v-if="this.user_today_reservation.quantity==0">
+              <div class="back-ground accent-4 text-center my-1 round"  label><span class="title white--text">Hoy</span></div>
                 <v-row justify="center" align="center">
                 <v-chip class="ma-2" close color="red darken-3" outlined justify="center">
                   No tienes Reservaciones
@@ -145,20 +141,26 @@
                 <router-link :to="{name: 'reserve'}">Reserva aquí</router-link>
               </v-row>
               </template>
-              <div v-else>
-                <v-row justify="center" class="ma-3">
+              <div v-else >
+              <div class="back-ground accent-4 text-center my-1 round"  label v-if="this.user_today_reservation.quantity==1">
+                <span class="title white--text">Hoy: {{this.user_today_reservation.quantity}} reservación</span>
+              </div>
+              <div class="back-ground accent-4 text-center my-1 round"  label v-else>
+                <span class="title white--text">Hoy: {{this.user_today_reservation.quantity}} reservaciones</span>
+              </div>
+                <v-row justify="center" class="ma-3" >
                   <v-fab-transition>
-                <v-btn  color="black"  class="link" router to="/reserve"  fab dark large outlined>
+                <v-btn  color="black"  class="link" router to="/reserve"  fab dark  outlined>
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </v-fab-transition>
-                      <!--<v-btn  class="link" router to="/reserve" icon text> <v-icon right size="50">mdi-plus-circle-outline</v-icon></v-btn>-->
                   </v-row>
-                 <v-slide-group >
+                  <v-divider></v-divider>
+                 <v-slide-group>
                   <v-slide-item v-for="reservation in this.user_today_reservation.reservations" :key="reservation.id" :reservation="reservation"> 
                     <v-hover >
-                      <v-card class="link ma-1 transform" outlined style="border-radius: 10px;"  width=325>
-                        <v-img gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)"  src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end"  height="200px">
+                      <v-card class="link ma-1 amber lighten-5" style="border-radius: 5px;"  width=325>
+                        <v-img gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)"  src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-272.jpg?size=626&ext=jpg" class="white--text align-end"  height="215px">
                       <v-icon  style="top: 0.2em; right: 0.2em; position: absolute;" size="30" color="white">mdi-soccer</v-icon>
                       <v-card-title><span></span>{{ reservation.field_reserve.company.name }}, {{ reservation.field_reserve.company.town.department.name }}</v-card-title>
                         <v-card-subtitle>
@@ -174,12 +176,13 @@
                         </v-card>
                     </v-img>                    
                     <v-card-actions>
-                      <v-chip label dark class="font-weight-bold back-ground font">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
+                        <v-chip label dark small class="font-weight-bold back-ground font ">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
+                        <v-btn icon><v-icon class="color-c" size="33">mdi-soccer-field</v-icon></v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn icon>
-                          <v-icon class="color-c" size="40">mdi-soccer-field</v-icon>
-                        </v-btn>
-                    </v-card-actions>
+                        <v-btn class="link" icon color="amber darken-1" outlined><v-icon size=25 color="amber darken-1">mdi-pencil-outline</v-icon></v-btn>
+                        <v-divider inset vertical class="mx-1 transparent"></v-divider>
+                        <v-btn class="link" icon  color="red accent-4" outlined data-toggle="modal" ><v-icon size=25 color="red accent-4">mdi-trash-can-outline</v-icon></v-btn>
+                  </v-card-actions>      
                     </v-card>
                   </v-hover>       
             </v-slide-item>
@@ -218,21 +221,7 @@ let URL = 'http://192.168.88.222:8000/'
           ],
           }
     },
-    /*
-    mounted () {
-      Promise.all([
-      axios.get(URL+'api/companies/'),
-      axios.get(URL+'api/fields/'),
-      axios.get(URL+'api/users/')
-      ]).then((responses)=>{
-        this.companies = responses[0].data
-        this.fields = responses[1].data
-        this.users = responses[2].data
-        console.log(this.companies);
-        console.log(this.fields);
-        console.log(this.users);
-      })
-},*/
+
   mounted () {
       Promise.all([
       axios.get(URL+'api/companies/'),
@@ -245,8 +234,10 @@ let URL = 'http://192.168.88.222:8000/'
       }).catch((error)=>{
         console.log(error);
       })
+  },
+    created(){
+      this.getUser()
     },
-
   computed: {
     isLoggedIn (){
       return this.$store.getters.isLoggedIn
@@ -269,11 +260,7 @@ let URL = 'http://192.168.88.222:8000/'
         })
       }
     },
-    created(){
-      this.getUser()
-    }
 }
-      
 </script>
 
 <style scoped>

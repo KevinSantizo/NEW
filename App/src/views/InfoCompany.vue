@@ -5,26 +5,26 @@
             <v-flex xs12 md12>
                 <div class="my-2">
                 <v-btn icon class="link" style="color: transparent;" router to="/companies">
-                <v-icon color="white" dark size="45" >mdi-chevron-left</v-icon>
+                <v-icon color="amber lighten-5" dark size="45" >mdi-chevron-left</v-icon>
                 </v-btn>
               </div>
               <v-row justify="center" align="center">
-                <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+                <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
           <v-divider inset class="transparent" vertical></v-divider>
-                <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
+                <v-icon color="amber lighten-5" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
         <v-sheet id="scroll-area-1" class="overflow-y-auto " style="border-radius: 25px 25px 0px 0px;" height="620" >
-    <v-container class="bottom" >
+    <v-container class="bottom amber lighten-5" >
             <v-item-group> 
             <v-row justify="center">
                 <v-hover>
-                <v-card  width="400"  class="my-1"  style="border-radius: 10px;">
+                <v-card  width="400"  class="my-1 amber lighten-5"  style="border-radius: 10px;">
                     <v-img :src="this.company.image" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.6)">
                         <div style="position: absolute; right: 0em;">
-                            <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
+                            <v-icon color="amber lighten-5" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
                         </div>
                         <v-row align="end" class="lightbox white--text  my-5 pa-2 fill-height">
                             <v-col>
@@ -41,13 +41,14 @@
                 </v-card>
                 </v-hover>
                 </v-row>
+                <v-divider></v-divider>
             <v-hover>
-            <v-card class="mx-auto overflow-hidden my-2 transparent" :elevation=12 style="max-width: 600px; border: 1px solid white; border-radius: 10px;">
+            <v-card class="mx-auto overflow-hidden my-2 amber lighten-5" style="max-width: 600px; border: 1px solid white; border-radius: 10px;">
                 <v-slide-group>
-                    <v-slide-item v-for="image in images" :key="image.id" :image="image" v-slot:default="{ active, toggle }">
-                        <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
+                    <v-slide-item v-for="image in images" :key="image.id" :image="image">
+                        <v-card class="ma-2" height="100" width="200" @click="toggle">
                             <v-img :src="image.src" class="text-right" height="100" width="200" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.3)">
-                            <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
+                            <v-icon color="amber lighten-5" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
                             </v-img>
                         </v-card>
                     </v-slide-item>
@@ -63,6 +64,7 @@
                     </div>
             </v-card>
             </v-hover>
+            <v-divider></v-divider>
             <v-row justify="center">
             <div style="width: 400px;" class="ma-5 my-1">
                 <v-row no-gutters justify="space-around">

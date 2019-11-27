@@ -5,22 +5,22 @@
         <v-flex xs12 md12>
           <div class="my-2">
             <v-btn icon class="link" router to="/reserve">
-              <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
+              <v-icon color="amber lighten-5" dark size="45">mdi-chevron-left</v-icon>
             </v-btn>
           </div>
           <v-row justify="center" align="center">
-            <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+            <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
           </v-row>
         </v-flex>
       </v-layout>
       <v-divider inset class="transparent" vertical></v-divider>
-      <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
+      <v-icon color="amber lighten-5" size="35" class="my-2">mdi-soccer</v-icon>
     </v-app-bar>
   <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-    <v-container class="bottom">
+    <v-container class="bottom amber lighten-5">
     <v-row justify="center">
       <div class="col-md-4 pa-1">
-        <v-img class="text-left ma-2 my-1" :src="company.image" height="200"  style="border-radius: 10px;">
+        <v-img class="text-left ma-2 my-1" :src="company.image" height="200"  style="border-radius: 10px;" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
           <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
         </v-img>
       <v-card-actions>
@@ -35,7 +35,7 @@
       <v-slide-group style="top: -1em;">
         <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
           <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-2" height="100" width="200" @click="toggle">
-            <v-img :src="image.src" class="text-right" height="100" width="200">
+            <v-img :src="image.src" class="text-right" height="100" width="200" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
               <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
             </v-img>
           </v-card>
@@ -46,7 +46,7 @@
           <v-hover >
             <v-row justify="center" v-if="field.quantity==0">
             <v-card width="275" v-bind:to=" '/field/' +field.id+'/reservar' "  disabled height="200" class="ma-2 indigo lighten-5 link" :elevation=6 style="border-radius:">
-              <v-img class="white--text " height="200" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
+              <v-img class="white--text " height="200" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
               <v-card-title style="position: absolute; top: -0.5em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
                 <v-row class="fill-height" align="center" justify="center">                       
                   <v-chip label outlined dark color="white" class="headline font-weight-bold font link"> Reservar <v-icon right>mdi-calendar-clock</v-icon></v-chip>
@@ -63,7 +63,7 @@
             </v-row>
              <v-row justify="center" v-else>
             <v-card width="275" v-bind:to=" '/field/' +field.id+'/reservar' "   height="200" class="ma-2 indigo lighten-5 link" :elevation=6 style="border-radius:">
-              <v-img class="white--text " height="200" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg">
+              <v-img class="white--text " height="200" src="https://img.freepik.com/foto-gratis/representacion-3d-balon-futbol-linea-campo-futbol_41667-276.jpg?size=626&ext=jpg" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
               <v-card-title style="position: absolute; top: -0.5em; left: -0.5em;" class="font">Cancha {{ field.name }}</v-card-title>
                 <v-row class="fill-height" align="center" justify="center">                       
                   <v-chip label outlined dark color="white" class="headline font-weight-bold font link"> Reservar <v-icon right>mdi-calendar-clock</v-icon></v-chip>

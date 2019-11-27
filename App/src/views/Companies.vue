@@ -3,19 +3,19 @@
         <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
          <v-flex xs12 md12>
           <v-row justify="center" align="center" class="my-9">
-            <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+            <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font"> {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
           </v-row>
         </v-flex>
           <v-divider inset class="transparent" vertical></v-divider>
-            <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
+            <v-icon color="amber lighten-5" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
       <BottomNavigation/>
       <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-        <v-container class="bottom" style="height: 100%;">
+        <v-container class="bottom amber lighten-5" style="height: 100%;">
             <v-row  justify="space-around">
               <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
                   <v-hover >
-                    <v-card  v-bind:to=" 'companies/'+company.id+'/info' " class="link" max="300" :elevation=12 style="border-radius: 10px;">
+                    <v-card  v-bind:to=" 'companies/'+company.id+'/info' " class="link amber lighten-5" max="300" :elevation=12 style="border-radius: 10px;">
                         <v-img  :src="company.image" height="10em" class="text-right pa-2" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
                             <v-card-title class="title white--text">
                               <v-row class="fill-height flex-column" justify="space-between">
@@ -45,7 +45,7 @@
                           </div>
                           <v-spacer></v-spacer>
                           <v-row>
-                          <v-btn text outlined small v-bind:to=" 'companies/'+company.id+'/info' " class="link" style="bottom: 0.5em; position: absolute; right: 0.5em;" ><v-icon small>mdi-information-variant</v-icon></v-btn>
+                          <v-btn  outlined v-bind:to=" 'companies/'+company.id+'/info' " class="link font-color"  style="bottom: 0.5em; position: absolute; right: 0.5em;" icon><v-icon>mdi-information-variant</v-icon></v-btn>
                           </v-row>                    
                         </v-card-actions>
                       </v-card>

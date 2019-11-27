@@ -80,6 +80,7 @@ export default new Vuex.Store({
           })
         })
     },
+    
     logout({commit}){
       return new Promise((resolve) => {
         commit('logout')
