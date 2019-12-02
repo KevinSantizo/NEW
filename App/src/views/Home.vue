@@ -1,6 +1,6 @@
 <template>
-  <v-card class="overflow-hidden ">
-    <v-app-bar absolute dark flat text scroll-target="#playground-example" extended  collapse-on-scroll class="back-ground">
+  <v-container class="amber lighten-5 overflow-hidden mx-auto ">
+    <v-app-bar  dark flat text app extended  collapse-on-scroll class="back-ground">
       <v-app-bar-nav-icon color="amber lighten-5" large @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="margin-top: 2em;">
         <span class=" font-weight-bold title font">Bienvenido {{ user_name }}</span>
@@ -46,7 +46,6 @@
           </v-list>
       </v-navigation-drawer>
     <BottomNavigation/> 
-    <v-sheet  id="playground-example" class="overflow-y-auto margin" max-height="725" >
       <v-container class="bottom amber lighten-5" >
         <v-row justify="center">
           <v-hover>
@@ -179,9 +178,9 @@
                         <v-chip label dark small class="font-weight-bold back-ground font ">Total: Q.{{ reservation.field_reserve.price }}</v-chip>                    
                         <v-btn icon><v-icon class="color-c" size="33">mdi-soccer-field</v-icon></v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn class="link" icon color="amber darken-1" outlined><v-icon size=25 color="amber darken-1">mdi-pencil-outline</v-icon></v-btn>
-                        <v-divider inset vertical class="mx-1 transparent"></v-divider>
-                        <v-btn class="link" icon  color="red accent-4" outlined data-toggle="modal" ><v-icon size=25 color="red accent-4">mdi-trash-can-outline</v-icon></v-btn>
+                        <v-btn class="link" icon color="blue-grey darken-1" ><v-icon size=25 color="blue-grey darken-1">mdi-pencil-outline</v-icon></v-btn>
+                        <v-divider inset vertical class="ma-2"></v-divider>
+                        <v-btn class="link" icon  color="red darken-4"  data-toggle="modal" ><v-icon size=25 color="red darken-4">mdi-trash-can-outline</v-icon></v-btn>
                   </v-card-actions>      
                     </v-card>
                   </v-hover>       
@@ -189,14 +188,13 @@
           </v-slide-group>
           </div>
       </v-container>
-    </v-sheet>      
-  </v-card>
+  </v-container>
 </template>
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'https://api-backend-canchas.herokuapp.com/'
   export default {
      components: {
         BottomNavigation
@@ -229,10 +227,8 @@ let URL = 'http://192.168.88.222:8000/'
       ]).then((responses)=>{
         this.companies = responses[0].data
         this.fields = responses[1].data        
-        console.log(this.companies);
-        console.log(this.fields);
-      }).catch((error)=>{
-        console.log(error);
+        //console.log(this.companies);
+        //console.log(this.fields);
       })
   },
     created(){
@@ -253,10 +249,10 @@ let URL = 'http://192.168.88.222:8000/'
           this.user_name = find_user.username
           this.name = find_user.first_name
           this.last_name = find_user.last_name
-          console.log(this.user_today_reservation);
-          console.log(this.user_name);
-          console.log(this.name);
-          console.log(this.user_reservation_today);
+          //console.log(this.user_today_reservation);
+          //console.log(this.user_name);
+          //console.log(this.name);
+          //console.log(this.user_reservation_today);
         })
       }
     },
@@ -289,7 +285,6 @@ let URL = 'http://192.168.88.222:8000/'
    }
   .bottom {
      padding-bottom: 70px;
-     margin-top: 100px;
    }
    .back-ground {
     background-color: #011427 !important;

@@ -1,31 +1,29 @@
 <template>
-  <v-card class="overflow-hidden mx-auto back-ground">
-    <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
+  <v-container class="overflow-hidden mx-auto back-ground" style="padding-left: 0px; padding-right: 0px;">
+    <v-app-bar extended app flat text  class="back-ground" dark >
       <v-layout row wrap>
         <v-flex xs12 md12>
-          <div class="my-2">
+          <div class="my-2" style="position: absolute; ">
             <v-btn icon class="link" router to="/reserve">
               <v-icon color="amber lighten-5" dark size="45">mdi-chevron-left</v-icon>
             </v-btn>
           </div>
-          <v-row justify="center" align="center">
-            <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
-          </v-row>
         </v-flex>
       </v-layout>
-      <v-divider inset class="transparent" vertical></v-divider>
+       <v-row justify="center" align="center">
+            <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+          </v-row>
       <v-icon color="amber lighten-5" size="35" class="my-2">mdi-soccer</v-icon>
     </v-app-bar>
-  <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
     <v-container class="bottom amber lighten-5">
-    <v-row justify="center">
+    <v-row justify="space-around">
       <div class="col-md-4 pa-1">
-        <v-img class="text-left ma-2 my-1" :src="company.image" height="200"  style="border-radius: 10px;" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
-          <v-icon color="white" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
+        <v-img class="text-left ma-4 my-1" :src="company.image" height="150"  style="border-radius: 10px;" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
+          <v-icon color="white" size="25" class="ma-3">mdi-bookmark-outline</v-icon> 
         </v-img>
       <v-card-actions>
         <v-row justify="left" no-gutters>
-          <div>
+          <div class="ma-2">
             <v-icon color="black" size="15" class="caption">mdi-map-marker</v-icon><span class="subtitle-2 ma-2 font">{{ company.name }}, {{ company.address }}- {{ company.town.name }}, {{ company.town.department.name}}</span>
           </div> 
         </v-row>
@@ -41,7 +39,8 @@
           </v-card>
         </v-slide-item>
       </v-slide-group>
-      <v-carousel style="bottom: 1.5em;" cycle height="260" interval=3000 delimiter-icon="mdi-minus">
+      <v-divider></v-divider>
+      <v-carousel cycle height="260" interval=3000 delimiter-icon="mdi-minus">
         <v-carousel-item v-for="(field, i ) in company.fields" :key="i"> 
           <v-hover >
             <v-row justify="center" v-if="field.quantity==0">
@@ -82,15 +81,14 @@
         </v-carousel-item>
       </v-carousel>
     </v-container>
-  </v-sheet>
-  </v-card>
+  </v-container>
 </template>
 
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'https://api-backend-canchas.herokuapp.com/'
 
 export default {
   components: {
@@ -120,7 +118,7 @@ export default {
   },
     methods: {
        getCompany() {
-        const path = `http://192.168.88.222:8000/api/field-company/${this.companyId}/`
+        const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`
           axios.get(path).then((response)=> {
           this.company = response.data;
@@ -148,7 +146,7 @@ export default {
      font-family: 'Ubuntu', sans-serif;
    }
    .link {
-     text-decoration: none;
+     text-decoration: none !important;
    }
    .heart {
      position: absolute;
@@ -156,7 +154,11 @@ export default {
      margin-top:  0.2em;
    }
    .bottom {
-     margin-bottom: 20px;
+    padding-bottom: 70px;
+     margin-top: 10px;
+     padding-right: 0px;
+     padding-left: 0px;
+     border-radius: 25px 25px 0px 0px;
    }
  .back-ground {
     background-color: #011427 !important;

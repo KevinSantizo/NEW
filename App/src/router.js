@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Companies from './views/Companies'
-import Reserve from './views/Reserve'
-import DoReserve from './views/DoReserve'
-import Login from './views/Login'
-import Register from './views/Register'
+import Home from '@/views/Home.vue'
+import Companies from '@/views/Companies'
+import Reserve from '@/views/Reserve'
+import DoReserve from '@/views/DoReserve'
+import Login from '@/views/Login'
+import Register from '@/views/Register'
 import InfoCompany from '@/views/InfoCompany'
 import Reservation from '@/views/Reservation'
 import Account from '@/views/Account'
-import Test from '@/views/Test'
 import Logout from '@/views/Logout.vue'
+import Bottom from '@/views/Bottom.vue'
+
 
 
 Vue.use(Router)
@@ -66,14 +67,14 @@ let router = new Router({
       component: Account
     },
     { 
-      path:'/test', 
-      name: 'test',  
-      component: Test
-    },
-    { 
       path: '/logout', 
       name: 'logout', 
       component: Logout 
+    },
+    { 
+      path: '/bottom', 
+      name: 'bottom', 
+      component: Bottom 
     },
   ]
 })

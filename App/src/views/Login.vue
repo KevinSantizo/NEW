@@ -53,11 +53,11 @@
             let username = this.username
             let password = this.password
             this.$store.dispatch('login', { username, password })
-            .then(() => this.$router.push('/home'))
+            .then(() => window.location.href = "/home")
             .catch(err => alert('Usuario y/o contraseña inválidos')+ err)
       },
           /*getToken() {
-              alert('token')
+              alert('token'
               const path = 'http://192.168.88.222:8000/api-token-auth/'
               axios.post(path, this.form).then((response) =>{
                   this.token = response.data

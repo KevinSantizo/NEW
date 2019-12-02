@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 Vue.use(Vuex)
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'https://api-backend-canchas.herokuapp.com/'
 export default new Vuex.Store({
     state: {
         status: '',
@@ -33,9 +33,9 @@ export default new Vuex.Store({
                   const token = parseResponde.token
                   var base64Url = token.split('.')[1];
                   var base64 = base64Url.replace('-', '+').replace('_', '/');
-                  console.log(JSON.parse(window.atob(base64)))        
+                  //console.log(JSON.parse(window.atob(base64)))        
                   const user = JSON.parse(window.atob(base64)).user_id
-                  console.log(user, 'ID USUARIO')
+                  //console.log(user, 'ID USUARIO')
                   localStorage.setItem('token', token)
                   localStorage.setItem('user', user)
                   axios.defaults.headers.common['Authorization'] = token

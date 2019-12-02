@@ -1,6 +1,6 @@
 <template>
-      <v-card class="overflow-hidden mx-auto back-ground">
-        <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
+      <v-container class="overflow-hidden mx-auto back-ground" style="padding-left: 3px; padding-right: 3px;">
+        <v-app-bar dark flat text app extended class="back-ground" >
          <v-flex xs12 md12>
           <v-row justify="center" align="center" class="my-9">
             <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font"> {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
@@ -10,12 +10,11 @@
             <v-icon color="amber lighten-5" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
       <BottomNavigation/>
-      <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-        <v-container class="bottom amber lighten-5" style="height: 100%;">
+        <v-container class="bottom amber lighten-5"  style="border-radius: 25px 25px 0px 0px;">
             <v-row  justify="space-around">
               <v-col v-for="(company, i) in companies" :key="i" cols="12" md="3">
                   <v-hover >
-                    <v-card  v-bind:to=" 'companies/'+company.id+'/info' " class="link amber lighten-5" max="300" :elevation=12 style="border-radius: 10px;">
+                    <v-card  v-bind:to=" 'companies/'+company.id+'/info' " class="link amber lighten-5 ma-2" max="300" :elevation=12 style="border-radius: 10px;">
                         <v-img  :src="company.image" height="10em" class="text-right pa-2" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.9)">
                             <v-card-title class="title white--text">
                               <v-row class="fill-height flex-column" justify="space-between">
@@ -53,15 +52,14 @@
                   </v-col>
                 </v-row>
             </v-container>
-        </v-sheet>
-    </v-card>
+    </v-container>
 </template>
 
 <script>
 import axios from 'axios'
 import BottomNavigation from '@/components/BottomNavigation'
 
-let URL = 'http://192.168.88.222:8000/'
+let URL = 'https://api-backend-canchas.herokuapp.com/'
 
 export default {
   components: {
@@ -79,7 +77,7 @@ export default {
     const path = URL+'api/companies/'
     axios.get(path).then((response)=> {
     this.companies = response.data
-    console.log(this.companies);
+    //console.log(this.companies);
     })   
   }
 }
@@ -95,12 +93,15 @@ export default {
    }
    .bottom {
      padding-bottom: 70px;
+     margin-top: 10px;
+     padding-right: 3px;
+     padding-left: 3px;
    }
    .font {
      font-family: 'Ubuntu', sans-serif;
    }
    .link {
-     text-decoration: none;
+     text-decoration: none !important;
    }
    .back-ground {
     background-color: #011427;
