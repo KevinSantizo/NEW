@@ -1,10 +1,10 @@
 <template>
-  <v-card class="overflow-hidden mx-auto back-ground">
-    <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
+  <v-container class="overflow-hidden mx-auto back-ground" style="padding-left: 0px; padding-right: 0px;">
+    <v-app-bar extended app flat text  class="back-ground" dark>
       <v-layout row wrap>
-        <div class="my-2">
+        <div class="my-2" style="position: absolute;">
           <v-btn icon class="link" v-bind:to=" '/do_reserve/'+field.company.id+ '/reserve' ">
-            <v-icon color="white" dark size="45">mdi-chevron-left</v-icon>
+            <v-icon color="amber lighten-5" dark size="45">mdi-chevron-left</v-icon>
           </v-btn>
         </div>
         <v-row justify="center" align="center" >
@@ -12,18 +12,17 @@
         </v-row>
         <v-flex xs12 md12>
           <v-row justify="center" align="center">
-            <v-icon color="white" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+            <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
           </v-row>
         </v-flex>
       </v-layout>
         <v-divider inset class="transparent" vertical></v-divider>
-        <v-icon color="white" size="35" class="my-2">mdi-soccer</v-icon>
+        <v-icon color="amber lighten-5" size="35" class="my-2">mdi-soccer</v-icon>
     </v-app-bar>
-  <v-sheet  id="scroll-area-1"  class="overflow-y-auto" style="border-radius: 25px 25px 0px 0px;" max-height="620">
-    <v-container class="bottom" >
+    <v-container class="bottom amber lighten-5" style="border-radius: 25px 25px 0px 0px;" >
       <form  @submit.prevent="reservation">
         <v-hover>
-          <v-card :elevation=12 style="border-radius: 25px;">
+          <v-card :elevation=12 style="border-radius: 5px;" class="amber lighten-5 my-8">
             <v-card-title class="back-ground">
               <v-row justify="center">
                 <span class="white--text title font" v-if="field.type == 1">Cancha {{ field.name }} de 5 Jugadores </span>
@@ -42,7 +41,7 @@
            </v-row>  
         <div class="form-group">
         <label for="date" class="font subtitle-1 color-c" >Fecha:</label>
-          <input type="date" name="schedule_date" style="border: 2px solid #011427;" v-model="form.schedule_date" class="form-control" id="date" >
+          <input type="date" name="schedule_date" style="border: 2px solid #011427 !important;" v-model="form.schedule_date" class="form-control amber lighten-5 color-c" id="date" >
         </div>   
           <v-hover >
             <v-card max-width="100%" height=100 color="back-ground" >
@@ -101,20 +100,20 @@
       </v-card>
       </v-hover>
       </form>
-      <v-row justify="center" class="my-2">
-        <v-avatar size="75" color="red">
-          <img :src="field.company.image" alt="alt">
-        </v-avatar>
+      <v-row justify="center" class="my-6">
+         <v-card class="profile" width=300 heigth=150 style="border-radius: 10px;">
+                <v-img  :src="field.company.image"  alt="Image" width=300  height=150 >
+                </v-img>
+        </v-card>
       </v-row>
       <v-row justify="center"> 
       <span class="caption grey--text font">&copy; {{ field.company.name}}, {{ field.company.town.name}}. Todos los Derechos Reservados</span>
       </v-row>
       <v-row justify="center"> 
-      <span class="caption grey--text font">Design By: <a href="http://apitec.io/"> Apitec</a></span>
+      <span class="caption grey--text font">Design By:  Kevin de León</span>
       </v-row>
     </v-container>
-    </v-sheet>
-  </v-card>
+  </v-container>
 </template>
 
 
@@ -122,7 +121,7 @@
 import axios from 'axios'
 import swal from 'sweetalert'
 
-let URL = 'http://127.0.0.1:8000/' 
+let URL = 'https://api-backend-canchas.herokuapp.com/' 
 export default {
     data () {
        return {
@@ -170,13 +169,11 @@ export default {
         axios.get(`${URL}api/thefield/${this.fieldId}/`)
         .then((response)=>{
         this.field = response.data
-      }).catch((error)=>{
-        console.log(error);
+        this.form.total = this.field.price;   
+        this.form.field_reserve = this.field.id  
       })
     },
-    created(){
-      this.getUser()
-    },
+
    computed: {
      isLoggedIn (){
        return this.$store.getters.isLoggedIn
@@ -224,6 +221,9 @@ export default {
       })
     },
 },
+    created(){
+      this.getUser()
+    },
 }
 </script>
 
@@ -243,7 +243,7 @@ export default {
      margin-top:  0.2em;
    }
    .bottom {
-     margin-bottom:  10px;
+     margin-bottom:  0px;
    }
  .back-ground {
     background-color: #011427;

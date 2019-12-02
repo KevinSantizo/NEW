@@ -1,27 +1,25 @@
 <template>
-    <v-card class="overflow-hidden mx-auto back-ground">
-        <v-app-bar extended prominent flat text  class="back-ground" dark height="57">
+    <v-container class="overflow-hidden mx-auto back-ground"  style="padding-left: 3px; padding-right: 3px;">
+        <v-app-bar extended app flat text  class="back-ground">
           <v-layout row wrap>
             <v-flex xs12 md12>
-                <div class="my-2">
+                <div class="my-2" style="position: absolute;">
                 <v-btn icon class="link" style="color: transparent;" router to="/companies">
-                <v-icon color="amber lighten-5" dark size="45" >mdi-chevron-left</v-icon>
+                <v-icon color="amber lighten-5" dark size="45" class="link" >mdi-chevron-left</v-icon>
                 </v-btn>
               </div>
               <v-row justify="center" align="center">
-                <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+                <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font white--text"> {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
               </v-row>
             </v-flex>
           </v-layout>
           <v-divider inset class="transparent" vertical></v-divider>
                 <v-icon color="amber lighten-5" size="35" class="my-2">mdi-soccer</v-icon>
         </v-app-bar>
-        <v-sheet id="scroll-area-1" class="overflow-y-auto " style="border-radius: 25px 25px 0px 0px;" height="620" >
-    <v-container class="bottom amber lighten-5" >
-            <v-item-group> 
+    <v-container class="bottom amber lighten-5" style="border-radius: 25px 25px 0px 0px;">
             <v-row justify="center">
                 <v-hover>
-                <v-card  width="400"  class="my-1 amber lighten-5"  style="border-radius: 10px;">
+                <v-card  width="375"  class="amber lighten-5"  style="border-radius: 10px;">
                     <v-img :src="this.company.image" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,0.6)">
                         <div style="position: absolute; right: 0em;">
                             <v-icon color="amber lighten-5" size="25" class="ma-2">mdi-bookmark-outline</v-icon> 
@@ -43,7 +41,7 @@
                 </v-row>
                 <v-divider></v-divider>
             <v-hover>
-            <v-card class="mx-auto overflow-hidden my-2 amber lighten-5" style="max-width: 600px; border: 1px solid white; border-radius: 10px;">
+            <v-card class="mx-auto overflow-hidden my-2 ma-2 amber lighten-5" style="max-width: 600px; border: 1px solid white; border-radius: 10px;">
                 <v-slide-group>
                     <v-slide-item v-for="image in images" :key="image.id" :image="image">
                         <v-card class="ma-2" height="100" width="200" @click="toggle">
@@ -124,21 +122,19 @@
                     <v-text-field v-model="names" :counter="10" :rules="nameRules"  class="font" label="Nombre" required ></v-text-field>
                     <v-text-field v-model="email" :rules="emailRules" class="font" label="E-mail" required ></v-text-field>
                     <v-text-field v-model="message" :rules="messageRules"  class="font" label="Mensaje" required ></v-text-field>
-                    <v-btn color="success" class="ma-1 font"  @click="validate"  > Enviar </v-btn>
-                    <v-btn color="error" class="ma-1 link font" router to='/home'>Cancelar</v-btn>
-                    <v-btn color="primary" class="ma-1 font" @click="reset">Limpiar</v-btn>
+                    <v-btn color="success" class="ma-1 font link"  @click="validate"  > Enviar </v-btn>
+                    <v-btn color="error" class="ma-1 link font link" router to='/home'>Cancelar</v-btn>
+                    <v-btn color="primary" class="ma-1 font link" @click="reset">Limpiar</v-btn>
                 </v-form>
             </div>
             </v-row>
-            </v-item-group>
         </v-container>
-      </v-sheet>
-    </v-card>
+    </v-container>
 </template>
 
 <script>
 import axios from 'axios'
-let URL =  'http://127.0.0.1:8000/'
+let URL =  'https://api-backend-canchas.herokuapp.com/'
 export default {
     data () {
        return {
@@ -198,11 +194,11 @@ export default {
     },
 
     mounted(){
-        const path = `http://127.0.0.1:8000/api/field-company/${this.companyId}/`   
+        const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`   
         //const path = `https://api-backend-canchas.herokuapp.com/api/field-company/${this.companyId}/`   
         axios.get(path).then((response)=> {
         this.company = response.data
-        console.log(this.company);
+        //console.log(this.company);
       })
     }
 }
@@ -215,7 +211,7 @@ export default {
      font-family: 'Ubuntu', sans-serif;
    }
 .link {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .back-ground {
     background-color: #011427;
@@ -223,4 +219,9 @@ export default {
   .font-color {
     color: #011427 !important;
   }
+
+  .bottom {
+     padding-bottom: 70px;
+     margin-top: 10px;
+   }
 </style>

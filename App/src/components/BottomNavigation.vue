@@ -1,25 +1,18 @@
 <template>
-  <v-bottom-navigation class="back-ground border" dark absolute height=60>
-    <v-btn icon class="link ma-2 " color="amber lighten-5" router to="/home" >
-      <!--<span class="caption font-weight-bold font">Inicio</span>-->
-      <v-icon app text size=35 color="amber lighten-5">mdi-home-outline</v-icon>
+ <v-bottom-navigation v-model="bottomNav" grow class="grey lighten-2" color="indigo" fixed>
+    <v-btn fab class="link" router to="/home">
+      <span class="font">Inicio</span>
+      <v-icon size=30>mdi-home</v-icon>
     </v-btn>
-    <v-spacer></v-spacer>
-    <v-btn disabled icon class="link ma-2">
-      <!--<span class="caption font-weight-bold font">Partidos</span>-->
-      <v-icon size=35>mdi-soccer</v-icon>
-    </v-btn>
-    <v-spacer></v-spacer>
-     <v-btn icon class="link ma-2" color="amber lighten-5"  router to="/companies" >
-      <!--<span  class="caption font-weight-bold font">Torneos</span>-->
-      <v-icon size=35 color="amber lighten-5" >mdi-domain</v-icon>
-    </v-btn>
-    <v-spacer></v-spacer>
-    <v-btn icon class="link ma-2" color="amber lighten-5"  router to="/account" >
-      <!--<span class="caption font-weight-bold font">Mi Perfil</span>-->
-      <v-icon size=35 color="amber lighten-5" >mdi-account-outline</v-icon>
+    <v-btn fab class="link " router to="/reserve">
+      <span class="font">Reservar</span>
+      <v-icon size=30>mdi-plus-box</v-icon>
     </v-btn>
 
+    <v-btn fab class="link" router to="/account">
+      <span class="font">Mi Perfil</span>
+      <v-icon size=30>mdi-account</v-icon>
+    </v-btn>
   </v-bottom-navigation>
 </template>
 
@@ -34,7 +27,9 @@ export default {
         days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',],
         activeBtn: 1,
         showNav: true,
-        color: false
+        bottomNav: 'recent',      
+        color: false,
+        selected: []
     })
 }
 </script>
@@ -43,15 +38,13 @@ export default {
    .font {
      font-family: 'Ubuntu', sans-serif;
    }
-
-   
    .link {
-     text-decoration: none;
+     text-decoration: none !important;
    }
    .back-ground {
     background-color: #011427;
   }
   .border {
-    border-radius: 50px 50px 0px 0px;
+    border-radius: 35px 35px 0px 0px;
   }
 </style>
