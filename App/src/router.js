@@ -10,7 +10,11 @@ import InfoCompany from '@/views/InfoCompany'
 import Reservation from '@/views/Reservation'
 import Account from '@/views/Account'
 import Logout from '@/views/Logout.vue'
+<<<<<<< HEAD
 import Bottom from '@/views/Bottom.vue'
+=======
+import Test from '@/views/Test.vue'
+>>>>>>> 92b61887b36fbc93c09062244d089c54d2d2edf8
 
 
 
@@ -72,9 +76,15 @@ let router = new Router({
       component: Logout 
     },
     { 
+<<<<<<< HEAD
       path: '/bottom', 
       name: 'bottom', 
       component: Bottom 
+=======
+      path: '/test', 
+      name: 'test', 
+      component: Test 
+>>>>>>> 92b61887b36fbc93c09062244d089c54d2d2edf8
     },
   ]
 })

@@ -70,7 +70,11 @@
                 <span class="body-2 font-weight-bold font  white--text">Hora: {{ reservation.schedule.start_time}} </span><br>
                 </v-card-subtitle>  
                  <v-card class="profile" width=75 heigth=50 style="position: absolute; bottom: 0.5em; right: 0.5em; border-radius: 10px;">
+<<<<<<< HEAD
                 <v-img :src="'https://api-backend-canchas.herokuapp.com/'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
+=======
+                <v-img :src="'https://api-backend-canchas.herokuapp.com'+reservation.field_reserve.company.image" alt="Image" width=75 height=50 >
+>>>>>>> 92b61887b36fbc93c09062244d089c54d2d2edf8
                 </v-img>
                 </v-card>
             </v-img>     

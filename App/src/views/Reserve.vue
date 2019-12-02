@@ -1,16 +1,28 @@
 <template>
+<<<<<<< HEAD
     <v-container class="overflow-hidden mx-auto back-ground" style="padding-left: 3px; padding-right: 3px;">
         <v-app-bar extended app flat text   class="back-ground"  dark height="57">
           <div class="ma-3">
                 <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+=======
+    <v-container class="overflow-hidden mx-auto back-ground" style="padding-right: 0px; padding-left: 0px;">
+        <v-app-bar extended app flat text   class="back-ground"  dark >
+          <div class="ma-3">
+            <v-icon color="amber lighten-5" size="25">mdi-calendar</v-icon><v-divider inset vertical class="mx-1"></v-divider><span class="font-weight-bold caption font" > {{ this.dayss[new Date().getDay() ]}}, {{  this.months[new Date().getMonth()] }} - {{ new Date().getDate()}} | {{ new Date().getFullYear() }}</span>
+>>>>>>> 92b61887b36fbc93c09062244d089c54d2d2edf8
          </div>
           <v-spacer ></v-spacer>
                 <v-icon color="amber lighten-5" size="35" class="my-2">mdi-soccer</v-icon>
                <v-toolbar-title class="font font-weight-medium" style="top: 3em;  position: absolute;">Explorar</v-toolbar-title>
         </v-app-bar>
       <BottomNavigation/>  
+<<<<<<< HEAD
         <v-container class="bottom amber lighten-5" style="border-radius: 25px 25px 0px 0px;"  >
             <v-item-group> 
+=======
+        <v-container class="bottom amber lighten-5 " style="border-radius: 25px 25px 0px 0px;">
+          <v-item-group class="ma-2"> 
+>>>>>>> 92b61887b36fbc93c09062244d089c54d2d2edf8
             <v-row justify-space-around>
             <v-col  v-for="(company, index) in companies" :key="index" cols="12" md="4"> 
                 <v-hover >
@@ -168,10 +180,17 @@ export default {
      margin-top:  0.2em;
    }
    .bottom {
+<<<<<<< HEAD
 padding-bottom: 70px;
      margin-top: 10px;
      padding-right: 3px;
      padding-left: 3px;   }
+=======
+     padding-bottom: 70px;
+     padding-right: 0px;
+     padding-left: 0px;
+   }
+>>>>>>> 92b61887b36fbc93c09062244d089c54d2d2edf8
    .container {
     max-width: 100%;
     max-height: 100%;

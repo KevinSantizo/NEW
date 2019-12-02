@@ -122,9 +122,9 @@
                     <v-text-field v-model="names" :counter="10" :rules="nameRules"  class="font" label="Nombre" required ></v-text-field>
                     <v-text-field v-model="email" :rules="emailRules" class="font" label="E-mail" required ></v-text-field>
                     <v-text-field v-model="message" :rules="messageRules"  class="font" label="Mensaje" required ></v-text-field>
-                    <v-btn color="success" class="ma-1 font"  @click="validate"  > Enviar </v-btn>
-                    <v-btn color="error" class="ma-1 link font" router to='/home'>Cancelar</v-btn>
-                    <v-btn color="primary" class="ma-1 font" @click="reset">Limpiar</v-btn>
+                    <v-btn color="success" class="ma-1 font link"  @click="validate"  > Enviar </v-btn>
+                    <v-btn color="error" class="ma-1 link font link" router to='/home'>Cancelar</v-btn>
+                    <v-btn color="primary" class="ma-1 font link" @click="reset">Limpiar</v-btn>
                 </v-form>
             </div>
             </v-row>
@@ -211,7 +211,7 @@ export default {
      font-family: 'Ubuntu', sans-serif;
    }
 .link {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .back-ground {
     background-color: #011427;
